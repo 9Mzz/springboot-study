@@ -16,4 +16,12 @@ public class HelloController {
         return "hello";
     }
 
+    // 정적 컨텐츠
+    @GetMapping("hello-static")
+    public String hellost(){
+
+
+        return "hello-static";
+    }
+
 }
