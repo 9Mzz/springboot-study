@@ -30,10 +30,9 @@ public class MemoryMemberRepository implements MemberRepository {
     @Override
     public Optional<Member> findByName(String name) {
 
-        store.values().stream().filter(member -> member.getName().equals(name))
-                .findAny();
 
-        return Optional.empty();
+        return store.values().stream().filter(member -> member.getName().equals(name))
+                .findAny();
     }
 
     @Override
@@ -41,5 +40,11 @@ public class MemoryMemberRepository implements MemberRepository {
 
         //store 에 있는 Member를 갖고 (key(Long0 - values(Member) 쌍에서 values를 모아서) 새로운 ArrayList를 만들어 반환.
         return new ArrayList<>(store.values());
+    }
+
+    public void clearStore() {
+
+        store.clear();
+
     }
 }
