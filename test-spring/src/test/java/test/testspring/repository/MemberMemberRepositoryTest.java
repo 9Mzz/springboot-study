@@ -7,6 +7,8 @@ import test.testspring.domain.Member;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.*;
+
 public class MemberMemberRepositoryTest {
 
     MemberMemberRepository repository = new MemberMemberRepository();
@@ -26,7 +28,7 @@ public class MemberMemberRepositoryTest {
 
         Member result = repository.findbyName(member1.getName()).get();
 
-        Assertions.assertThat(member1).isEqualTo(result);
+        assertThat(member1).isEqualTo(result);
 
     }
 
@@ -42,7 +44,7 @@ public class MemberMemberRepositoryTest {
 
         System.out.println("result = " + result);
 
-        Assertions.assertThat(member).isEqualTo(result);
+        assertThat(member).isEqualTo(result);
 
     }
 
@@ -56,7 +58,7 @@ public class MemberMemberRepositoryTest {
         Member result = repository.findbyName(member1.getName()).get();
 
 
-        Assertions.assertThat(member1).isEqualTo(result);
+        assertThat(member1).isEqualTo(result);
 
     }
 
