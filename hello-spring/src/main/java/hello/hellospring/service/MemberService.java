@@ -11,7 +11,6 @@ public class MemberService {
 
     private final MemberRepository memberRepository = new MemoryMemberRepository();
 
-
     /**
      * 회원 가입
      *
@@ -20,19 +19,18 @@ public class MemberService {
      */
     public Long join(Member member) {
 
-        //같은 이름이 있는 중복 회원 X
-        validateDuplicateMember(member); //중복 회원 검증
+        //같은 이름이 있는 중복 회원은 X
+
+        validateDuplicateMember(member);    //중복 회원 검증
 
         memberRepository.save(member);
-
         return member.getId();
-
     }
 
     private void validateDuplicateMember(Member member) {
         memberRepository.findByName(member.getName())
-                .ifPresent(m -> {
-                    throw new IllegalStateException("이미 존재하는 회원입니다");
+                .ifPresent(member1 -> {
+                    throw new IllegalStateException("이미 존재하는 회원입니다.");
                 });
     }
 
@@ -41,19 +39,11 @@ public class MemberService {
      *
      * @return
      */
-    public List<Member> findmembers() {
-
+    public List<Member> findMembers() {
         return memberRepository.findall();
-
     }
 
-    /**
-     *
-     * @param memberId
-     * @return
-     */
     public Optional<Member> findOne(Long memberId) {
-
         return memberRepository.findbyId(memberId);
     }
 
