@@ -7,12 +7,12 @@ import test.testspring.repository.MemoryMemberRepository;
 import java.util.List;
 import java.util.Optional;
 
-public class MemberService {
+public class MemoryService {
 
     private final MemberRepository repository = new MemoryMemberRepository();
 
     /**
-     * 회원가입
+     * 회원가입 기능
      *
      * @param memberVo
      * @return
@@ -24,21 +24,28 @@ public class MemberService {
         repository.save(memberVo);
 
         return memberVo.getId();
+
     }
 
     private void validateDuplicateMember(MemberVo memberVo) {
         repository.findbyName(memberVo.getName()).ifPresent(m -> {
-            throw new IllegalStateException("이미 존재하는 회원입니다!");
+            throw new IllegalStateException("중복된 닉네임입니다. 다시 확인해주세요");
         });
     }
 
-    public List<MemberVo> findAll(MemberVo memberVo) {
 
+    /**
+     * 전체 회원 조회
+     * @return
+     */
+    public List<MemberVo> findAll() {
 
         return repository.findAll();
     }
 
+
     public Optional<MemberVo> findOne(Long id) {
+
 
         return repository.findbyId(id);
     }

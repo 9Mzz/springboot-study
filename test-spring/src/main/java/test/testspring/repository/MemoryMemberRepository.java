@@ -2,6 +2,7 @@ package test.testspring.repository;
 
 import test.testspring.domain.MemberVo;
 
+import java.lang.reflect.Member;
 import java.util.*;
 
 public class MemoryMemberRepository implements MemberRepository {
@@ -10,39 +11,39 @@ public class MemoryMemberRepository implements MemberRepository {
 
     private static Long sequence = 0L;
 
-    public void clearStore(){
+    public void clearStore() {
         store.clear();
     }
 
+
     @Override
-    public MemberVo save(MemberVo memberVo) {
+    public MemberVo save(MemberVo member) {
+        System.out.println("MemoryMemberRepository.save");
 
-        //memberVo의 id를 1씩 증가하는 sequence로 설정
-        memberVo.setId(++sequence);
+        member.setId(++sequence);
+        store.put(member.getId(), member);
 
-        //정보를 저장하는 map에다 데이터를 저장
-        store.put(memberVo.getId(), memberVo);
 
-        // memberVo를 저장
-        return memberVo;
+        return member;
     }
 
     @Override
     public Optional<MemberVo> findbyId(Long id) {
+        System.out.println("MemoryMemberRepository.findbyId");
 
         return Optional.ofNullable(store.get(id));
     }
 
     @Override
     public Optional<MemberVo> findbyName(String name) {
+        System.out.println("MemoryMemberRepository.findbyName");
 
-        return store.values().stream()
-                .filter(memberVo -> memberVo.getName().equals(name))
-                .findAny();
+        return store.values().stream().filter(memberVo -> memberVo.getName().equals(name)).findAny();
     }
 
     @Override
     public List<MemberVo> findAll() {
+        System.out.println("MemoryMemberRepository.findAll");
 
         return new ArrayList<>(store.values());
     }

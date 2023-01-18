@@ -9,4 +9,6 @@ public class MemberVo {
 
     private String name;
 
+
+
 }
