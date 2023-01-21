@@ -1,21 +1,19 @@
 package test.testspring.repository;
 
-import test.testspring.domain.MemberVo;
+import test.testspring.domain.Member;
 
-import java.lang.reflect.Member;
 import java.util.List;
 import java.util.Optional;
 
 public interface MemberRepository {
 
-    MemberVo save(MemberVo member);
-
-    Optional<MemberVo> findbyId(Long id);
-
-    Optional<MemberVo> findbyName(String name);
-
-    List<MemberVo> findAll();
+    Member save(Member member);
 
 
+    Optional<Member> findbyId(Long id);
+
+    Optional<Member> findbyName(String name);
+
+    List<Member> findAll();
 
 }
