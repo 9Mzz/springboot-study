@@ -25,7 +25,6 @@ public class MemberService {
             throw new IllegalStateException("중복된 이름입니다.");
         });
     }
-
     public List<Member> findAll(){
 
         return repository.findAll();
