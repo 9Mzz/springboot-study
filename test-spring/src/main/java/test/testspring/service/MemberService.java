@@ -11,6 +11,11 @@ public class MemberService {
 
     private final MemberRepository repository = new MemberMemberRepository();
 
+    /**
+     * 회원가입
+     * @param member
+     * @return
+     */
     public Long join(Member member) {
 
         memberNameDuplicate(member);
@@ -20,6 +25,10 @@ public class MemberService {
         return member.getId();
     }
 
+    /**
+     * memberNameDuplicate
+     * @param member
+     */
     private void memberNameDuplicate(Member member) {
         repository.findbyName(member.getName())
                   .ifPresent(member1 -> {
