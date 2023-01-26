@@ -3,6 +3,9 @@ package hello.hellospring.service;
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemoryMemberRepository;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -12,9 +15,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MemberServiceTest {
 
-    MemberService memberService = new MemberService();
+    MemberService memberService;
 
-    MemoryMemberRepository memberRepository = new MemoryMemberRepository();
+    MemoryMemberRepository memberRepository;
+
+    @BeforeEach
+    public void before() {
+        memberRepository = new MemoryMemberRepository();
+        memberService    = new MemberService(memberRepository);
+    }
+
+
+    @AfterEach
+    public void clearStore() {
+
+        memberRepository.clearStore();
+    }
 
     @Test
     void 회원가입() {
@@ -31,6 +47,7 @@ class MemberServiceTest {
     }
 
 
+    @DisplayName("중복체크")
     @Test
     public void dupCheck() {
         //given
@@ -42,7 +59,6 @@ class MemberServiceTest {
 
 
         memberService.join(member1);
-
 
         IllegalStateException e = assertThrows(IllegalStateException.class, () -> memberService.join(member2));
 
