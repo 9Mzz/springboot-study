@@ -4,6 +4,7 @@ import hello.hellospring.domain.Member;
 
 import java.util.*;
 
+
 public class MemoryMemberRepository implements MemberRepository {
 
     private static Map<Long, Member> store = new HashMap<>();
@@ -32,7 +33,7 @@ public class MemoryMemberRepository implements MemberRepository {
 
 
         return store.values().stream().filter(member -> member.getName().equals(name))
-                .findAny();
+                    .findAny();
     }
 
     @Override
