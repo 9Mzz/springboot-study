@@ -5,7 +5,7 @@ import test.testspring.domain.MemberVo;
 
 import java.util.*;
 
-@Repository
+
 public class MemoryMemberRepository implements MemberRepository {
 
     private static Map<Long, MemberVo> store = new HashMap<>();
