@@ -9,8 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
-@Configuration
-public class SpringConfig {
+@Configuration public class SpringConfig {
 
     private final DataSource dataSource;
 
@@ -26,8 +25,13 @@ public class SpringConfig {
 
     @Bean
     public MemberRepository memberRepository() {
-//        return new MemoryMemberRepository();
+        //Memory 방식
+        //return new MemoryMemberRepository();
 
+        //jdbc 방식
+        //return new JdbcMemberRepository(dataSource);
+
+        //jdbc template 방식
         return new JdbcMemberRepository(dataSource);
     }
 
