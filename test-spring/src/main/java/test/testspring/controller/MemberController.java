@@ -1,6 +1,5 @@
 package test.testspring.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,35 +14,29 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @Autowired
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
 
-    @GetMapping("/members/new")
+    @GetMapping(value = "/members/new")
     public String createForm() {
-
         return "members/createMemberForm";
     }
 
-    @PostMapping("/members/new")
-    public String create(Member member) {
 
-        memberService.join(member);
+    @PostMapping(value = "/members/new")
+    public String create(Member form) {
 
+        memberService.join(form);
 
         return "redirect:/";
     }
 
-    @GetMapping("/members")
+    @GetMapping(value = "/members")
     public String list(Model model) {
-
-        List<Member> result = memberService.findAll();
-
-        model.addAttribute("members", result);
-
+        List<Member> members = memberService.findAll();
+        model.addAttribute("members", members);
         return "members/memberList";
     }
-
 
 }

@@ -2,11 +2,9 @@ package hello.hellospring.domain;
 
 import javax.persistence.*;
 
-@Entity
-public class Member {
+@Entity public class Member {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long   id;
     private String name;
 
@@ -28,9 +26,6 @@ public class Member {
 
     @Override
     public String toString() {
-        return "Member{" +
-               "id=" + id +
-               ", name='" + name + '\'' +
-               '}';
+        return "Member{" + "id=" + id + ", name='" + name + '\'' + '}';
     }
 }

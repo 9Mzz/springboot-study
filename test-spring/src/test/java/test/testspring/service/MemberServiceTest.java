@@ -1,77 +1,64 @@
 package test.testspring.service;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.shadow.com.univocity.parsers.common.processor.core.AbstractMasterDetailListProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
+import org.springframework.transaction.annotation.Transactional;
 import test.testspring.domain.Member;
+import test.testspring.repository.MemberRepository;
 import test.testspring.repository.MemoryMemberRepository;
 
-import java.util.List;
-
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
+@Transactional
 class MemberServiceTest {
 
-    private MemberService          memberService;
-    private MemoryMemberRepository repository;
+    @Autowired
+    private MemberService    memberService;
+    @Autowired
+    private MemberRepository repository;
 
-    @BeforeEach
-    public void beforeAct() {
-        repository    = new MemoryMemberRepository();
-        memberService = new MemberService(repository);
-    }
 
-    @AfterEach
-    public void afterAct() {
-        repository.clearStore();
-    }
-
+    /**
+     * 회원가입 테스트
+     */
     @Test
     void join() {
+
         Member test1 = new Member();
-        test1.setName("spring1");
+        test1.setName("spring");
 
         Long   memberId = memberService.join(test1);
-        Member result   = memberService.findAny(memberId).get();
+        Member result   = memberService.findOne(memberId).get();
 
-        Assertions.assertThat(test1.getName()).isEqualTo(result.getName());
+        assertThat(test1.getName()).isEqualTo(result.getName());
     }
 
+    /**
+     * 회원가입 중복 테스트
+     */
     @Test
-    public void duplicateTest() {
+    @Commit
+    public void dupliTest() {
+
         Member test1 = new Member();
-        test1.setName("spring1");
+        test1.setName("spring");
 
         Member test2 = new Member();
-        test2.setName("spring1");
+        test2.setName("spring");
 
         memberService.join(test1);
-
         IllegalStateException e = assertThrows(IllegalStateException.class, () -> memberService.join(test2));
+        System.out.println("e = " + e);
 
-        Assertions.assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다");
+        assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다");
     }
 
-    @Test
-    void findAll() {
-        Member test1 = new Member();
-        test1.setName("spring1");
-
-        Member test2 = new Member();
-        test2.setName("spring2");
-
-        memberService.join(test1);
-        memberService.join(test2);
-
-        List<Member> result = memberService.findAll();
-
-        Assertions.assertThat(result.size())
-                  .isEqualTo(2);
-
-    }
-
-    @Test
-    void findAny() {
-    }
 }

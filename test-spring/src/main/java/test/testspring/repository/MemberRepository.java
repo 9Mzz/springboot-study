@@ -1,5 +1,6 @@
 package test.testspring.repository;
 
+import org.springframework.beans.factory.config.RuntimeBeanReference;
 import test.testspring.domain.Member;
 
 import java.util.List;
@@ -14,5 +15,6 @@ public interface MemberRepository {
     Optional<Member> findbyName(String name);
 
     List<Member> findAll();
-
 }
+
+
