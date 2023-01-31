@@ -1,0 +1,65 @@
+package test.testspring.repository;
+
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+import test.testspring.domain.Member;
+
+import java.util.List;
+
+class MemoryMemberRepositoryTest {
+
+    MemoryMemberRepository repository = new MemoryMemberRepository();
+
+    @AfterEach
+    public void afterAct() {
+        repository.clearStore();
+    }
+
+    @Test
+    void save() {
+
+        Member test1 = new Member();
+        test1.setName("spring1");
+        repository.save(test1);
+
+        Member result = repository.findbyId(test1.getId()).get();
+
+        Assertions.assertThat(test1).isEqualTo(result);
+
+    }
+
+
+    @Test
+    void findbyName() {
+
+        Member test1 = new Member();
+        test1.setName("spring1");
+        repository.save(test1);
+
+        Member test2 = new Member();
+        test2.setName("spring2");
+        repository.save(test2);
+
+        Member result = repository.findbyName("spring1").get();
+
+        Assertions.assertThat(test1).isEqualTo(result);
+
+    }
+
+    @Test
+    void findAll() {
+        Member test1 = new Member();
+        test1.setName("spring1");
+        repository.save(test1);
+
+        Member test2 = new Member();
+        test2.setName("spring2");
+        repository.save(test2);
+
+        List<Member> result = repository.findAll();
+
+        Assertions.assertThat(result.size()).isEqualTo(2);
+
+    }
+}
