@@ -27,11 +27,13 @@ public class MemberService {
      */
     public Long join(Member member) {
 
-        //같은 이름이 있는 중복 회원은 X
 
+        //같은 이름이 있는 중복 회원은 X
         validateDuplicateMember(member);    //중복 회원 검증
 
+
         memberRepository.save(member);
+
         return member.getId();
     }
 
@@ -48,8 +50,11 @@ public class MemberService {
      * @return
      */
     public List<Member> findMembers() {
+        long start = System.currentTimeMillis();
+
 
         return memberRepository.findAll();
+
     }
 
     public Optional<Member> findOne(Long memberId) {
