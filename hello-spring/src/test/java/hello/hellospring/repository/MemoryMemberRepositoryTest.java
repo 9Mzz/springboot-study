@@ -5,8 +5,6 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-import javax.lang.model.SourceVersion;
-import javax.xml.transform.Result;
 import java.util.List;
 
 public class MemoryMemberRepositoryTest {
@@ -30,7 +28,7 @@ public class MemoryMemberRepositoryTest {
         repository.save(member);
 
         //Optional은 .get으로 꺼내기 가능
-       Member result =  repository.findbyId(member.getId()).get();
+       Member result =  repository.findById(member.getId()).get();
 
         System.out.println("result = " + (result == member));
 
@@ -72,7 +70,7 @@ public class MemoryMemberRepositoryTest {
         repository.save(member2);
 
         //w
-        List<Member> result = repository.findall();
+        List<Member> result = repository.findAll();
 
         System.out.println("result = " + result);
 

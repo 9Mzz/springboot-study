@@ -21,7 +21,7 @@ public class JpaMemberRepository implements MemberRepository {
     }
 
     @Override
-    public Optional<Member> findbyId(Long id) {
+    public Optional<Member> findById(Long id) {
         Member member = em.find(Member.class, id);
 
         return Optional.ofNullable(member);
@@ -39,7 +39,7 @@ public class JpaMemberRepository implements MemberRepository {
     }
 
     @Override
-    public List<Member> findall() {
+    public List<Member> findAll() {
 
         return em.createQuery("select m from Member m ", Member.class)
                  .getResultList();

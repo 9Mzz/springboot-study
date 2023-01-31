@@ -22,7 +22,7 @@ public class MemoryMemberRepository implements MemberRepository {
     }
 
     @Override
-    public Optional<Member> findbyId(Long id) {
+    public Optional<Member> findById(Long id) {
 
         return Optional.ofNullable(store.get(id));
     }
@@ -36,7 +36,7 @@ public class MemoryMemberRepository implements MemberRepository {
     }
 
     @Override
-    public List<Member> findall() {
+    public List<Member> findAll() {
 
         //store 에 있는 Member를 갖고 (key(Long0 - values(Member) 쌍에서 values를 모아서) 새로운 ArrayList를 만들어 반환.
         return new ArrayList<>(store.values());
