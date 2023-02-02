@@ -25,15 +25,13 @@ public class JPAMemberRepository implements MemberRepository {
     @Override
     public Optional<Member> findById(Long id) {
 
-        Member result = em.find(Member.class, id);
-
-        return Optional.ofNullable(result);
+        return Optional.ofNullable(em.find(Member.class, id));
     }
 
     @Override
     public Optional<Member> findByName(String name) {
 
-        return em.createQuery("select m from Member m where name = :name", Member.class)
+        return em.createQuery("select m from Member m where m.name = :name ", Member.class)
                  .setParameter("name", name)
                  .getResultList().stream().findAny();
     }
@@ -41,7 +39,7 @@ public class JPAMemberRepository implements MemberRepository {
     @Override
     public List<Member> findAll() {
 
-        return em.createQuery("select m from Member m", Member.class)
+        return em.createQuery("select m from Member  m", Member.class)
                  .getResultList();
     }
 }

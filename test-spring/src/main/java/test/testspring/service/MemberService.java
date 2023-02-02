@@ -10,33 +10,37 @@ import java.util.Optional;
 @Transactional
 public class MemberService {
 
-    private final MemberRepository memberRepository;
+    private final MemberRepository repository;
 
-    public MemberService(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
+    public MemberService(MemberRepository repository) {
+        this.repository = repository;
     }
 
-
     public Long join(Member member) {
+        duplicateCheck(member);
 
-        memberRepository.findByName(member.getName()).ifPresent(m -> {
-            throw new IllegalStateException("이미 존재하는 회원입니다");
-        });
+        repository.save(member);
 
-
-        memberRepository.save(member);
         return member.getId();
     }
 
-    public Optional<Member> getOne(Long memberId) {
-
-        return memberRepository.findById(memberId);
+    private void duplicateCheck(Member member) {
+        repository.findByName(member.getName())
+                  .ifPresent(m -> {
+                      throw new IllegalStateException("이미 존재하는 회원입니다");
+                  });
     }
 
-    public List<Member> getAll() {
+    public List<Member> findAll() {
 
-        return memberRepository.findAll();
+
+        return repository.findAll();
+
     }
 
+    public Optional<Member> findOne(Long id) {
+
+        return repository.findById(id);
+    }
 
 }
