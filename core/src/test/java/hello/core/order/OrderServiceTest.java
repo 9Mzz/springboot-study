@@ -15,9 +15,9 @@ public class OrderServiceTest {
 
     @BeforeEach
     public void beforeAct() {
-        AppConfig appConfigg = new AppConfig();
-        memberService = appConfigg.memberService();
-        orderService  = appConfigg.orderService();
+        AppConfig appConfig = new AppConfig();
+        memberService = appConfig.memberService();
+        orderService  = appConfig.orderService();
 
     }
 
