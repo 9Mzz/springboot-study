@@ -13,7 +13,8 @@ public class OrderServiceImpl implements OrderService {
         this.memberRepository = memberRepository;
         this.discountPolicy   = discountPolicy;
     }
-// private final DiscountPolicy   discountPolicy = new FixDiscountPolicy();
+
+    // private final DiscountPolicy   discountPolicy = new FixDiscountPolicy();
     // private final DiscountPolicy   discountPolicy = new RateDiscountPolicy();
 
     /**
