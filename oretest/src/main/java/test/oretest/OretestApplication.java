@@ -1,12 +1,12 @@
-package test.testcore;
+package test.oretest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication public class TestcoreApplication {
+@SpringBootApplication public class OretestApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(TestcoreApplication.class, args);
+        SpringApplication.run(OretestApplication.class, args);
     }
 
 }
