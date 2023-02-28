@@ -50,7 +50,6 @@ public class SingletonTest {
 
         // singletonService1 == singletonService2
         assertThat(singletonService1).isSameAs(singletonService2);
-
         singletonService1.logic();
     }
     @Test
