@@ -1,16 +1,20 @@
 package test.core.order;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import test.core.discount.DiscountPolicy;
 import test.core.discount.RateDiscountPolicy;
 import test.core.member.MemberRepository;
 import test.core.member.MemberRepositoryImpl;
 import test.core.member.MemberVo;
 
+@Component
 public class OrderServiceImpl implements OrderService {
 
     private final MemberRepository memberRepository ;
     private final DiscountPolicy   discountPolicy ;
 
+    @Autowired
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy   = discountPolicy;

@@ -1,5 +1,9 @@
 package test.core.member;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 public class MemberServiceImpl implements MemberService {
 
     //      인터페이스에 의존하는 memberRepository(추상화된) = 구체화된 호출
@@ -7,6 +11,7 @@ public class MemberServiceImpl implements MemberService {
     // 변경 시 문제가 된다. DIP를 위반하고 있는 코드이다.
     private final MemberRepository memberRepository;
 
+    @Autowired  //ac.getBean(MemberRepository.class)
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
