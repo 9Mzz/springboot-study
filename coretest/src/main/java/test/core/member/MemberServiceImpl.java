@@ -3,7 +3,7 @@ package test.core.member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component // -> memberServiceImpl
 public class MemberServiceImpl implements MemberService {
 
     //      인터페이스에 의존하는 memberRepository(추상화된) = 구체화된 호출
