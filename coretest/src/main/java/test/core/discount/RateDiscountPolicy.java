@@ -1,16 +1,17 @@
 package test.core.discount;
 
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
+import test.core.annotataion.MainDiscountPolicy;
 import test.core.member.Grade;
 import test.core.member.MemberVo;
 
 @Component
-@Qualifier("rateDiscountPolicy")
+@Primary
+//@Qualifier("rateDiscountPolicy")
+//@MainDiscountPolicy //MainDiscountPolicy.java
 public class RateDiscountPolicy implements DiscountPolicy {
 
-    private int discountPercent = 10; //10% 할인
 
     /**
      * @param memberVo
@@ -19,6 +20,8 @@ public class RateDiscountPolicy implements DiscountPolicy {
      */
     @Override
     public int discount(MemberVo memberVo, int price) {
+
+        final int discountPercent = 10; //10% 할인
 
         if (memberVo.getGrade() == Grade.VIP) {
             return price * discountPercent / 100;
