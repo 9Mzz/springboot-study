@@ -11,8 +11,7 @@ import test.core.member.MemberServiceImpl;
 import test.core.order.OrderService;
 import test.core.order.OrderServiceImpl;
 
-@Configuration
-public class Appconfig {
+@Configuration public class Appconfig {
 
     // Key : memberService , Value : new MemberServiceImpl(memberRepository())
     // 생성자 주입(DI)
@@ -32,7 +31,9 @@ public class Appconfig {
         System.out.println("call -> Appconfig.orderService");
 
         return new OrderServiceImpl(memberRepository(), discountPolicy());
+        //        return null;
     }
+
 
     @Bean
     public MemberRepository memberRepository() {

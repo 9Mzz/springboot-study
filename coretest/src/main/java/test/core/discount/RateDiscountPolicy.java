@@ -1,11 +1,13 @@
 package test.core.discount;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 import test.core.member.Grade;
 import test.core.member.MemberVo;
 
 @Component
+@Qualifier("rateDiscountPolicy")
 public class RateDiscountPolicy implements DiscountPolicy {
 
     private int discountPercent = 10; //10% 할인
