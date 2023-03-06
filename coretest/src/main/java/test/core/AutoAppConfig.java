@@ -6,7 +6,9 @@ import org.springframework.context.annotation.FilterType;
 import test.core.member.MemberRepository;
 import test.core.member.MemberRepositoryImpl;
 
-@Configuration @ComponentScan(excludeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = Configuration.class)) public class AutoAppConfig {
+@Configuration
+@ComponentScan(excludeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = Configuration.class))
+public class AutoAppConfig {
 
     public MemberRepository memberRepository() {
         return new MemberRepositoryImpl();

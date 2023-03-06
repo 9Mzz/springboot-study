@@ -23,8 +23,10 @@ public class ComponentFilterAppConfigTest {
     }
 
 
-    @Configuration @ComponentScan(includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = MyIncludeComponent.class),
-                                  excludeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = MyExcludeComponent.class)) static class ComponentFilterAppConfig {
+    @Configuration
+    @ComponentScan(includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = MyIncludeComponent.class),
+                                  excludeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = MyExcludeComponent.class))
+    static class ComponentFilterAppConfig {
 
     }
 

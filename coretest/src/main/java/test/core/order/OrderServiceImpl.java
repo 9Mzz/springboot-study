@@ -1,10 +1,7 @@
 package test.core.order;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import test.core.annotataion.MainDiscountPolicy;
 import test.core.discount.DiscountPolicy;
 import test.core.member.MemberRepository;
 import test.core.member.MemberVo;
