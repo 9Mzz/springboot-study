@@ -1,5 +1,8 @@
 package test.core.lifecycle;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 public class NetworkClient {
 
     //접속 url
@@ -7,9 +10,6 @@ public class NetworkClient {
 
     public NetworkClient() {
         System.out.println("생성자 호출, url = " + url);
-        connect();
-        call("초기화 연결 메세지");
-        System.out.println("========================");
     }
 
     // getter + setter
@@ -37,4 +37,19 @@ public class NetworkClient {
         System.out.println("connect close");
     }
 
+
+    //의존관계 주입이 끝나면 호출
+    @PostConstruct
+    public void init() {
+        System.out.println("NetworkClient.afterPropertiesSet");
+        connect();
+        call("초기화 연결 메세지");
+    }
+
+    // Bean이 종료되면 호출
+    @PreDestroy
+    public void close() {
+        System.out.println("NetworkClient.destroy");
+        disconnect();
+    }
 }
