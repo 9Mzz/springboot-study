@@ -95,7 +95,7 @@ import java.util.Enumeration;
         System.out.println("request.getRemoteAddr() = " + request.getRemoteAddr()); //
         System.out.println("request.getRemotePort() = " + request.getRemotePort()); //
         System.out.println();
-        
+
         System.out.println("[Local 정보]");
         System.out.println("request.getLocalName() = " + request.getLocalName()); //
         System.out.println("request.getLocalAddr() = " + request.getLocalAddr()); //
