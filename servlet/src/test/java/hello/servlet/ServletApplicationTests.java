@@ -1,14 +1,13 @@
-package com.javaex.test;
+package hello.servlet;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TestApplicationTests {
+class ServletApplicationTests {
+
     @Test
     void contextLoads() {
-        System.out.println("true = " + true);
-
     }
 
 }

@@ -9,7 +9,8 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.EntityManager;
 
-@Configuration public class SpringConfig {
+@Configuration
+class SpringConfig {
 
     private MemberRepository memberRepository;
 
