@@ -28,7 +28,7 @@ public class RequestBodyJsonServlet2 extends HttpServlet {
 
 
         HelloData helloData = objectMapper.readValue(messegeBody, HelloData.class);
-        System.out.println("helloData.getUserName() = " + helloData.getUserName());
+        System.out.println("helloData.getUserName() = " + helloData.getUsername());
         System.out.println("helloData.getAge() = " + helloData.getAge());
 
 
