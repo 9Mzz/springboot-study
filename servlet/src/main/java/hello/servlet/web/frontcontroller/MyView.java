@@ -1,14 +1,10 @@
 package hello.servlet.web.frontcontroller;
 
-import lombok.Value;
-
-import javax.security.auth.kerberos.KerberosTicket;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.Key;
 import java.util.Map;
 
 public class MyView {
