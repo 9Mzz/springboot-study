@@ -23,7 +23,6 @@ public class FrontControllerServletV2 extends HttpServlet {
         controllerMap.put("/front-controller/v2/members/new-form", new MemberFormControllerV2());
         controllerMap.put("/front-controller/v2/members/save", new MemberSaveControllerV2());
         controllerMap.put("/front-controller/v2/members", new MemberListControllerV2());
-
     }
 
     @Override
@@ -37,10 +36,10 @@ public class FrontControllerServletV2 extends HttpServlet {
         if(controllerV2 == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return;
-
         }
-        MyView view = controllerV2.process(request, response);
 
+        //new MyView("/WEB-INF/views/new-form.jsp")
+        MyView view = controllerV2.process(request, response);
         view.render(request, response);
 
     }
