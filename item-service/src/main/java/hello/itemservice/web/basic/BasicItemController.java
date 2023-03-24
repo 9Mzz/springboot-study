@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -35,13 +32,24 @@ public class BasicItemController {
 
 
     @GetMapping("/{itemId}")
-    public String a(@PathVariable("itemId") Long itemId, Model model) {
         System.out.println("BasicItemController.a");
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item", item);
 
         return "/basic/item";
     }
+
+    @GetMapping("/add")
+    public String addForm(){
+        return "/basic/addForm";
+    }
+
+    @PostMapping("/add")
+    public String save(){
+        return "/basic/addForm";
+    }
+
+
 
     @PostConstruct
     public void init() {
