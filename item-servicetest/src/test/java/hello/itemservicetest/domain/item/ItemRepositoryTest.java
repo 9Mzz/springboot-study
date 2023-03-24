@@ -1,55 +1,49 @@
 package hello.itemservicetest.domain.item;
 
+import org.apache.juli.logging.Log;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ItemRepositoryTest {
 
-    ItemRepository itemRepository = new ItemRepository();
-
-
-    @AfterEach
-    void clearStore() {
-        itemRepository.clearStore();
-    }
+    private ItemRepository itemRepository = new ItemRepository();
 
     @Test
-    void itemSave() {
-        Item item1  = new Item("itemA", 10000, 20);
-        Item result = itemRepository.itemSave(item1);
+    void save() {
+        Item itemA    = new Item("itemA", 10000, 20);
+        Item saveData = itemRepository.save(itemA);
 
-        org.assertj.core.api.Assertions.assertThat(item1)
-                                       .isEqualTo(result);
+        Item findData = itemRepository.findById(saveData.getId());
 
+        assertThat(findData).isEqualTo(saveData);
     }
 
     @Test
     void itemModify() {
-        Item item1      = new Item("itemA", 100000, 40);
-        Item saveResult = itemRepository.itemSave(item1);
+        Item itemA    = new Item("itemA", 10000, 20);
+        Item saveData = itemRepository.save(itemA);
 
-        Item updateForm   = new Item("itemB", 200000, 40);
-        Item modifyResult = itemRepository.itemModify(saveResult.getId(), updateForm);
+        Item itemB        = new Item("itemB", 20000, 20);
+        Item modifyResult = itemRepository.itemModify(saveData.getId(), itemB);
 
-        org.assertj.core.api.Assertions.assertThat(item1)
-                                       .isEqualTo(modifyResult);
-
+        assertThat(modifyResult.getItemName()).isEqualTo(itemB.getItemName());
+        assertThat(modifyResult.getPrice()).isEqualTo(itemB.getPrice());
     }
-
 
     @Test
     void findAll() {
-        Item item1 = new Item("itemA", 100000, 40);
-        Item item2 = new Item("itemb", 200000, 30);
-
-        itemRepository.itemSave(item1);
-        itemRepository.itemSave(item2);
+        Item itemA = new Item("itemA", 10000, 20);
+        Item itemB = new Item("itemB", 20000, 20);
+        itemRepository.save(itemA);
+        itemRepository.save(itemB);
 
         List<Item> result = itemRepository.findAll();
 
@@ -58,5 +52,10 @@ class ItemRepositoryTest {
 
     }
 
+    @AfterEach
+    void clearStore() {
 
+        itemRepository.clearStore();
+
+    }
 }
