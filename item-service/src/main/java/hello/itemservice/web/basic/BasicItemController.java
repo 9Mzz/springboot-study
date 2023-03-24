@@ -4,6 +4,7 @@ package hello.itemservice.web.basic;
 import hello.itemservice.domain.Item;
 import hello.itemservice.domain.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
@@ -21,9 +22,6 @@ public class BasicItemController {
 
     @GetMapping
     public String items(Model model) {
-        System.out.println("BasicItemController.items");
-
-
         List<Item> items = itemRepository.findAll();
         model.addAttribute("items", items);
 
@@ -33,7 +31,6 @@ public class BasicItemController {
 
     @GetMapping("/{itemId}")
     public String item(@PathVariable("itemId") Long itemId, Model model) {
-        System.out.println("BasicItemController.a");
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item", item);
 
@@ -75,6 +72,25 @@ public class BasicItemController {
         itemRepository.save(item);
         return "/basic/item";
     }
+
+    @GetMapping("/{itemId}/edit")
+    public String editForm(@PathVariable("itemId") Long itemId, Model model) {
+        System.out.println("BasicItemController.editForm");
+
+        Item item = itemRepository.findById(itemId);
+        model.addAttribute("item", item);
+        return "/basic/editForm";
+    }
+
+
+    @PostMapping("/{itemId}/edit")
+    public String edit(@PathVariable("itemId") Long itemId, @ModelAttribute Item item) {
+
+        itemRepository.update(itemId, item);
+
+        return "redirect:/basic/items/{itemId}";
+    }
+
 
 
     @PostConstruct
