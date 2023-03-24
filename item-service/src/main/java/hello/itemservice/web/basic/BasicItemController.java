@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +31,16 @@ public class BasicItemController {
         model.addAttribute("items", items);
 
         return "basic/items";
+    }
+
+
+    @GetMapping("/{itemId}")
+    public String a(@PathVariable("itemId") Long itemId, Model model) {
+        System.out.println("BasicItemController.a");
+        Item item = itemRepository.findById(itemId);
+        model.addAttribute("item", item);
+
+        return "/basic/item";
     }
 
     @PostConstruct
