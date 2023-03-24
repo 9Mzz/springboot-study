@@ -1,10 +1,8 @@
 package hello.itemservice.domain;
 
-import lombok.experimental.PackagePrivate;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
 public class ItemRepository {
@@ -39,7 +37,7 @@ public class ItemRepository {
         Item findItem = findById(itemId);
         findItem.setItemName(updateParam.getItemName());
         findItem.setPrice(updateParam.getPrice());
-        findItem.setQuanity(updateParam.getQuanity());
+        findItem.setQuantity(updateParam.getQuantity());
 
     }
 
