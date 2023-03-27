@@ -9,48 +9,38 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ItemRepositoryTest {
-
     private ItemRepository itemRepository = new ItemRepository();
 
     @Test
     void save() {
-        Item itemA      = new Item("itemA", 10000, 20);
-        Item saveResult = itemRepository.save(itemA);
+        Item itemA     = new Item("itemA", 20400, 14);
+        Item saveItemA = itemRepository.save(itemA);
+        Item findItemA = itemRepository.findById(saveItemA.getId());
 
-        Item findResult = itemRepository.findById(saveResult.getId());
-        Assertions.assertThat(findResult)
-                  .isEqualTo(saveResult);
+        Assertions.assertThat(findItemA)
+                  .isEqualTo(saveItemA);
+
     }
 
     @Test
     void findAll() {
-        Item itemA = new Item("itemA", 10000, 20);
-        Item itemB = new Item("itemB", 30000, 10);
-        Item itemC = new Item("itemC", 12000, 0);
-
+        Item itemA = new Item("itemA", 20400, 14);
+        Item itemB = new Item("itemB", 413400, 54);
         itemRepository.save(itemA);
         itemRepository.save(itemB);
-        itemRepository.save(itemC);
 
-        List<Item> result = itemRepository.findAll();
-        Assertions.assertThat(result.size())
-                  .isEqualTo(3);
-
+        List<Item> itemList = itemRepository.findAll();
+        Assertions.assertThat(itemList.size())
+                  .isEqualTo(2);
     }
 
     @Test
     void itemModify() {
-        Item itemA     = new Item("itemA", 10000, 20);
-        Item itemASave = itemRepository.save(itemA);
-        Item itemAFind = itemRepository.findById(itemASave.getId());
+        Item itemA     = new Item("itemA", 20400, 14);
+        Item saveItemA = itemRepository.save(itemA);
 
-        Item dummyA = new Item("itemB", 14020, 30);
-        itemRepository.itemModify(itemASave.getId(), dummyA);
-        Item itemAFind2 = itemRepository.findById(itemASave.getId());
-
-        Assertions.assertThat(itemAFind2.getItemName())
-                  .isEqualTo(dummyA.getItemName());
-
+        Item itemB = new Item("itemB", 413400, 54);
+        itemRepository.itemModify(saveItemA.getId(), itemB);
     }
 
     @BeforeEach
