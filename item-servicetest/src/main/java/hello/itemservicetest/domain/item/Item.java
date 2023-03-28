@@ -1,5 +1,6 @@
 package hello.itemservicetest.domain.item;
 
+import jdk.jfr.SettingDefinition;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,14 +9,12 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Item {
-
     private Long    id;
     private String  itemName;
     private Integer price;
     private Integer quantity;
 
     //
-
     public Item() {
     }
 

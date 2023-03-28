@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <link th:href="@{/css/bootstrap.min.css}"
-            href="../css/bootstrap.min.css" rel="stylesheet">
+          href="../css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container" style="max-width: 600px">
@@ -32,11 +32,14 @@
             </thead>
             <tbody>
             <tr th:each="item : ${items}">
-                <td><a th:href="@{/basic/items/{id}(id=${item.id})}" href="item.html" th:text="${item.id}">1</a></td>
-                <td><a th:href="@{/basic/items/{id}(id=${item.id})}" href="item.html" th:text="${item.itemName}">테스트 상품1</a></td>
+                <td><a th:href="|@{/basic/items/{id}(id=${item.id})}|"
+                        href="item.html" th:text="${item.id}">1</a></td>
+                <td><a th:href="|@{/basic/items/{id}(id=${item.id})}|"
+                        href="item.html" th:text="${item.itemName}">테스트 상품1</a></td>
                 <td th:text="${item.price}">10000</td>
                 <td th:text="${item.quantity}">10</td>
             </tr>
+
             </tbody>
         </table>
     </div>

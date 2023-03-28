@@ -15,6 +15,8 @@
     <div class="py-5 text-center">
         <h2>상품 상세</h2>
     </div>
+    <h2 th:if="${param.status}" th:text="'저장 완료!!'"></h2>
+
     <div>
         <label for="itemId">상품 ID</label>
         <input type="text" id="itemId" name="itemId" class="form-control"
@@ -46,7 +48,8 @@
         <div class="col">
             <button class="w-100 btn btn-secondary btn-lg"
                     th:onclick="|location.href='@{/basic/items}'|"
-                    onclick="location.href='items.html'" type="button">목록으로</button>
+                    onclick="location.href='items.html'" type="button">목록으로
+            </button>
         </div>
     </div>
 </div> <!-- /container -->

@@ -1,7 +1,6 @@
 package hello.itemservicetest.domain.item;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -9,41 +8,41 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ItemRepositoryTest {
+
     private ItemRepository itemRepository = new ItemRepository();
 
     @Test
     void save() {
-        Item itemA     = new Item("itemA", 20400, 14);
-        Item saveItemA = itemRepository.save(itemA);
-        Item findItemA = itemRepository.findById(saveItemA.getId());
+        Item itemA   = new Item("itemA", 14000, 42);
+        Long itemAId = itemRepository.save(itemA);
 
-        Assertions.assertThat(findItemA)
-                  .isEqualTo(saveItemA);
+        Item itemASearch = itemRepository.findById(itemAId);
+
+        Assertions.assertThat(itemASearch)
+                  .isEqualTo(itemA);
+    }
+
+    @Test
+    void itemModify() {
+        Item itemA   = new Item("itemA", 14000, 42);
+        Long itemAId = itemRepository.save(itemA);
+        Item itemB   = new Item("itemB", 42310, 22);
+        itemRepository.itemModify(itemAId, itemB);
+        //        System.out.println("itemA = " + itemA);
 
     }
 
     @Test
     void findAll() {
-        Item itemA = new Item("itemA", 20400, 14);
-        Item itemB = new Item("itemB", 413400, 54);
+        Item itemA = new Item("itemA", 14000, 42);
+        Item itemB = new Item("itemB", 149200, 12);
         itemRepository.save(itemA);
         itemRepository.save(itemB);
-
         List<Item> itemList = itemRepository.findAll();
-        Assertions.assertThat(itemList.size())
-                  .isEqualTo(2);
+        Assertions.assertThat(itemList.size()).isEqualTo(2);
     }
 
     @Test
-    void itemModify() {
-        Item itemA     = new Item("itemA", 20400, 14);
-        Item saveItemA = itemRepository.save(itemA);
-
-        Item itemB = new Item("itemB", 413400, 54);
-        itemRepository.itemModify(saveItemA.getId(), itemB);
-    }
-
-    @BeforeEach
     void clearStore() {
         itemRepository.clearStore();
     }
