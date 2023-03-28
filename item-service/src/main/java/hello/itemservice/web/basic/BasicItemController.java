@@ -77,6 +77,8 @@ public class BasicItemController {
     @PostMapping("/add")
     public String addItemV5(Item item, RedirectAttributes redirectAttributes) {
         Item save = itemRepository.save(item);
+
+
         redirectAttributes.addAttribute("itemId", item.getId());
         redirectAttributes.addAttribute("status", true);
         return "redirect:/basic/items/{itemId}";
