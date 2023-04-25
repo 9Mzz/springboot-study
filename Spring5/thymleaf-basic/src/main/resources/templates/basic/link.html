@@ -11,8 +11,12 @@
     <li><a th:href="@{/hello(param1=${param1}, param2=${param2})}">hello query param</a></li>
     <li><a th:href="@{/hello/{param1}/{param2}(param1=${param1}, param2=${param2})}">path variable</a></li>
     <li><a th:href="@{/hello/{param1}(param1=${param1}, param2=${param2})}">path variable + query parameter</a></li>
+    <li>
+        <a th:href="@{/hello/{param1}(param1=${param2}, param2=${param1})}">
+            테스트
+        </a>
 
-    <li><a th:href="@{/hello(param1=${param2})}">test</a></li>
+    </li>
 
 </ul>
 </body>
