@@ -109,13 +109,18 @@ public class BasicController {
         return "/basic/each";
     }
 
+    @GetMapping("/condition")
+    public String condition(Model model) {
+        addUsers(model);
+        return "basic/condition";
+    }
+
     private static void addUsers(Model model) {
         List<User> list = new ArrayList<>();
         list.add(new User("userA", 10));
         list.add(new User("userB", 13));
         list.add(new User("userC", 16));
         list.add(new User("userD", 56));
-
         model.addAttribute("users", list);
     }
 
