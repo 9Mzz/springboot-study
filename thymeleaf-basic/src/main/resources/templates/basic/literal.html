@@ -13,9 +13,8 @@
     <li>'hello world!' = <span th:text="'hello world!'"></span></li>
     <li>'hello ' + ${data} = <span th:text="'hello ' + ${data}"></span></li>
     <li>리터럴 대체 |hello ${data}| = <span th:text="|hello ${data}|"></span></li>
-    <li>뜬금 링크 테스트 : <a th:href="|@{/hello/{test}(test = ${data})}|">link</a>
-    </li>
-
+    <li><span th:text="|hello ${data}|">기본 테스트</span></li>
+    <li><a th:href="@{/hello/test/{data}(data = ${data})}">test</a></li>
 </ul>
 </body>
 </html>
