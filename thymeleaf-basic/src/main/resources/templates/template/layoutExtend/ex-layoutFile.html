@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html th:fragment="layout2(title, input, content)" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:replace="${title}">Title</title>
+</head>
+<body>
+<h1>예시용 h1 테스트</h1>
+<div th:replace="${input}"></div>
+<div th:replace="${content}"></div>
+<h2>예시용 h2</h2>
+
+
+</body>
+</html>

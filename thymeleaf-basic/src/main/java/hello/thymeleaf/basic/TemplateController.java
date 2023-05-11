@@ -1,10 +1,13 @@
 package hello.thymeleaf.basic;
 
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@Slf4j
 @RequestMapping("/template")
 public class TemplateController {
 
@@ -24,4 +27,10 @@ public class TemplateController {
         return "template/layoutExtend/layoutExtendMain";
     }
 
+    @GetMapping("/layoutExtendEx")
+    public String layoutExtendsEx() {
+        log.info("ex-layoutExtend 성공");
+
+        return "template/layoutExtend/ex-layoutExtend";
+    }
 }
