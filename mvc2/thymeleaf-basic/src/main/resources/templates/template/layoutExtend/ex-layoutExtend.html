@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html th:replace="~{template/layoutExtend/ex-layoutFile :: layout2(~{::title}, ~{::input}, ~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<html th:replace="~{template/layoutExtend/ex-layoutFile :: layout2 (~{::title}, ~{::section})}" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<label>
-    <input type="text" name="boxTest" value="박스 테스트">
-</label>
-
 <section>
-    <p>테스트용 p태그 입니다.</p>
-    <span>테스트용 span태그 입니다.</span>
+    <h1>가져온 h1 태그
+    </h1>
+    <p>가져온 p태그</p>
+    <label>
+        <input type="text" name="이름" value="가져온 값">
+    </label>
 </section>
 
 </body>
