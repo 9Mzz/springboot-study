@@ -1,10 +1,9 @@
 package hello.itemservice.domain.item;
 
-import jdk.dynalink.beans.StaticClass;
+import lombok.Data;
 
-import java.security.PrivateKey;
 
-public enum itemType {
+public enum ItemType {
 
     BOOK("도서"),
     FOOD("음식"),
@@ -12,7 +11,11 @@ public enum itemType {
 
     private final String description;
 
-    itemType(String description) {
+    ItemType(String description) {
         this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }
