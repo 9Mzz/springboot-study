@@ -59,6 +59,8 @@ public class MessegeSourceTest {
     void defaultLang() {
         assertThat(messageSource.getMessage("hello", null, null)).isEqualTo("안녕");
         assertThat(messageSource.getMessage("hello", null, Locale.KOREA)).isEqualTo("안녕");
+        String hello = messageSource.getMessage("hello", null, Locale.ENGLISH);
+        System.out.println("hello = " + hello);
     }
 
     @Test
