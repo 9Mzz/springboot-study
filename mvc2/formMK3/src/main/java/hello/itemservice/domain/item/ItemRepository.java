@@ -18,8 +18,6 @@ public class ItemRepository {
     public Item save(Item item) {
         item.setId(++sequence);
         store.put(item.getId(), item);
-
-        log.info("save Item = {}", item);
         return item;
     }
 
@@ -39,8 +37,10 @@ public class ItemRepository {
 
         findItem.setOpen(updateParam.isOpen());
         findItem.setItemType(updateParam.getItemType());
-        findItem.setRegions(updateParam.getRegions());
         findItem.setDeliveryCode(updateParam.getDeliveryCode());
+        findItem.setRegions(updateParam.getRegions());
+
+        log.info("updateParam = {}", findItem);
     }
 
     public void clearStore() {

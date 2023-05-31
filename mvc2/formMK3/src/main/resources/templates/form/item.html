@@ -47,7 +47,6 @@
             <label for="open" class="form-check-label">판매 오픈</label>
         </div>
     </div>
-
     <hr class="my-4">
 
     <!-- multi checkbox -->
@@ -61,6 +60,7 @@
     </div>
 
     <hr class="my-4">
+
     <!-- radio button -->
     <div>
         <div>상품 종류</div>
@@ -74,11 +74,10 @@
     </div>
 
     <hr class="my-4">
-
     <!-- SELECT -->
     <div>
         <div>배송 방식</div>
-        <select th:field="${item.deliveryCode}" class="form-select" disabled>
+        <select th:field="*{item.deliveryCode}" class="form-select" DISABLED>
             <option value="">==배송 방식 선택==</option>
             <option th:each="deliveryCode : ${deliveryCodes}" th:value="${deliveryCode.code}"
                     th:text="${deliveryCode.displayName}">FAST
