@@ -34,6 +34,7 @@
 
         <hr class="my-4">
 
+
         <!-- single checkbox -->
         <div>판매 여부</div>
         <div>
@@ -43,8 +44,8 @@
             </div>
         </div>
 
-
         <hr class="my-4">
+
         <!-- multi checkbox -->
         <div>
             <div>등록 지역</div>
@@ -56,6 +57,7 @@
         </div>
 
         <hr class="my-4">
+
         <!-- radio button -->
         <div>
             <div>상품 종류</div>
@@ -68,16 +70,15 @@
             </div>
         </div>
 
-
         <hr class="my-4">
+
         <!-- SELECT -->
         <div>
             <div>배송 방식</div>
             <select th:field="*{deliveryCode}" class="form-select">
                 <option value="">==배송 방식 선택==</option>
                 <option th:each="deliveryCode : ${deliveryCodes}" th:value="${deliveryCode.code}"
-                        th:text="${deliveryCode.displayName}">FAST
-                </option>
+                        th:text="${deliveryCode.displayName}">FAST</option>
             </select>
         </div>
 
@@ -91,8 +92,7 @@
                 <button class="w-100 btn btn-secondary btn-lg"
                         onclick="location.href='items.html'"
                         th:onclick="|location.href='@{/form/items}'|"
-                        type="button">취소
-                </button>
+                        type="button">취소</button>
             </div>
         </div>
 

@@ -12,11 +12,11 @@ public class Item {
     private Integer price;
     private Integer quantity;
 
-
     private boolean      open;
-    private List<String> regions;
     private ItemType     itemType;
-    private String       deliveryCode;;
+    private List<String> regions;
+    private String       deliveryCode;
+
 
     public Item() {
     }

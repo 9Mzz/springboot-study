@@ -21,7 +21,7 @@
     <form action="item.html" th:action th:object="${item}" method="post">
         <div>
             <label for="id">상품 ID</label>
-            <input type="text" id="id" name="id" th:field="*{id}" class="form-control" value="1" readonly>
+            <input type="text" id="id" name="id" class="form-control" th:field="*{id}" value="1" readonly>
         </div>
         <div>
             <label for="itemName">상품명</label>
@@ -36,6 +36,8 @@
             <input type="text" id="quantity" name="quantity" th:field="*{quantity}" class="form-control" value="10">
         </div>
 
+        <hr class="my-4">
+
         <!-- single checkbox -->
         <div>판매 여부</div>
         <div>
@@ -46,6 +48,19 @@
         </div>
 
         <hr class="my-4">
+
+        <!-- multi checkbox -->
+        <div>
+            <div>등록 지역</div>
+            <div th:each="region : ${regions}" class="form-check form-check-inline">
+                <input type="checkbox" th:field="*{regions}" th:value="${region.key}"
+                       class="form-check-input">
+                <label th:for="${#ids.prev('regions')}"
+                       th:text="${region.value}" class="form-check-label">서울</label></div>
+        </div>
+
+        <hr class="my-4">
+
         <!-- radio button -->
         <div>
             <div>상품 종류</div>
@@ -59,18 +74,7 @@
         </div>
 
         <hr class="my-4">
-        <!-- multi checkbox -->
-        <div>
-            <div>등록 지역</div>
-            <div th:each="region : ${regions}" class="form-check form-check-inline">
-                <input type="checkbox" th:field="*{regions}" th:value="${region.key}"
-                       class="form-check-input">
-                <label th:for="${#ids.prev('regions')}"
-                       th:text="${region.value}" class="form-check-label">서울</label></div>
-        </div>
 
-
-        <hr class="my-4">
         <!-- SELECT -->
         <div>
             <div>배송 방식</div>
@@ -83,7 +87,6 @@
         </div>
 
         <hr class="my-4">
-
 
         <div class="row">
             <div class="col">
