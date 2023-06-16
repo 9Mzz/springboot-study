@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/validation/v2/items")
+@RequestMapping("/validation/v1/items")
 @RequiredArgsConstructor
 @Slf4j
 public class ValidationItemControllerV1 {
