@@ -46,7 +46,7 @@ public class ValidationItemControllerV2 {
     }
 
     @PostMapping("/add")
-    public String addItem(@ModelAttribute Item item, BindingResult bindingResult, Model model,
+    public String addItemV1(@ModelAttribute Item item, BindingResult bindingResult, Model model,
                           RedirectAttributes redirectAttributes) {
 
         //검증 오류 결과를 보관
