@@ -30,6 +30,7 @@ public class ValidationItemControllerV1 {
     private final ItemRepository itemRepository;
     private final ItemValidator  itemValidator;
 
+
     @InitBinder
     public void init(WebDataBinder dataBinder) {
         dataBinder.addValidators(itemValidator);
@@ -60,6 +61,7 @@ public class ValidationItemControllerV1 {
     public String addItemV3(@Validated @ModelAttribute Item item, BindingResult bindingResult,
                             RedirectAttributes redirectAttributes) {
 
+        //여기서만 동작
         //        itemValidator.validate(item, bindingResult);
 
         //오류 검증 시작

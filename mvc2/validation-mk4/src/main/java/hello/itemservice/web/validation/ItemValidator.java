@@ -4,10 +4,12 @@ import hello.itemservice.domain.item.Item;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 @Component
 public class ItemValidator implements Validator {
+
     @Override
     public boolean supports(Class<?> clazz) {
         return Item.class.isAssignableFrom(clazz);
@@ -35,6 +37,7 @@ public class ItemValidator implements Validator {
                 errors.reject("totalPriceMin", new Object[]{10000, resultPrice}, "기본 메세지");
             }
         }
+
 
     }
 }
