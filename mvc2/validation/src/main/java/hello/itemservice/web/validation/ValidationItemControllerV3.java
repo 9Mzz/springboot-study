@@ -6,12 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -24,12 +20,6 @@ import java.util.List;
 public class ValidationItemControllerV3 {
 
     private final ItemRepository itemRepository;
-    private final ItemValidator  itemValidator;
-
-    @InitBinder
-    public void init(WebDataBinder dataBinder) {
-        dataBinder.addValidators(itemValidator);
-    }
 
     @GetMapping
     public String items(Model model) {
@@ -51,213 +41,9 @@ public class ValidationItemControllerV3 {
         return "validation/v3/addForm";
     }
 
-    //    @PostMapping("/add")
-    public String addItemV1(@ModelAttribute Item item, BindingResult bindingResult, Model model,
-                            RedirectAttributes redirectAttributes) {
-
-        //검증 오류 결과를 보관
-
-        //검증 로직
-        //상품 명이 없으면
-        if(!StringUtils.hasText(item.getItemName())) {
-            bindingResult.addError(new FieldError("item", "itemName", "상품 이름은 필수입니다."));
-
-        }
-        //가격이 범위 밖이면
-        if(item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 1000000) {
-            bindingResult.addError(new FieldError("item", "price", "상품 가격은 1,000원 ~ 1,000,000원 까지 허용됩니다."));
-        }
-        //수량이 범위 밖이면
-        if(item.getQuantity() == null || item.getQuantity() > 9999) {
-            bindingResult.addError(new FieldError("item", "quantity", "수량은 최대 9,999 까지 허용합니다."));
-        }
-        //특정 필드가 아닌 복합 룰 검증
-        if(item.getPrice() != null && item.getQuantity() != null) {
-            int resultPrice = item.getPrice() * item.getQuantity();
-            if(resultPrice < 10000) {
-                bindingResult.addError(
-                        new ObjectError("item", "가격 * 수량의 합은 10,000원 이상이어야 합니다. 현재 가격 = " + resultPrice));
-            }
-        }
-
-        //검증에 실패할 경우
-        if(bindingResult.hasErrors()) {
-            log.info("bindingResult Code = {}", bindingResult);
-
-            return "validation/v3/addForm";
-        }
-
-
-        //검증에 성공할 경우
-        Item savedItem = itemRepository.save(item);
-        redirectAttributes.addAttribute("itemId", savedItem.getId());
-        redirectAttributes.addAttribute("status", true);
-        return "redirect:/validation/v3/items/{itemId}";
-    }
-
-    //    @PostMapping("/add")
-    public String addItemV2(@ModelAttribute Item item, BindingResult bindingResult, Model model,
-                            RedirectAttributes redirectAttributes) {
-
-        //검증 오류 결과를 보관
-
-        //검증 로직
-        //상품 명이 없으면
-        if(!StringUtils.hasText(item.getItemName())) {
-            bindingResult.addError(
-                    new FieldError("item", "itemName", item.getItemName(), false, null, null, "상품 이름은 필수입니다."));
-
-        }
-        //가격이 범위 밖이면
-        if(item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 1000000) {
-            bindingResult.addError(new FieldError("item", "price", item.getPrice(), false, null, null,
-                                                  "상품 가격은 1,000원 ~ 1,000,000원 까지 허용됩니다."));
-        }
-        //수량이 범위 밖이면
-        if(item.getQuantity() == null || item.getQuantity() > 9999) {
-            bindingResult.addError(new FieldError("item", "quantity", item.getQuantity(), false, null, null,
-                                                  "수량은 최대 9,999 까지 허용합니다."));
-        }
-        //특정 필드가 아닌 복합 룰 검증
-        if(item.getPrice() != null && item.getQuantity() != null) {
-            int resultPrice = item.getPrice() * item.getQuantity();
-            if(resultPrice < 10000) {
-                bindingResult.addError(
-                        new ObjectError("item", "가격 * 수량의 합은 10,000원 이상이어야 합니다. 현재 가격 = " + resultPrice));
-            }
-        }
-
-        //검증에 실패할 경우
-        if(bindingResult.hasErrors()) {
-            log.info("bindingResult Code = {}", bindingResult);
-
-            return "validation/v3/addForm";
-        }
-
-
-        //검증에 성공할 경우
-        Item savedItem = itemRepository.save(item);
-        redirectAttributes.addAttribute("itemId", savedItem.getId());
-        redirectAttributes.addAttribute("status", true);
-        return "redirect:/validation/v3/items/{itemId}";
-    }
-
-    //    @PostMapping("/add")
-    public String addItemV3(@ModelAttribute Item item, BindingResult bindingResult, Model model,
-                            RedirectAttributes redirectAttributes) {
-
-        //검증 오류 결과를 보관
-
-        //검증 로직
-        //상품 명이 없으면
-        if(!StringUtils.hasText(item.getItemName())) {
-            bindingResult.addError(new FieldError("item", "itemName", item.getItemName(), false,
-                                                  new String[]{"required.item.itemName"}, null, null));
-
-        }
-        //가격이 범위 밖이면
-        if(item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 1000000) {
-            bindingResult.addError(
-                    new FieldError("item", "price", item.getPrice(), false, new String[]{"range.item.price"},
-                                   new Object[]{1000, 1000000}, null));
-        }
-        //수량이 범위 밖이면
-        if(item.getQuantity() == null || item.getQuantity() > 9999) {
-            bindingResult.addError(
-                    new FieldError("item", "quantity", item.getQuantity(), false, new String[]{"max.item.quantity"},
-                                   new Object[]{9999}, null));
-        }
-        //특정 필드가 아닌 복합 룰 검증
-        if(item.getPrice() != null && item.getQuantity() != null) {
-            int resultPrice = item.getPrice() * item.getQuantity();
-            if(resultPrice < 10000) {
-                bindingResult.addError(
-                        new ObjectError("item", new String[]{"totalPriceMin"}, new Object[]{10000, resultPrice}, null));
-            }
-        }
-
-        //검증에 실패할 경우
-        if(bindingResult.hasErrors()) {
-            log.info("bindingResult Code = {}", bindingResult);
-
-            return "validation/v3/addForm";
-        }
-
-
-        //검증에 성공할 경우
-        Item savedItem = itemRepository.save(item);
-        redirectAttributes.addAttribute("itemId", savedItem.getId());
-        redirectAttributes.addAttribute("status", true);
-        return "redirect:/validation/v3/items/{itemId}";
-    }
-
-    //    @PostMapping("/add")
-    public String addItemV4(@ModelAttribute Item item, BindingResult bindingResult, Model model,
-                            RedirectAttributes redirectAttributes) {
-
-        //검증 오류 결과를 보관
-
-        //검증 로직
-        //상품 명이 없으면
-        if(!StringUtils.hasText(item.getItemName())) {
-            bindingResult.rejectValue("itemName", "required");
-        }
-        //가격이 범위 밖이면
-        if(item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 1000000) {
-            bindingResult.rejectValue("price", "range", new Object[]{1000, 1000000}, null);
-
-        }
-        //수량이 범위 밖이면
-        if(item.getQuantity() == null || item.getQuantity() > 9999) {
-            bindingResult.rejectValue("quantity", "max", new Object[]{9999}, null);
-        }
-        //특정 필드가 아닌 복합 룰 검증
-        if(item.getPrice() != null && item.getQuantity() != null) {
-            int resultPrice = item.getPrice() * item.getQuantity();
-            if(resultPrice < 10000) {
-                bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
-            }
-        }
-
-        //검증에 실패할 경우
-        if(bindingResult.hasErrors()) {
-            log.info("bindingResult Code = {}", bindingResult);
-
-            return "validation/v3/addForm";
-        }
-
-
-        //검증에 성공할 경우
-        Item savedItem = itemRepository.save(item);
-        redirectAttributes.addAttribute("itemId", savedItem.getId());
-        redirectAttributes.addAttribute("status", true);
-        return "redirect:/validation/v3/items/{itemId}";
-    }
-
-    //    @PostMapping("/add")
-    public String addItemV5(@ModelAttribute Item item, BindingResult bindingResult, Model model,
-                            RedirectAttributes redirectAttributes) {
-
-        itemValidator.validate(item, bindingResult);
-
-        //검증에 실패할 경우
-        if(bindingResult.hasErrors()) {
-            log.info("bindingResult Code = {}", bindingResult);
-
-            return "validation/v3/addForm";
-        }
-
-
-        //검증에 성공할 경우
-        Item savedItem = itemRepository.save(item);
-        redirectAttributes.addAttribute("itemId", savedItem.getId());
-        redirectAttributes.addAttribute("status", true);
-        return "redirect:/validation/v3/items/{itemId}";
-    }
-
     @PostMapping("/add")
-    public String addItemV6(@Validated @ModelAttribute Item item, BindingResult bindingResult, Model model,
-                            RedirectAttributes redirectAttributes) {
+    public String addItem(@Validated @ModelAttribute Item item, BindingResult bindingResult, Model model,
+                          RedirectAttributes redirectAttributes) {
 
 
         //검증에 실패할 경우
