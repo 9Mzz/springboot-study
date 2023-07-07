@@ -4,11 +4,10 @@ import hello.itemservice.domain.item.Item;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 @Component
-public class ItemValidator implements Validator {
+public class ItemValidation implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -23,21 +22,18 @@ public class ItemValidator implements Validator {
         if(!StringUtils.hasText(item.getItemName())) {
             errors.rejectValue("itemName", "required", "기본 메세지");
         }
-        if(item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 10000000) {
-            errors.rejectValue("price", "range", new Object[]{1000, 1000000}, "기본 메세지");
+        if(item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 100000) {
+            errors.rejectValue("price", "range", new Object[]{1000, 100000}, "기본 오류 메세지");
         }
-
-
-        if(item.getQuantity() == null || item.getQuantity() > 9999) {
-            errors.rejectValue("quantity", "max", new Object[]{9999}, "기본 메세지");
+        if(item.getQuantity() == null || item.getQuantity() < 10000) {
+            errors.rejectValue("quantity", "max", new Object[]{10000}, "기본 오류 메세지");
         }
         if(item.getPrice() != null && item.getQuantity() != null) {
             int resultPrice = item.getPrice() * item.getQuantity();
             if(resultPrice < 10000) {
-                errors.reject("totalPriceMin", new Object[]{10000, resultPrice}, "기본 메세지");
+                errors.reject("totalPriceMin", new Object[]{10000, resultPrice}, "기본 오류 메세지");
             }
         }
-
 
     }
 }

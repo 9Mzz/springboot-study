@@ -6,36 +6,27 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.management.relation.RelationSupport;
-import javax.servlet.annotation.ServletSecurity;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+@Slf4j
 @Controller
 @RequestMapping("/validation/v1/items")
 @RequiredArgsConstructor
-@Slf4j
 public class ValidationItemControllerV1 {
 
     private final ItemRepository itemRepository;
-    private final ItemValidator  itemValidator;
-
+    private final ItemValidation itemValidation;
 
     @InitBinder
     public void init(WebDataBinder dataBinder) {
-        dataBinder.addValidators(itemValidator);
+        dataBinder.addValidators(itemValidation);
     }
-
 
     @GetMapping
     public String items(Model model) {
@@ -58,40 +49,16 @@ public class ValidationItemControllerV1 {
     }
 
     @PostMapping("/add")
-    public String addItemV3(@Validated @ModelAttribute Item item, BindingResult bindingResult,
-                            RedirectAttributes redirectAttributes) {
+    public String addItem(@Validated @ModelAttribute Item item, BindingResult bindingResult,
+                          RedirectAttributes redirectAttributes) {
 
-        //여기서만 동작
-        //        itemValidator.validate(item, bindingResult);
-
-        //오류 검증 시작
-/*
-        if(!StringUtils.hasText(item.getItemName())) {
-            bindingResult.rejectValue("itemName", "required", "기본 메세지");
-        }
-        if(item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 10000000) {
-            bindingResult.rejectValue("price", "range", new Object[]{1000, 1000000}, "기본 메세지");
-        }
-
-
-        if(item.getQuantity() == null || item.getQuantity() > 9999) {
-            bindingResult.rejectValue("quantity", "max", new Object[]{9999}, "기본 메세지");
-        }
-        if(item.getPrice() != null && item.getQuantity() != null) {
-            int resultPrice = item.getPrice() * item.getQuantity();
-            if(resultPrice < 10000) {
-                bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, "기본 메세지");
-            }
-        }
-        */
+        //        itemValidation.validate(item, bindingResult);
 
         if(bindingResult.hasErrors()) {
-            log.info("log data = {}", bindingResult);
-
+            log.info("error data ={}", bindingResult);
             return "validation/v1/addForm";
         }
 
-        //오류가 없을 경우
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
