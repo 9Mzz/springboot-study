@@ -14,18 +14,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
-@Slf4j
 @Controller
 @RequestMapping("/validation/v1/items")
 @RequiredArgsConstructor
+@Slf4j
 public class ValidationItemControllerV1 {
 
     private final ItemRepository itemRepository;
-    private final ItemValidation itemValidation;
+    private final ItemValidate   itemValidate;
 
     @InitBinder
     public void init(WebDataBinder dataBinder) {
-        dataBinder.addValidators(itemValidation);
+        dataBinder.addValidators(itemValidate);
     }
 
     @GetMapping
@@ -52,12 +52,13 @@ public class ValidationItemControllerV1 {
     public String addItem(@Validated @ModelAttribute Item item, BindingResult bindingResult,
                           RedirectAttributes redirectAttributes) {
 
-        //        itemValidation.validate(item, bindingResult);
+        //        itemValidate.validate(item, bindingResult);
 
         if(bindingResult.hasErrors()) {
-            log.info("error data ={}", bindingResult);
+            log.info("error data = {}", bindingResult);
             return "validation/v1/addForm";
         }
+
 
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());

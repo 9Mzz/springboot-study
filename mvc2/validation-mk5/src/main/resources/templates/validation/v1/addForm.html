@@ -13,6 +13,7 @@
             border-color: #dc3545;
             color: #dc3545;
         }
+
     </style>
 </head>
 <body>
@@ -23,14 +24,12 @@
         <h2 th:text="#{page.addItem}">상품 등록</h2>
     </div>
 
-
     <form action="item.html" th:action th:object="${item}" method="post">
 
         <div th:if="${#fields.hasGlobalErrors()}">
             <div class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">
 
             </div>
-
         </div>
 
         <div>
