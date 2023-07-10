@@ -2,13 +2,14 @@ package hello.itemservice.web.validation;
 
 import hello.itemservice.domain.item.Item;
 import hello.itemservice.domain.item.ItemRepository;
+import hello.itemservice.domain.item.ItemSaveForm;
+import hello.itemservice.domain.item.ItemUpdateForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -21,12 +22,6 @@ import java.util.List;
 public class ValidationItemControllerV1 {
 
     private final ItemRepository itemRepository;
-    private final ItemValidate   itemValidate;
-
-    @InitBinder
-    public void init(WebDataBinder dataBinder) {
-        dataBinder.addValidators(itemValidate);
-    }
 
     @GetMapping
     public String items(Model model) {
@@ -49,15 +44,26 @@ public class ValidationItemControllerV1 {
     }
 
     @PostMapping("/add")
-    public String addItem(@Validated @ModelAttribute Item item, BindingResult bindingResult,
+    public String addItem(@Validated @ModelAttribute("item") ItemSaveForm form, BindingResult bindingResult,
                           RedirectAttributes redirectAttributes) {
 
-        //        itemValidate.validate(item, bindingResult);
+        if(form.getPrice() != null && form.getQuantity() != null) {
+            int resulPrice = form.getPrice() * form.getQuantity();
+            if(resulPrice < 10000) {
+                bindingResult.reject("totalPriceMin", new Object[]{10000, resulPrice}, "기본 메세지");
+            }
+
+        }
 
         if(bindingResult.hasErrors()) {
-            log.info("error data = {}", bindingResult);
+            log.info("에러 내용 : {}", bindingResult);
             return "validation/v1/addForm";
         }
+
+        Item item = new Item();
+        item.setItemName(form.getItemName());
+        item.setPrice(form.getPrice());
+        item.setQuantity(form.getQuantity());
 
 
         Item savedItem = itemRepository.save(item);
@@ -74,7 +80,14 @@ public class ValidationItemControllerV1 {
     }
 
     @PostMapping("/{itemId}/edit")
-    public String edit(@PathVariable Long itemId, @ModelAttribute Item item) {
+    public String edit(@PathVariable Long itemId, @ModelAttribute("item") ItemUpdateForm form) {
+
+        Item item = new Item();
+        item.setId(form.getId());
+        item.setItemName(form.getItemName());
+        item.setPrice(form.getPrice());
+        item.setQuantity(form.getQuantity());
+
         itemRepository.update(itemId, item);
         return "redirect:/validation/v1/items/{itemId}";
     }
