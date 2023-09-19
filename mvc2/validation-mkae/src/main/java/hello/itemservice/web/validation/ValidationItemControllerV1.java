@@ -3,7 +3,6 @@ package hello.itemservice.web.validation;
 import hello.itemservice.domain.item.Item;
 import hello.itemservice.domain.item.ItemRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,12 +21,14 @@ import java.util.List;
 public class ValidationItemControllerV1 {
 
     private final ItemRepository itemRepository;
-    private final ItemValidator  itemValidator;
+    private final ItemValidation itemValidation;
 
     @InitBinder
-    public void itemBinder(WebDataBinder dataBinder) {
+    public void itemValidate(WebDataBinder dataBinder) {
 
-        dataBinder.addValidators(itemValidator);
+        log.info("데이터 검증 과정을 거침");
+
+        dataBinder.addValidators(itemValidation);
 
     }
 
@@ -55,10 +56,13 @@ public class ValidationItemControllerV1 {
     public String addItem(@Validated @ModelAttribute Item item, BindingResult bindingResult,
                           RedirectAttributes redirectAttributes) {
 
+
         if(bindingResult.hasErrors()) {
             log.info("error code = {}", bindingResult);
             return "validation/v1/addForm";
         }
+
+        log.info("오류 없음.");
 
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());

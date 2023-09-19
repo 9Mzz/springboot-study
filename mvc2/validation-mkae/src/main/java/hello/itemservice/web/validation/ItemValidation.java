@@ -7,7 +7,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 @Component
-public class ItemValidator implements Validator {
+public class ItemValidation implements Validator {
     @Override
     public boolean supports(Class<?> clazz) {
         return Item.class.isAssignableFrom(clazz);
@@ -16,22 +16,25 @@ public class ItemValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
 
+
         Item item = (Item) target;
+
         if(!StringUtils.hasText(item.getItemName())) {
             errors.rejectValue("itemName", "required", null);
         }
         if(item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 1000000) {
             errors.rejectValue("price", "range", new Object[]{1000, 1000000}, null);
         }
-        if(item.getQuantity() == null || item.getQuantity() >= 9999) {
+        if(item.getQuantity() == null || item.getQuantity() > 10000) {
             errors.rejectValue("quantity", "max", new Object[]{10000}, null);
         }
         if(item.getPrice() != null && item.getQuantity() != null) {
-            int totalPrice = item.getPrice() * item.getQuantity();
-            if(totalPrice < 10000) {
-                errors.reject("totalPriceMin", new Object[]{10000, totalPrice}, null);
+            int resultPrice = item.getPrice() * item.getQuantity();
+            if(resultPrice > 10000) {
+                errors.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
             }
         }
+
 
     }
 }
