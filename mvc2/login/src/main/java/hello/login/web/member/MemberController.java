@@ -1,7 +1,9 @@
 package hello.login.web.member;
 
+
 import hello.login.domain.member.Member;
 import hello.login.domain.member.MemberRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -11,32 +13,34 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
 @Slf4j
+@Controller
+@RequiredArgsConstructor
 @RequestMapping("/members")
 public class MemberController {
-    private final MemberRepository memberRepository;
 
-    public MemberController(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
+  private final MemberRepository memberRepository;
 
+  @GetMapping("/add")
+  public String addForm(@ModelAttribute("member") Member member) {
+
+    return "/members/addMemberForm";
+  }
+
+  @PostMapping("/add")
+  public String add(@Validated @ModelAttribute("member") Member member,
+      BindingResult bindingResult) {
+
+    if (bindingResult.hasErrors()) {
+      log.info("error 발생 = {}", bindingResult);
+      return "/members/addMemberForm";
     }
+    memberRepository.save(member);
 
-    @GetMapping("/add")
-    public String addForm(@ModelAttribute("member") Member member) {
+    return "redirect:/";
+  }
 
-        return "members/addMemberForm";
-    }
 
-    @PostMapping("/add")
-    public String add(@Validated @ModelAttribute("member") Member member, BindingResult bindingResult) {
 
-        if(bindingResult.hasErrors()) {
-            return "members/addMemberForm";
-        }
-        memberRepository.save(member);
-
-        return "redirect:/";
-    }
 
 }

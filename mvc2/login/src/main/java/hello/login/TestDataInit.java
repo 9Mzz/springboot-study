@@ -13,22 +13,23 @@ import javax.annotation.PostConstruct;
 @RequiredArgsConstructor
 public class TestDataInit {
 
-    private final ItemRepository   itemRepository;
-    private final MemberRepository memberRepository;
+  private final ItemRepository   itemRepository;
+  private final MemberRepository memberRepository;
 
-    /**
-     * 테스트용 데이터 추가
-     */
-    @PostConstruct
-    public void init() {
-        itemRepository.save(new Item("itemA", 10000, 10));
-        itemRepository.save(new Item("itemB", 20000, 20));
-        Member member = new Member();
-        member.setLoginId("test");
-        member.setPassword("test!");
-        member.setName("9M");
+  /**
+   * 테스트용 데이터 추가
+   */
+  @PostConstruct
+  public void init() {
+    itemRepository.save(new Item("itemA", 10000, 10));
+    itemRepository.save(new Item("itemB", 20000, 20));
 
-        memberRepository.save(member);
-    }
+    Member member = new Member();
+    member.setLoginId("test");
+    member.setPassword("test!");
+    member.setName("testName");
+    memberRepository.save(member);
+
+  }
 
 }

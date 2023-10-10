@@ -1,5 +1,6 @@
 package hello.login.web.login;
 
+
 import hello.login.domain.login.LoginService;
 import hello.login.domain.member.Member;
 import lombok.RequiredArgsConstructor;
@@ -10,39 +11,41 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@Slf4j
 @Controller
+@Slf4j
 @RequiredArgsConstructor
+@RequestMapping("/")
 public class LoginController {
+
 
   private final LoginService loginService;
 
-
-  @GetMapping("login")
-  public String loginForm(@ModelAttribute("loginForm") LoginForm form) {
+  @GetMapping("/login")
+  private String loginForm(@ModelAttribute("loginForm") LoginForm form) {
 
     return "login/loginForm";
   }
 
-  @PostMapping("login")
-  public String login(@Validated @ModelAttribute("loginForm") LoginForm form,
+  @PostMapping("/login")
+  private String login(@Validated @ModelAttribute("loginForm") LoginForm form,
       BindingResult bindingResult) {
 
     if (bindingResult.hasErrors()) {
-
-    }
-
-    Member loginMember = loginService.login(form.getLoginId(), form.getPassword());
-
-    if (loginMember == null) {
-      bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다");
+      log.info("error code = {}", bindingResult);
       return "login/loginForm";
     }
 
-    //로그인 성공 TODO
-    return "redirect:/";
+    Member loginMember = loginService.loginCheck(form.getLoginId(), form.getPassword());
+    if (loginMember == null) {
+      bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
+      return "login/loginForm";
+    }
 
+    //로그인 성공 처리 TODO
+
+    return "redirect:/";
   }
 
 }
