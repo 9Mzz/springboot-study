@@ -1,8 +1,7 @@
 package hello.login.domain.login;
 
-
-import hello.login.domain.member.Member;
-import hello.login.domain.member.MemberRepository;
+import hello.login.web.member.Member;
+import hello.login.web.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +13,10 @@ public class LoginService {
 
   public Member loginAct(String loginId, String password) {
 
-    return
-        memberRepository.findByloginId(loginId)
-            .filter(member -> member.getPassword()
-                .equals(password))
-            .orElse(null);
-
+    return memberRepository.findByLoginId(loginId)
+        .filter(member -> member.getPassword()
+            .equals(password))
+        .orElse(null);
   }
 
 }

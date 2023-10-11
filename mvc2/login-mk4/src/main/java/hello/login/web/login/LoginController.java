@@ -1,8 +1,9 @@
 package hello.login.web.login;
 
+
 import hello.login.domain.login.LoginForm;
 import hello.login.domain.login.LoginService;
-import hello.login.domain.member.Member;
+import hello.login.web.member.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -21,9 +22,7 @@ public class LoginController {
 
   @GetMapping("/login")
   public String loginForm(@ModelAttribute("loginForm") LoginForm form) {
-
     return "login/loginForm";
-
   }
 
   @PostMapping("/login")
@@ -31,20 +30,19 @@ public class LoginController {
       BindingResult bindingResult) {
 
     if (bindingResult.hasErrors()) {
-      log.info("오류 발생 = {}", bindingResult);
+      log.info("error code = {}", bindingResult);
       return "login/loginForm";
     }
 
-    Member memberResult = loginService.loginAct(form.getLoginId(), form.getPassword());
-    log.info("login ? = {}", memberResult);
+    Member loginResult = loginService.loginAct(form.getLoginId(), form.getPassword());
 
-    if (memberResult == null) {
+    if (loginResult == null) {
       bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
+      log.info("error code = {}", bindingResult);
       return "login/loginForm";
     }
 
     return "redirect:/";
-
   }
 
 

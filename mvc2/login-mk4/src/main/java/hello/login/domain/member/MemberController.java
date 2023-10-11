@@ -1,9 +1,10 @@
-package hello.login.web.member;
+package hello.login.domain.member;
 
 
-import hello.login.domain.member.Member;
-import hello.login.domain.member.MemberRepository;
+import hello.login.web.member.Member;
+import hello.login.web.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/members")
+@Slf4j
 @RequiredArgsConstructor
 public class MemberController {
 
@@ -30,6 +32,7 @@ public class MemberController {
       BindingResult bindingResult) {
 
     if (bindingResult.hasErrors()) {
+      log.info("error 발생 = {}", bindingResult);
       return "members/addForm";
     }
 
@@ -37,4 +40,5 @@ public class MemberController {
 
     return "redirect:/";
   }
+
 }
