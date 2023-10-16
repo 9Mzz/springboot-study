@@ -3,6 +3,8 @@ package hello.login.web.login;
 
 import hello.login.domain.login.LoginService;
 import hello.login.domain.member.Member;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -30,7 +32,7 @@ public class LoginController {
 
   @PostMapping("/login")
   private String login(@Validated @ModelAttribute("loginForm") LoginForm form,
-      BindingResult bindingResult) {
+      BindingResult bindingResult, HttpServletResponse response) {
 
     if (bindingResult.hasErrors()) {
       log.info("error code = {}", bindingResult);
@@ -45,7 +47,24 @@ public class LoginController {
 
     //로그인 성공 처리 TODO
 
+    //쿠키에 시간 정보를 주지 않으면 세션 쿠키(브라우저 종료시 모두 종료)
+    Cookie idCookie = new Cookie("memberId", String.valueOf(loginMember.getId()));
+    response.addCookie(idCookie);
+
     return "redirect:/";
+  }
+
+  @PostMapping("/logout")
+  public String logout(HttpServletResponse response) {
+    expiredCookie(response, "memberId");
+    return "redirect:/";
+
+  }
+
+  private static void expiredCookie(HttpServletResponse response, String cookieName) {
+    Cookie cookie = new Cookie(cookieName, null);
+    cookie.setMaxAge(0);
+    response.addCookie(cookie);
   }
 
 }
