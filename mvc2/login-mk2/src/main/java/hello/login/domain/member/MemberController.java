@@ -2,7 +2,6 @@ package hello.login.domain.member;
 
 
 import hello.login.web.member.Member;
-import hello.login.web.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -14,9 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/members")
 @Slf4j
 @RequiredArgsConstructor
+@RequestMapping("/members")
 public class MemberController {
 
   private final MemberRepository memberRepository;
@@ -24,7 +23,7 @@ public class MemberController {
   @GetMapping("/add")
   public String addForm(@ModelAttribute("member") Member member) {
 
-    return "members/addForm";
+    return "/members/addForm";
   }
 
   @PostMapping("/add")
@@ -33,12 +32,13 @@ public class MemberController {
 
     if (bindingResult.hasErrors()) {
       log.info("error 발생 = {}", bindingResult);
-      return "members/addForm";
+      return "/members/addForm";
     }
 
     memberRepository.save(member);
 
     return "redirect:/";
   }
+
 
 }

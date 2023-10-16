@@ -1,9 +1,13 @@
 package hello.login.web.member;
 
 import javax.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class Member {
 
   private Long   id;
@@ -13,6 +17,5 @@ public class Member {
   private String password;
   @NotEmpty
   private String name;
-
 
 }
