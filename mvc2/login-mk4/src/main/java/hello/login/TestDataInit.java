@@ -2,8 +2,8 @@ package hello.login;
 
 import hello.login.domain.item.Item;
 import hello.login.domain.item.ItemRepository;
-import hello.login.domain.member.MemberRepository;
 import hello.login.web.member.Member;
+import hello.login.web.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -28,9 +28,7 @@ public class TestDataInit {
     member.setLoginId("test");
     member.setPassword("test");
     member.setName("testName");
-
     memberRepository.save(member);
-
   }
 
 }

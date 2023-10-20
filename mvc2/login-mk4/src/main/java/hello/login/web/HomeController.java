@@ -1,10 +1,10 @@
 package hello.login.web;
 
-import hello.login.domain.member.MemberRepository;
 import hello.login.web.member.Member;
-import java.net.http.HttpResponse;
+import hello.login.web.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.Banner.Mode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -25,11 +25,13 @@ public class HomeController {
   @GetMapping("/")
   public String cookieHome(@CookieValue(name = "memberId", required = false) Long memberId,
       Model model) {
+
     if (memberId == null) {
       return "home";
     }
 
-    Member member = memberRepository.findById(memberId);
+    Member member = memberRepository.findbyId(memberId);
+
     if (member == null) {
       return "home";
     }
@@ -37,6 +39,4 @@ public class HomeController {
 
     return "loginHome";
   }
-
-
 }

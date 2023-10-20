@@ -1,15 +1,15 @@
 package hello.login.domain.login;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 
 @Data
 public class Login {
 
-  @NotBlank
+  @NotEmpty
   private String loginId;
-  @NotBlank
+  @NotEmpty
   private String password;
+
 
 }
