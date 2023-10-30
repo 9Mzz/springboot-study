@@ -56,4 +56,12 @@ public class LoginController {
     return "redirect:/";
   }
 
+  @PostMapping("/logout")
+  public String logout(HttpServletResponse response) {
+    Cookie memberId = new Cookie("memberId", null);
+    response.addCookie(memberId);
+
+    return "redirect:/";
+  }
+
 }
