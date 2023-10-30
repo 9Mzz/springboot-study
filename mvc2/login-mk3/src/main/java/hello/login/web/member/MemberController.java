@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequiredArgsConstructor
 @RequestMapping("/members")
+@RequiredArgsConstructor
 public class MemberController {
 
   private final MemberRepository memberRepository;
-
 
   @GetMapping("/add")
   public String addForm(@ModelAttribute("member") Member member) {
@@ -28,8 +27,8 @@ public class MemberController {
   @PostMapping("/add")
   public String add(@Validated @ModelAttribute("member") Member member,
       BindingResult bindingResult) {
+
     if (bindingResult.hasErrors()) {
-      bindingResult.reject("addError", "회원가입 오류");
       return "members/addForm";
     }
 
@@ -37,6 +36,5 @@ public class MemberController {
 
     return "redirect:/";
   }
-
 
 }

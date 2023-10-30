@@ -21,22 +21,17 @@ public class HomeController {
     return "home";
   }
 
-
   @GetMapping("/")
   public String cookieHome(@CookieValue(name = "memberId", required = false) Long memberId,
       Model model) {
+
     if (memberId == null) {
       return "home";
     }
-
-    Member member = memberRepository.findById(memberId);
-    if (member == null) {
-      return "home";
-    }
+    Member member = memberRepository.findbyId(memberId);
 
     model.addAttribute("member", member);
 
     return "cookieHome";
   }
-
 }

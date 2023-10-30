@@ -2,12 +2,11 @@ package hello.login.web.login;
 
 import hello.login.domain.member.Member;
 import hello.login.domain.member.MemberRepository;
+import java.util.prefs.PreferencesFactory;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
 public class LoginService {
 
@@ -15,10 +14,12 @@ public class LoginService {
 
   public Member loginAct(String loginId, String password) {
 
-    return memberRepository.findByLoginId(loginId)
-        .filter(member -> member.getPassword()
-            .equals(password))
-        .orElse(null);
+    return
+        memberRepository.findByLoginId(loginId)
+            .filter(member -> member.getPassword()
+                .equals(password
+                ))
+            .orElse(null);
   }
 
 }
