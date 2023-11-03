@@ -1,12 +1,14 @@
 package hello.login.web.session;
 
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.boot.autoconfigure.amqp.RabbitProperties.Retry;
 import org.springframework.stereotype.Component;
 
 /**
@@ -44,16 +46,39 @@ public class SessionManager {
   public Object getSession(HttpServletRequest request) {
     Cookie[] cookies = request.getCookies();
 
+    Cookie sessionCookie = findCookie(request, SESSION_COOKIE_NAME);
+
+    if (sessionCookie == null) {
+      return null;
+    }
+    return sessionStore.get(sessionCookie.getValue());
+  }
+
+  /**
+   * 세션 만료
+   */
+  public void expire(HttpServletRequest request) {
+    Cookie sessionCookie = findCookie(request, SESSION_COOKIE_NAME);
+    if (sessionCookie != null) {
+      sessionStore.remove(sessionCookie.getValue());
+    }
+  }
+
+
+  public Cookie findCookie(HttpServletRequest request, String cookieName) {
+    Cookie[] cookies = request.getCookies();
+
     if (cookies == null) {
       return null;
     }
+    /**
+     * 배열을 Stream으로 바꿔줌
+     */
+    return Arrays.stream(cookies)
+        .filter(cookie -> cookie.getName().equals(cookieName))
+        .findFirst()
+        .orElse(null);
 
-    for (Cookie cookie : cookies) {
-      if (cookie.getName()
-          .equals(SESSION_COOKIE_NAME)) {
-
-      }
-    }
   }
 
 
