@@ -3,7 +3,10 @@ package hello.login.domain.member;
 import hello.login.web.member.Member;
 import hello.login.web.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +26,14 @@ public class MemberController {
   }
 
   @PostMapping("/add")
-  public String add(@ModelAttribute("member") Member member) {
+  public String add(@Validated @ModelAttribute("member") Member member,
+      BindingResult bindingResult) {
+
+    if (bindingResult.hasErrors()) {
+      bindingResult.reject("memberAddError", "회원가입 오류");
+      return "members/addMemberForm";
+    }
+
     memberRepository.save(member);
     return "redirect:/";
   }
