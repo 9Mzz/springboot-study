@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.SessionIdGenerator;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -102,11 +103,10 @@ public class LoginController {
 
     //로그인 성공 처리 TODO
     //세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성
+    //세션을 생성하려면 request.getSession(true) 를 사용하면 된다. (default = true)
     HttpSession session = request.getSession();
+    //세션에 로그인 회원 정보 보관
     session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
-
-    //세션 관리자를 통해 세션을 생성하고, 회원 데이터 보관
-//    sessionManager.createSession(loginMember, response);
 
     return "redirect:/";
   }
@@ -120,10 +120,22 @@ public class LoginController {
 
   }
 
-  @PostMapping("/logout")
+  //  @PostMapping("/logout")
   public String logoutV2(HttpServletRequest request) {
+    HttpSession session = request.getSession(false);
+    if (session != null) {
+      session.invalidate();
+    }
+    return "redirect:/";
 
-    sessionManager.expire(request);
+  }
+
+  @PostMapping("/logout")
+  public String logoutV3(HttpServletRequest request) {
+    HttpSession session = request.getSession(false);
+    if (session != null) {
+      session.invalidate();
+    }
 
     return "redirect:/";
 
