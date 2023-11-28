@@ -7,6 +7,7 @@ import hello.login.web.member.Member;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class LoginController {
 
   private final LoginService loginService;
@@ -30,7 +32,7 @@ public class LoginController {
 
   @PostMapping("login")
   public String login(@Validated @ModelAttribute("loginForm") Login login,
-      BindingResult bindingResult, HttpServletRequest request) {
+      BindingResult bindingResult, HttpSession session) {
     if (bindingResult.hasErrors()) {
       return "login/loginForm";
     }
@@ -41,7 +43,8 @@ public class LoginController {
       return "login/loginForm";
     }
 
-    HttpSession session = request.getSession();
+    log.info("login data = {}", member);
+    log.info("key data = {}", SessionConst.LOGIN_MEMBER);
     session.setAttribute(SessionConst.LOGIN_MEMBER, member);
 
     return "redirect:/";
@@ -51,7 +54,7 @@ public class LoginController {
   public String logout(HttpServletRequest request) {
     HttpSession session = request.getSession();
     session.invalidate();
-    
+
     return "redirect:/";
   }
 
