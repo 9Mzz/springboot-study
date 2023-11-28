@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @Slf4j
@@ -86,7 +87,7 @@ public class LoginController {
     return "redirect:/";
   }
 
-  @PostMapping("/login")
+  //  @PostMapping("/login")
   private String loginV3(@Validated @ModelAttribute("loginForm") LoginForm form,
       BindingResult bindingResult, HttpServletRequest request) {
 
@@ -109,6 +110,33 @@ public class LoginController {
     session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
 
     return "redirect:/";
+  }
+
+  @PostMapping("/login")
+  private String loginV4(@Validated @ModelAttribute("loginForm") LoginForm form,
+      BindingResult bindingResult,
+      @RequestParam(defaultValue = "/") String redirectURL,
+      HttpServletRequest request) {
+
+    if (bindingResult.hasErrors()) {
+      log.info("error code = {}", bindingResult);
+      return "login/loginForm";
+    }
+
+    Member loginMember = loginService.loginCheck(form.getLoginId(), form.getPassword());
+    if (loginMember == null) {
+      bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
+      return "login/loginForm";
+    }
+
+    //로그인 성공 처리 TODO
+    //세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성
+    //세션을 생성하려면 request.getSession(true) 를 사용하면 된다. (default = true)
+    HttpSession session = request.getSession();
+    //세션에 로그인 회원 정보 보관
+    session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
+
+    return "redirect:" + redirectURL;
   }
 
   ///////////////////////////////////////////////////////////////////
@@ -138,7 +166,6 @@ public class LoginController {
     }
 
     return "redirect:/";
-
   }
 
   private static void expiredCookie(HttpServletResponse response, String cookieName) {
