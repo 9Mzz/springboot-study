@@ -1,6 +1,6 @@
 package hello.login.web;
 
-import hello.login.domain.login.Login;
+import hello.login.domain.login.SessionConst;
 import hello.login.web.member.Member;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -12,20 +12,21 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 @Controller
 public class HomeController {
 
-  //  @GetMapping("/")
+/*  @GetMapping("/")
   public String home() {
     return "home";
-  }
+  }*/
 
   @GetMapping("/")
-  public String sessionHome(
-      @SessionAttribute(name = SessionConst.SESSION_NAME, required = false) Member login,
+  public String home(
+      @SessionAttribute(name = SessionConst.SESSION_NAME, required = false) Member loginSession,
       Model model) {
-
-    if (login == null) {
+    log.info("session = {}", loginSession);
+    if (loginSession == null) {
       return "home";
     }
-    model.addAttribute("member", login);
+
+    model.addAttribute("member", loginSession);
 
     return "loginHome";
   }

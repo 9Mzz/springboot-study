@@ -15,6 +15,7 @@ public class MemberRepository {
   private static final Map<Long, Member> store    = new HashMap<>();
   private static       Long              sequence = 0L;
 
+
   public Member save(Member member) {
     member.setId(++sequence);
     store.put(member.getId(), member);
@@ -22,19 +23,18 @@ public class MemberRepository {
     return member;
   }
 
-  public Member findById(Long id) {
+  public Member findbyId(Long id) {
     return store.get(id);
   }
 
-  public List<Member> findAll() {
+  public List<Member> findByAll() {
     return new ArrayList<>(store.values());
   }
 
   public Optional<Member> findByLoginId(String loginId) {
-    return findAll().stream()
+    return findByAll().stream()
         .filter(member -> member.getLoginId()
             .equals(loginId))
         .findFirst();
   }
-
 }

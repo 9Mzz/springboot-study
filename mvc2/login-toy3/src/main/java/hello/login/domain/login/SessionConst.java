@@ -1,4 +1,4 @@
-package hello.login.web;
+package hello.login.domain.login;
 
 public interface SessionConst {
 

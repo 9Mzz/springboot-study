@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @Controller
-@RequiredArgsConstructor
 @RequestMapping("/members")
+@RequiredArgsConstructor
 public class MemberController {
 
   private final MemberRepository memberRepository;
@@ -33,6 +34,7 @@ public class MemberController {
     if (bindingResult.hasErrors()) {
       return "members/addMemberForm";
     }
+
     memberRepository.save(member);
 
     return "redirect:/";

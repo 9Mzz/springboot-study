@@ -30,7 +30,6 @@ public class TestDataInit {
     member.setName("testName");
     memberRepository.save(member);
 
-
   }
 
 }
