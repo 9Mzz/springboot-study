@@ -29,7 +29,8 @@ public class LoginController {
 
   @PostMapping("/login")
   public String login(@Validated @ModelAttribute("loginForm") Login login,
-      BindingResult bindingResult, HttpSession session) {
+      BindingResult bindingResult,
+      HttpSession session) {
 
     if (bindingResult.hasErrors()) {
       return "/login/loginForm";
