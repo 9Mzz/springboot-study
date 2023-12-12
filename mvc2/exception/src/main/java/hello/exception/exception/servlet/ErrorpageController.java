@@ -1,13 +1,10 @@
 package hello.exception.exception.servlet;
 
-import jakarta.servlet.DispatcherType;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.lang.ref.ReferenceQueue;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.util.NestedServletException;
 
 @Slf4j
 @Controller
