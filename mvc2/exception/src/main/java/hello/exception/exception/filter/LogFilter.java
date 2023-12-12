@@ -20,23 +20,20 @@ public class LogFilter implements Filter {
   }
 
   @Override
-  public void doFilter(ServletRequest request, ServletResponse response,
-      FilterChain chain) throws IOException, ServletException {
+  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+      throws IOException, ServletException {
     HttpServletRequest httpRequest = (HttpServletRequest) request;
     String             requestURI  = httpRequest.getRequestURI();
     String uuid = UUID.randomUUID()
         .toString();
     try {
-      log.info("REQUEST [{}][{}][{}]", uuid,
-               request.getDispatcherType(), requestURI);
+      log.info("REQUEST [{}][{}][{}]", uuid, request.getDispatcherType(), requestURI);
       chain.doFilter(request, response);
     } catch (Exception e) {
-
       log.info("Exception ! : {}", e.getMessage());
       throw e;
     } finally {
-      log.info("RESPONSE [{}][{}][{}]", uuid,
-               request.getDispatcherType(), requestURI);
+      log.info("RESPONSE [{}][{}][{}]", uuid, request.getDispatcherType(), requestURI);
     }
   }
 
