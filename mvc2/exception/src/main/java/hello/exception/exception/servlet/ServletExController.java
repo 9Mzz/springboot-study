@@ -1,4 +1,4 @@
-package hello.exception.exception;
+package hello.exception.exception.servlet;
 
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
