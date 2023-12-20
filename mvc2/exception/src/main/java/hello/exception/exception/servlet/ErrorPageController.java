@@ -36,22 +36,7 @@ public class ErrorPageController {
     errorCheck(request);
     return "error-page/500";
   }
-
-  @RequestMapping(value = "/error-page/500", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Map<String, Object>> errorPage500Api(HttpServletRequest request,
-      HttpServletResponse response) {
-    log.info("api errorPage 500");
-
-    Map<String, Object> result = new HashMap<>();
-    Exception           ex     = (Exception) request.getAttribute(ERROR_EXCEPTION);
-    result.put("status", request.getAttribute(ERROR_STATUS_CODE));
-    result.put("message", ex.getMessage());
-    log.info("result Map = {}", result);
-
-    Integer statusCode = (Integer) request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-    return new ResponseEntity<>(result, HttpStatusCode.valueOf(statusCode));
-  }
-
+  
   public void errorCheck(HttpServletRequest request) {
     log.info("ERROR_EXCEPTION: {}", request.getAttribute(ERROR_EXCEPTION));
     log.info("ERROR_EXCEPTION_TYPE: {}", request.getAttribute(ERROR_EXCEPTION_TYPE));
