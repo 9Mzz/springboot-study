@@ -20,7 +20,9 @@ public class ApiExceptionController {
     if (id.equals("ex")) {
       throw new RuntimeException("런타임 오류 발생, 잘못된 사용자");
     }
-
+    if (id.equals("bad")) {
+      throw new IllegalArgumentException("잘못된 사용자");
+    }
     return new MemberDto(id, "hello " + id);
   }
 
