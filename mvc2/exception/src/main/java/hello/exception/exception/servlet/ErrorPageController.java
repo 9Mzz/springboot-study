@@ -3,8 +3,10 @@ package hello.exception.exception.servlet;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.rmi.MarshalledObject;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.DoubleConsumer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
@@ -36,7 +38,23 @@ public class ErrorPageController {
     errorCheck(request);
     return "error-page/500";
   }
-  
+
+  // produces = MediaType.APPLICATION_JSON_VALUE) = Type에 따라서 어떻게 호출될지 정함
+  @RequestMapping(value = "/error-page/500", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Map<String, Object>> errorPage500Api(HttpServletRequest request,
+      HttpServletResponse response) {
+    log.info("Api ErrorPage 500");
+    Map<String, Object> result = new HashMap<>();
+    Exception           ex     = (Exception) request.getAttribute(ERROR_EXCEPTION);
+    result.put("status", request.getAttribute(ERROR_STATUS_CODE));
+    result.put("message", ex.getMessage());
+
+    //RequestDispatcher 안에 위의 상수들(ERROR_STATUS_CODE 등)이 다 정의돼있음.
+    Integer statusCode = (Integer) request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+    return new ResponseEntity<>(result, HttpStatusCode.valueOf(statusCode));
+  }
+
+
   public void errorCheck(HttpServletRequest request) {
     log.info("ERROR_EXCEPTION: {}", request.getAttribute(ERROR_EXCEPTION));
     log.info("ERROR_EXCEPTION_TYPE: {}", request.getAttribute(ERROR_EXCEPTION_TYPE));
