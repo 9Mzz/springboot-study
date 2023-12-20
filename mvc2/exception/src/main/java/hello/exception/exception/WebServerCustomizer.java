@@ -4,8 +4,9 @@ import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 
-//@Component
+@Component
 public class WebServerCustomizer implements
     WebServerFactoryCustomizer<ConfigurableWebServerFactory> {
 
@@ -17,7 +18,5 @@ public class WebServerCustomizer implements
     ErrorPage errorPageEx  = new ErrorPage(RuntimeException.class, "/error-page/500");
 
     factory.addErrorPages(errorPage404, errorPage500, errorPageEx);
-
-
   }
 }
