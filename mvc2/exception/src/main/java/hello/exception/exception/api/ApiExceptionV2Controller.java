@@ -32,7 +32,6 @@ public class ApiExceptionV2Controller {
     return new ResponseEntity<>(errorResult, HttpStatus.BAD_REQUEST);
   }
 
-
   @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
   @ExceptionHandler
   public ErrorResult exHandler(RuntimeException e) {
