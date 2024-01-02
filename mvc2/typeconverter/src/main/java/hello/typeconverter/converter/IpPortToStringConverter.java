@@ -1,4 +1,4 @@
-package hello.typeconverter.controller;
+package hello.typeconverter.converter;
 
 import ch.qos.logback.classic.Logger;
 import hello.typeconverter.type.IpPort;

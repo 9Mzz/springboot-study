@@ -1,11 +1,9 @@
 package hello.typeconverter.converter;
 
-import hello.typeconverter.controller.IpPortToStringConverter;
 import hello.typeconverter.type.IpPort;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.convert.support.DefaultConversionService;
-import org.springframework.scheduling.support.SimpleTriggerContext;
 
 public class ConversionServiceTest {
 
