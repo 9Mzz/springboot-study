@@ -13,8 +13,8 @@ public class MyNumberFormatter implements Formatter<Number> {
   public Number parse(String text, Locale locale) throws ParseException {
     log.info("text = {}, locale = {} ", text, locale);
     // String "1,000" -> 1000
-    NumberFormat format = NumberFormat.getInstance(locale);
-    return format.parse(text);
+    return NumberFormat.getInstance(locale)
+        .parse(text);
   }
 
   @Override
