@@ -39,7 +39,6 @@ public class SpringUploadController {
       //파일을 경로에다가 저장해줌
       file.transferTo(new File(fullPath));
     }
-    
 
     return "upload-form";
   }
