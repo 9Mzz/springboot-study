@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 //implementation 'org.springframework.boot:spring-boot-starter-aop'
 
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class TimeTraceAop {
 
   @Around("execution(* hello.upload01..*(..))")

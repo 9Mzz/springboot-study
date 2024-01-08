@@ -30,8 +30,8 @@ import org.springframework.web.util.UriUtils;
 @RequiredArgsConstructor
 public class ItemController {
 
-  private final FileUpload     fileUpload;
   private final FileRepository fileRepository;
+  private final FileUpload fileUpload;
 
   @GetMapping("/items/new")
   public String itemForm(@ModelAttribute ItemForm itemForm) {
@@ -40,47 +40,50 @@ public class ItemController {
   }
 
   @PostMapping("/items/new")
-  public String itemUpload(@ModelAttribute ItemForm itemForm, RedirectAttributes redirectAttributes) throws IOException {
-    ItemSave       attachFile = fileUpload.saveFile(itemForm.getAttachFile());
-    List<ItemSave> imageFiles = fileUpload.saveFiles(itemForm.getImageFiles());
-    Item           item       = new Item();
-    item.setItemName(itemForm.getItemName());
-    item.setAttachFile(attachFile);
-    item.setImageFiles(imageFiles);
-    fileRepository.save(item);
+  public String itemUpload(@ModelAttribute("itemForm") ItemForm itemForm, RedirectAttributes redirectAttributes) throws IOException {
+    log.info("itemForm = {}", itemForm);
 
-    redirectAttributes.addAttribute("itemId", item.getId());
+    ItemSave attchFile = fileUpload.saveFile(itemForm.getAttachFile());
+    List<ItemSave> imageFiles = fileUpload.saveFiles(itemForm.getImageFiles());
+
+    Item item = new Item();
+    item.setItemName(itemForm.getItemName());
+    item.setAttachFile(attchFile);
+    item.setImageFiles(imageFiles);
+    Item save = fileRepository.save(item);
+    redirectAttributes.addAttribute("itemId", save.getId());
 
     return "redirect:/items/{itemId}";
   }
 
   @GetMapping("/items/{itemId}")
-  public String itemUploadResult(@PathVariable("itemId") Long itemId, Model model) {
+  public String uploadResult(@PathVariable("itemId") Long itemId, Model model) {
     Item item = fileRepository.findById(itemId);
     model.addAttribute("item", item);
-
     return "item-view";
   }
 
   @ResponseBody
-  @GetMapping("/images/{fileName}")
-  public Resource getImageFile(@PathVariable("fileName") String fileName) throws MalformedURLException {
+  @GetMapping("/images/{imageFileName}")
+  public Resource loadImages(@PathVariable("imageFileName") String imageFileName) throws MalformedURLException {
+    log.info("imageFileName = {}", fileUpload.getFullPath(imageFileName));
 
-    return new UrlResource("file:" + fileUpload.getFullPath(fileName));
+    return new UrlResource("file:" + fileUpload.getFullPath(imageFileName));
   }
 
   @GetMapping("/attach/{itemId}")
-  public ResponseEntity<Resource> getattchFile(@PathVariable("itemId") Long itemId) throws MalformedURLException {
+  public ResponseEntity<Resource> loadAttch(@PathVariable("itemId") Long itemId) throws MalformedURLException {
     Item item = fileRepository.findById(itemId);
     String storeFileName = item.getAttachFile()
                                .getStoreFileName();
     String uploadFileName = item.getAttachFile()
                                 .getUploadFileName();
-    String      encodedFileName    = UriUtils.encode(uploadFileName, StandardCharsets.UTF_8);
-    UrlResource urlResource        = new UrlResource("file:" + fileUpload.getFullPath(storeFileName));
-    String      contentDiscription = "attachment; filename=\"" + encodedFileName + "\"";
+    UrlResource urlResource       = new UrlResource("file:" + fileUpload.getFullPath(storeFileName));
+    String      encodedFileName   = UriUtils.encode(uploadFileName, StandardCharsets.UTF_8);
+    String      stringDiscription = "attachment; filename=\"" + encodedFileName + "\"";
+
     return ResponseEntity.ok()
-                         .header(HttpHeaders.CONTENT_DISPOSITION, contentDiscription)
+                         .header(HttpHeaders.CONTENT_DISPOSITION, stringDiscription)
                          .body(urlResource);
   }
 
