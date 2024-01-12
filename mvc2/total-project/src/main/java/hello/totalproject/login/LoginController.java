@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @Controller
@@ -24,7 +25,9 @@ public class LoginController {
   }
 
   @PostMapping("/login")
-  public String loginAct(@Validated @ModelAttribute("loginForm") Login login, BindingResult bindingResult, HttpSession session) {
+  public String loginAct(@Validated @ModelAttribute("loginForm") Login login, BindingResult bindingResult,
+      @RequestParam("requestURL") String requestURL,
+      HttpSession session) {
     Member member = loginService.LoginAction(login.getLoginId(), login.getPassword());
     if(member == null) {
       bindingResult.reject("loginError", "로그인 오류");
@@ -34,7 +37,7 @@ public class LoginController {
       return "login/loginForm";
     }
     session.setAttribute(SessionConst.SESSION_NAME, member);
-    return "redirect:/";
+    return "redirect:" + requestURL;
   }
 
   @PostMapping("/logout")
