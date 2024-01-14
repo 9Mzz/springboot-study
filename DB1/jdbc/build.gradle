@@ -30,6 +30,7 @@ dependencies {
 //테스트에서 lombok 사용
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
+//http://localhost:8082/login.jsp?jsessionid=d52d574a36581344390b355e7b38b76b
 }
 
 tasks.named('test') {
