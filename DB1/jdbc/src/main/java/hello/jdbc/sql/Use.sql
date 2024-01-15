@@ -1,32 +1,4 @@
 -----------------------------------------------
-set
-autocommit true;
-delete
-from member;
-insert into member(member_id, money)
-values ('memberA', 10000);
-
--- Set 1 - 세션 1
-Set
-autocommit false;
-update member
-set money=500
-where member_id = 'memberA';
-
--- Set 2 - 세션 2
-SET
-LOCK_TIMEOUT 60000;
-set
-autocommit false;
-update member
-set money=1000
-where member_id = 'memberA';
-
--- Set 3 - 세션 1
-commit;
-
-
------------------------------------------------
 drop table member if exists;
 create table member
 (
@@ -58,4 +30,32 @@ rollback;
 commit;
 
 --h2 기본 위치
-C:\javaStudy\h2\bin
+-- C:\javaStudy\h2\bin;
+
+-- DB 락 - 변경
+-- DB 락 - 조회
+set
+autocommit true;
+delete
+from member;
+insert into member(member_id, money)
+values ('memberA', 10000);
+
+-- Set 1 - 세션 1
+Set
+autocommit false;
+update member
+set money=500
+where member_id = 'memberA';
+
+-- Set 2 - 세션 2
+SET
+LOCK_TIMEOUT 60000;
+set
+autocommit false;
+update member
+set money=1000
+where member_id = 'memberA';
+
+-- Set 3 - 세션 1
+commit;
