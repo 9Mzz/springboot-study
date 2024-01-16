@@ -15,7 +15,6 @@ import java.sql.SQLException;
 public class MemberServiceV3_2 {
 
 
-    //    private final PlatformTransactionManager transactionManager;
     private final TransactionTemplate txTemplate;
     private final MemberRepositoryV3  memberRepository;
 
@@ -42,8 +41,6 @@ public class MemberServiceV3_2 {
         validation(toMember);
         memberRepository.update(toId, toMember.getMoney() + money);
     }
-
-    //Spring이 release를 알아서 해 준다.
 
     private static void validation(Member toMember) {
         if(toMember.getMemberId().equals("ex")) {

@@ -49,8 +49,6 @@ public class MemberServiceV3_1 {
         memberRepository.update(toId, toMember.getMoney() + money);
     }
 
-    //Spring이 release를 알아서 해 준다.
-
     private static void validation(Member toMember) {
         if(toMember.getMemberId().equals("ex")) {
             throw new IllegalStateException("이체중 예외 발생");

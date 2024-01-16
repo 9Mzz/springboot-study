@@ -16,23 +16,11 @@ import java.sql.SQLException;
 @RequiredArgsConstructor
 public class MemberServiceV3_3 {
 
-
-    //    private final PlatformTransactionManager transactionManager;
     private final MemberRepositoryV3 memberRepository;
 
-    private static void validation(Member toMember) {
-        if(toMember.getMemberId().equals("ex")) {
-            throw new IllegalStateException("이체중 예외 발생");
-        }
-    }
-
     public void accountTransfer(String fromId, String toId, int money) throws SQLException {
-
         bizLogic(fromId, toId, money);
-
     }
-
-    //Spring이 release를 알아서 해 준다.
 
     private void bizLogic(String fromId, String toId, int money) throws SQLException {
         //시작
@@ -41,6 +29,12 @@ public class MemberServiceV3_3 {
         memberRepository.update(fromId, fromMember.getMoney() - money);
         validation(toMember);
         memberRepository.update(toId, toMember.getMoney() + money);
+    }
+
+    private static void validation(Member toMember) {
+        if(toMember.getMemberId().equals("ex")) {
+            throw new IllegalStateException("이체중 예외 발생");
+        }
     }
 
 

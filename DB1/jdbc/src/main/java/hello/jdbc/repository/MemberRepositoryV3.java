@@ -108,7 +108,6 @@ public class MemberRepositoryV3 {
         JdbcUtils.closeStatement(stmt);
         //트랜잭션 동기화를 사용하려면 DataSourceUtils를 사용해야 한다.
         DataSourceUtils.releaseConnection(con, dataSource);
-        //        JdbcUtils.closeConnection(con);
     }
 
     private Connection getConnection() throws SQLException {

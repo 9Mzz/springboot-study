@@ -19,11 +19,6 @@ public class MemberServiceV2 {
     private final DataSource         dataSource;
     private final MemberRepositoryV2 memberRepository;
 
-    /**
-     * @param fromId
-     * @param toId
-     * @param money
-     */
     public void accountTransfer(String fromId, String toId, int money) throws SQLException {
         Connection con = dataSource.getConnection();
         try {
@@ -59,8 +54,6 @@ public class MemberServiceV2 {
                 con.close();
             } catch (Exception e) {
                 log.error("error e", e);
-            } finally {
-
             }
         }
     }
