@@ -1,6 +1,7 @@
 package hello.jdbc.service;
 
 import hello.jdbc.domain.Member;
+import hello.jdbc.repository.MemberRepositoryEx;
 import hello.jdbc.repository.MemberRepositoryV3;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +15,7 @@ import java.sql.SQLException;
 @Slf4j
 @Transactional
 @RequiredArgsConstructor
-public class MemberServiceV3_3 {
+public class MemberServiceV3_3  {
 
     private final MemberRepositoryV3 memberRepository;
 
@@ -32,7 +33,8 @@ public class MemberServiceV3_3 {
     }
 
     private static void validation(Member toMember) {
-        if(toMember.getMemberId().equals("ex")) {
+        if(toMember.getMemberId()
+                .equals("ex")) {
             throw new IllegalStateException("이체중 예외 발생");
         }
     }
