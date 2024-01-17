@@ -17,6 +17,18 @@ public class UnCheckedAppTest {
                 .isInstanceOf(RuntimeSqlException.class);
     }
 
+    @Test
+    void printEx() {
+        Controller controller = new Controller();
+
+        try {
+            controller.request();
+        } catch (Exception e) {
+            //            e.printStackTrace();
+            log.info("ex", e);
+        }
+
+    }
 
     static class Controller {
 
