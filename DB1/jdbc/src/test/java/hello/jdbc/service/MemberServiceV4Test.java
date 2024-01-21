@@ -15,7 +15,6 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
 import javax.sql.DataSource;
-import java.sql.SQLException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -57,8 +56,6 @@ class MemberServiceV4Test {
         MemberServiceV4 memberServiceV4() {
             return new MemberServiceV4(memberRepository());
         }
-
-
     }
 
     @AfterEach
@@ -80,7 +77,7 @@ class MemberServiceV4Test {
 
     @Test
     @DisplayName("정상 이체")
-    void accountTransfer()  {
+    void accountTransfer() {
         //given
         Member memberA = new Member("memberA", 10000);
         Member memberB = new Member("memberB", 10000);
