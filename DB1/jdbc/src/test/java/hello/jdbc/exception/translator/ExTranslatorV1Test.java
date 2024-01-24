@@ -35,7 +35,6 @@ public class ExTranslatorV1Test {
     void duplicateKeySave() {
         service.create("myId");
         service.create("myId");
-
     }
 
 
@@ -64,7 +63,6 @@ public class ExTranslatorV1Test {
         }
     }
 
-
     @RequiredArgsConstructor
     static class Repository {
         private final DataSource dataSource;
@@ -92,12 +90,7 @@ public class ExTranslatorV1Test {
                 JdbcUtils.closeStatement(pstmt);
                 JdbcUtils.closeConnection(con);
             }
-
         }
     }
 
-    @Test
-    void test() {
-
-    }
 }
