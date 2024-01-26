@@ -86,8 +86,7 @@ public class MemberRepositoryV4_2 implements MemberRepository {
             close(con, pstmt, null);
         }
     }
-
-
+    
     @Override
     public void delete(String memberId) {
         String            sql   = "delete from member where member_id=?";
