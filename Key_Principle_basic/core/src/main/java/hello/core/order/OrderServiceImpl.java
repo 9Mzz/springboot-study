@@ -1,7 +1,7 @@
 package hello.core.order;
 
 import hello.core.discount.DiscountPolicy;
-import hello.core.discount.FixDiscountPolicy;
+import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
@@ -9,7 +9,10 @@ import hello.core.member.MemoryMemberRepository;
 public class OrderServiceImpl implements OrderSerivce {
 
     private final MemberRepository repository     = new MemoryMemberRepository();
-    private final DiscountPolicy   discountPolicy = new FixDiscountPolicy();
+    //고정 할인
+    //    private final DiscountPolicy   discountPolicy = new FixDiscountPolicy();
+    // % 할인
+    private final DiscountPolicy   discountPolicy = new RateDiscountPolicy();
 
 
     @Override
