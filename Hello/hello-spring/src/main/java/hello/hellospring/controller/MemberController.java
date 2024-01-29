@@ -38,7 +38,6 @@ public class MemberController {
         System.out.println("member.getName() = " + member.getName());
 
         return "redirect:/";
-
     }
 
     @GetMapping("/members")
@@ -46,7 +45,6 @@ public class MemberController {
 
         List<Member> members = memberService.findMembers();
         model.addAttribute("members", members);
-
 
         return "members/memberList";
     }

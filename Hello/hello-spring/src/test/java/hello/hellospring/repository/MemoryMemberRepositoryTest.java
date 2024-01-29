@@ -12,14 +12,13 @@ public class MemoryMemberRepositoryTest {
     MemoryMemberRepository repository = new MemoryMemberRepository();
 
     @AfterEach
-    public void clearStore(){
+    public void clearStore() {
 
         repository.clearStore();
-
     }
 
     @Test
-    public void save(){
+    public void save() {
 
         Member member = new Member();
 
@@ -28,16 +27,17 @@ public class MemoryMemberRepositoryTest {
         repository.save(member);
 
         //Optional은 .get으로 꺼내기 가능
-       Member result =  repository.findById(member.getId()).get();
+        Member result = repository.findById(member.getId())
+                .get();
 
         System.out.println("result = " + (result == member));
-
-        Assertions.assertThat(member).isEqualTo(result);
+        Assertions.assertThat(member)
+                .isEqualTo(result);
 
     }
 
     @Test
-    public void findbyName(){
+    public void findbyName() {
 
         //g
         Member member1 = new Member();
@@ -49,16 +49,18 @@ public class MemoryMemberRepositoryTest {
         repository.save(member2);
 
         //w
-        Member result = repository.findByName("spring1").get();
+        Member result = repository.findByName("spring1")
+                .get();
         System.out.println("result = " + result);
 
         //t
-        Assertions.assertThat(result).isEqualTo(member1);
+        Assertions.assertThat(result)
+                .isEqualTo(member1);
 
     }
 
     @Test
-    public void findAll(){
+    public void findAll() {
 
         //g
         Member member1 = new Member();
@@ -71,14 +73,11 @@ public class MemoryMemberRepositoryTest {
 
         //w
         List<Member> result = repository.findAll();
-
         System.out.println("result = " + result);
 
         //t
-        Assertions.assertThat(result.size()).isEqualTo(2);
-
-
-
+        Assertions.assertThat(result.size())
+                .isEqualTo(2);
     }
 
 

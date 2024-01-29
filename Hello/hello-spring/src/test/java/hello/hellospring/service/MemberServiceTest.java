@@ -2,16 +2,13 @@ package hello.hellospring.service;
 
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemoryMemberRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MemberServiceTest {
 
@@ -22,9 +19,8 @@ class MemberServiceTest {
     @BeforeEach
     public void before() {
         memberRepository = new MemoryMemberRepository();
-        memberService    = new MemberService(memberRepository);
+        memberService = new MemberService(memberRepository);
     }
-
 
     @AfterEach
     public void clearStore() {
@@ -42,7 +38,8 @@ class MemberServiceTest {
         Long saveId = memberService.join(member);
 
         //then
-        Member result = memberService.findOne(saveId).get();
+        Member result = memberService.findOne(saveId)
+                .get();
         assertThat(member.getName()).isEqualTo(result.getName());
     }
 
@@ -57,29 +54,7 @@ class MemberServiceTest {
         Member member2 = new Member();
         member2.setName("spring");
 
-
         memberService.join(member1);
-
         IllegalStateException e = assertThrows(IllegalStateException.class, () -> memberService.join(member2));
-
-
-    }
-
-    @Test
-    void findMembers() {
-        //given
-
-        //when
-
-        //then
-    }
-
-    @Test
-    void findOne() {
-        //given
-
-        //when
-
-        //then
     }
 }
