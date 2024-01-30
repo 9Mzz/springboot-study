@@ -58,8 +58,6 @@ public class ApplicationContextSameBeanFindTest {
         public MemberRepository memberRepository2() {
             return new MemoryMemberRepository();
         }
-
-
     }
 
 
