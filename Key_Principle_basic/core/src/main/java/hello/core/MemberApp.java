@@ -9,9 +9,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class MemberApp {
     //psvm
     public static void main(String[] args) {
-        //        AppConfig     appConfig = new AppConfig();
-        //        MemberService service   = appConfig.memberService();
-        //        MemberService service = new MemberServiceImpl();
 
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
         MemberService      memberservice      = applicationContext.getBean("memberService", MemberService.class);
