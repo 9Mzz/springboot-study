@@ -3,20 +3,21 @@ package hello.core.order;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-@Component("service")
+@Component
+@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderSerivce {
 
     private final MemberRepository memberRepository;
     private final DiscountPolicy   discountPolicy;
 
-    @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
-        this.memberRepository = memberRepository;
-        this.discountPolicy = discountPolicy;
-    }
+    //    @Autowired
+    //    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+    //        this.memberRepository = memberRepository;
+    //        this.discountPolicy = discountPolicy;
+    //    }
 
 
     @Override
