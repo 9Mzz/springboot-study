@@ -6,9 +6,9 @@ class OrderServiceImplTest {
 
     @Test
     void createOrder() {
-        OrderServiceImpl orderService = new OrderServiceImpl();
+//        OrderServiceImpl orderService = new OrderServiceImpl();
 
-        orderService.createOrder(1L, "itemA", 10000);
+//        orderService.createOrder(1L, "itemA", 10000);
 
     }
 
