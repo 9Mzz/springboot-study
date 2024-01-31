@@ -6,8 +6,8 @@ import hello.core.member.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-    @Component
-    public class OrderServiceImpl implements OrderSerivce {
+@Component("service")
+public class OrderServiceImpl implements OrderSerivce {
 
     private final MemberRepository memberRepository;
     private final DiscountPolicy   discountPolicy;
