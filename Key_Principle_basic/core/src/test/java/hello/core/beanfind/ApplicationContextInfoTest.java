@@ -18,7 +18,7 @@ public class ApplicationContextInfoTest {
         for (String beanDefinitionName : beanDefinitionNames) {
             Object bean = ac.getBean(beanDefinitionName);
             System.out.println("beanDefinitionName = " + beanDefinitionName + ", object = " + bean);
-            Thread.sleep(500);
+//            Thread.sleep(500);
         }
     }
 
@@ -32,7 +32,7 @@ public class ApplicationContextInfoTest {
             if(beanDefinition.getRole() == BeanDefinition.ROLE_APPLICATION) {
                 Object bean = ac.getBean(beanDefinitionName);
                 System.out.println("beanDefinitionName = " + beanDefinitionName + ", object = " + bean);
-                Thread.sleep(500);
+//                Thread.sleep(500);
             }
         }
     }
