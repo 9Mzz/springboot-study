@@ -29,7 +29,18 @@ public class NetworkClient {
         System.out.println("close : " + url);
     }
 
-    
+
+    public void init() {
+        System.out.println("NetworkClient.init");
+        connect();
+        call("초기화 연결 메세지");
+    }
+
+    public void close() {
+        System.out.println("NetworkClient.close");
+        disconnect();
+    }
+
 
 /*
     InitializingBean - 의존관계가 끝나고 호출해줌
