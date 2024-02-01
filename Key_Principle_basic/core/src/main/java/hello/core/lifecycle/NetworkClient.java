@@ -5,7 +5,7 @@ import org.springframework.beans.factory.InitializingBean;
 
 //InitializingBean - 의존관계가 끝나고 호출해줌
 //DisposableBean - Bean이 종료될 때 호출
-public class NetworkClient implements InitializingBean, DisposableBean {
+public class NetworkClient {
 
     private String url;
 
@@ -32,7 +32,7 @@ public class NetworkClient implements InitializingBean, DisposableBean {
         System.out.println("close : " + url);
     }
 
-    @Override
+/*    @Override
     public void afterPropertiesSet() throws Exception {
         System.out.println("NetworkClient.afterPropertiesSet");
         connect();
@@ -43,5 +43,5 @@ public class NetworkClient implements InitializingBean, DisposableBean {
     public void destroy() throws Exception {
         System.out.println("NetworkClient.destroy");
         disconnect();
-    }
+    }*/
 }
