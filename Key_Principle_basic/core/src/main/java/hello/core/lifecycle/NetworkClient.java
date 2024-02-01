@@ -29,7 +29,8 @@ public class NetworkClient {
         System.out.println("close : " + url);
     }
 
-
+/*
+    //빈 등록 초기화, 소멸 메서드 지정
     public void init() {
         System.out.println("NetworkClient.init");
         connect();
@@ -40,6 +41,7 @@ public class NetworkClient {
         System.out.println("NetworkClient.close");
         disconnect();
     }
+*/
 
 
 /*
