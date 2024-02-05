@@ -1,5 +1,8 @@
 package hello.core.lifecycle;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+
 //InitializingBean - 의존관계가 끝나고 호출해줌
 //DisposableBean - Bean이 종료될 때 호출
 public class NetworkClient {
@@ -27,6 +30,19 @@ public class NetworkClient {
     //서비스 종료 시 호출
     public void disconnect() {
         System.out.println("close : " + url);
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("NetworkClient.init");
+        connect();
+        call("초기화 연결 메세지");
+    }
+
+    @PreDestroy
+    public void close() {
+        System.out.println("NetworkClient.close");
+        disconnect();
     }
 
 /*
