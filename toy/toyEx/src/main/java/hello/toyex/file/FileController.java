@@ -59,30 +59,31 @@ public class FileController {
 
 
     @ResponseBody
-    @GetMapping("/images/{fileName}")
-    public Resource getimageFile(@PathVariable("fileName") String fileName) throws MalformedURLException {
-        String fullPath = uploadLogic.fullPath(fileName);
+    @GetMapping("/images/{imageName}")
+    public Resource getImage(@PathVariable("imageName") String imageName) throws MalformedURLException {
+        String fullPath = uploadLogic.fullPath(imageName);
 
         return new UrlResource("file:" + fullPath);
     }
 
     @GetMapping("/attach/{itemId}")
-    public ResponseEntity<Resource> attachFile(@PathVariable("itemId") Long itemID) throws MalformedURLException {
-        Item item = itemRepository.findById(itemID);
+    public ResponseEntity<Resource> getAttachFile(@PathVariable("itemId") Long itemId) throws MalformedURLException {
+        Item item = itemRepository.findById(itemId);
         String uploadFileName = item.getAttachFile()
                 .getUploadFileName();
-        String encodeFileName     = UriUtils.encode(uploadFileName, StandardCharsets.UTF_8);
-        String contentDiscription = "attachment; filename = \"" + encodeFileName + "\"";
-
+        //저장할 파일 이름
+        String encodeFileName = UriUtils.encode(uploadFileName, StandardCharsets.UTF_8);
+        String DISPOSITION    = "attachment; filename=\"" + encodeFileName + "\"";
+        //서버에서 꺼낼 파일 이름
         String storeFileName = item.getAttachFile()
                 .getStoreFileName();
         String      fullPath    = uploadLogic.fullPath(storeFileName);
-        UrlResource urlResource = new UrlResource("file:"+ fullPath);
+        UrlResource urlResource = new UrlResource("file:" + fullPath);
+
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, contentDiscription)
+                .header(HttpHeaders.CONTENT_DISPOSITION, DISPOSITION)
                 .body(urlResource);
     }
-
 
     /**
      *
