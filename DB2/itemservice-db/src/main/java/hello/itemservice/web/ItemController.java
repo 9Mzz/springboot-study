@@ -28,7 +28,8 @@ public class ItemController {
 
     @GetMapping("/{itemId}")
     public String item(@PathVariable long itemId, Model model) {
-        Item item = itemService.findById(itemId).get();
+        Item item = itemService.findById(itemId)
+                .get();
         model.addAttribute("item", item);
         return "item";
     }
@@ -48,7 +49,8 @@ public class ItemController {
 
     @GetMapping("/{itemId}/edit")
     public String editForm(@PathVariable Long itemId, Model model) {
-        Item item = itemService.findById(itemId).get();
+        Item item = itemService.findById(itemId)
+                .get();
         model.addAttribute("item", item);
         return "editForm";
     }
