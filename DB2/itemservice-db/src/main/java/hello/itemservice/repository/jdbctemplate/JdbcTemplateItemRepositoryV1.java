@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
@@ -22,6 +23,7 @@ import java.util.Optional;
  * JdbcTemplate
  */
 @Slf4j
+@Repository
 public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
 
     private final JdbcTemplate template;
@@ -33,7 +35,7 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
 
     @Override
     public Item save(Item item) {
-        String    sql       = "insert into item(item_name, price, quantity) value(?, ?, ?)";
+        String    sql       = "insert into item(item_name, price, quantity) values (?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         template.update(con -> {
             //자동 증가 키
@@ -73,18 +75,18 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
         Integer maxPrice = cond.getMaxPrice();
 
         //동적 쿼리
-        if (StringUtils.hasText(itemName) || maxPrice != null) {
+        if(StringUtils.hasText(itemName) || maxPrice != null) {
             sql += " where";
         }
-        boolean andFlag = false;
-        List<Object> param = new ArrayList<>();
-        if (StringUtils.hasText(itemName)) {
+        boolean      andFlag = false;
+        List<Object> param   = new ArrayList<>();
+        if(StringUtils.hasText(itemName)) {
             sql += " item_name like concat('%',?,'%')";
             param.add(itemName);
             andFlag = true;
         }
-        if (maxPrice != null) {
-            if (andFlag) {
+        if(maxPrice != null) {
+            if(andFlag) {
                 sql += " and";
             }
             sql += " price <= ?";
