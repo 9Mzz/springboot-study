@@ -6,25 +6,25 @@ import hello.itemservice.repository.ItemUpdateDto;
 import hello.itemservice.repository.memory.MemoryItemRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.test.annotation.Commit;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
+@Commit
+@Transactional
 @SpringBootTest
 class ItemRepositoryTest {
 
     @Autowired
-    ItemRepository             itemRepository;
-    @Autowired
+    ItemRepository itemRepository;
+/*    @Autowired
     PlatformTransactionManager txManager;
     TransactionStatus status;
 
@@ -33,7 +33,7 @@ class ItemRepositoryTest {
         //트랜잭션 시작
         status = txManager.getTransaction(new DefaultTransactionDefinition());
 
-    }
+    }*/
 
     @AfterEach
     void afterEach() {
@@ -42,7 +42,7 @@ class ItemRepositoryTest {
             ((MemoryItemRepository) itemRepository).clearStore();
         }
         //트랜잭션 롤백
-        txManager.rollback(status);
+        //        txManager.rollback(status);
     }
 
     @Test
