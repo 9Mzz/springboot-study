@@ -25,14 +25,8 @@ dependencies {
 
     //JdbcTemplate 추가
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-<<<<<<< HEAD
-
-    //MyBatis 추가
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.2'
-=======
     //H2 데이터베이스 추가
     runtimeOnly 'com.h2database:h2'
->>>>>>> parent of fdf5a56 (MyBatis 적용1 - 기본)
 
     //Lombok 사용
     compileOnly 'org.projectlombok:lombok'
