@@ -30,7 +30,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 
     //MyBatis 추가
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.2'
 
     //Lombok 사용
     compileOnly 'org.projectlombok:lombok'
