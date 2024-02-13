@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
 
 @Import(MemoryConfig.class)
-@SpringBootApplication(scanBasePackages = "hello.itemservice")
+@SpringBootApplication(scanBasePackages = "hello.itemservice.web")
 public class ItemserviceApplication {
 
     public static void main(String[] args) {
