@@ -4,6 +4,7 @@ import hello.itemservice.repository.ItemRepository;
 import hello.itemservice.repository.jdbctemplate.JdbcTemplateItemRepositoryV1;
 import hello.itemservice.service.ItemService;
 import hello.itemservice.service.ItemServiceV1;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -17,11 +17,11 @@ import java.util.Optional;
 @Slf4j
 @Repository
 @Transactional
-public class JPAItemRepository implements ItemRepository {
+public class JPAItemRepositoryV1 implements ItemRepository {
 
     private final EntityManager em;
 
-    public JPAItemRepository(EntityManager em) {
+    public JPAItemRepositoryV1(EntityManager em) {
         this.em = em;
     }
 
@@ -47,7 +47,7 @@ public class JPAItemRepository implements ItemRepository {
 
     @Override
     public List<Item> findAll(ItemSearchCond cond) {
-        String  jpql     = "select i from Item i";
+        String  jpql     = "selectxxx i from Item i";
         Integer maxPrice = cond.getMaxPrice();
         String  itemName = cond.getItemName();
         if(StringUtils.hasText(itemName) || maxPrice != null) {
