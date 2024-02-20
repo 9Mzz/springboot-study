@@ -7,7 +7,8 @@ import javax.persistence.*;  //**
  * Date: 13. 5. 24. Time: 오후 7:43
  */
 @Entity
-@Table(name="MEMBER")
+@org.hibernate.annotations.DynamicUpdate
+@Table(name = "MEMBER")
 public class Member {
 
     @Id

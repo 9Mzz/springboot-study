@@ -1,6 +1,7 @@
 package jpabook.start;
 
 import javax.persistence.*;
+import javax.sql.DataSource;
 import java.util.List;
 
 /**
@@ -11,13 +12,13 @@ public class JpaMain {
     public static void main(String[] args) {
 
         //엔티티 매니저 팩토리 생성
+        //공장 만들기
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpabook");
         EntityManager em = emf.createEntityManager(); //엔티티 매니저 생성
-
+        em.setFlushMode(FlushModeType.AUTO);
         EntityTransaction tx = em.getTransaction(); //트랜잭션 기능 획득
 
         try {
-
 
             tx.begin(); //트랜잭션 시작
             logic(em);  //비즈니스 로직
@@ -29,7 +30,6 @@ public class JpaMain {
         } finally {
             em.close(); //엔티티 매니저 종료
         }
-
         emf.close(); //엔티티 매니저 팩토리 종료
     }
 
