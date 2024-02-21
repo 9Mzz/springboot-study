@@ -12,11 +12,9 @@ public class Member {
 
     @Id
     @Column(name = "ID")
-    private String id;
-
+    private String  id;
     @Column(name = "NAME")
-    private String username;
-
+    private String  username;
     private Integer age;
 
     //
