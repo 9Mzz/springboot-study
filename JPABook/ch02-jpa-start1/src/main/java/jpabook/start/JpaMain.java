@@ -7,7 +7,7 @@ import java.util.List;
  * @author holyeye
  */
 public class JpaMain {
-
+/*
     public static void main(String[] args) {
 
         //엔티티 매니저 팩토리 생성
@@ -40,17 +40,17 @@ public class JpaMain {
         Member memberA = new Member(id1, "지한", 20);
         Member memberB = new Member(id2, "영한", 25);
 
-        /**
-         * 등록
-         * Entity를 영속(1차 캐시에 저장) - DB에 저장되진 않았음.
-         */
+        *//**
+     * 등록
+     * Entity를 영속(1차 캐시에 저장) - DB에 저장되진 않았음.
+     *//*
         em.persist(memberA);
         em.persist(memberB);
 
-        /**
-         * 한 건 조회
-         * 1차 캐시에서 Entity를 조회, 없으면 DB에서 조회
-         */
+        *//**
+     * 한 건 조회
+     * 1차 캐시에서 Entity를 조회, 없으면 DB에서 조회
+     *//*
         Member findMemberA      = em.find(Member.class, id1);
         Member findMemberAClone = em.find(Member.class, id1);
         System.out.println("findMemberA = " + findMemberA);
@@ -77,5 +77,5 @@ public class JpaMain {
         em.remove(memberA);
         em.remove(memberB);
 
-    }
+    }*/
 }

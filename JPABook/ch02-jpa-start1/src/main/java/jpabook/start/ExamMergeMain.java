@@ -6,6 +6,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 public class ExamMergeMain {
+/*
 
     static EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpabook");
 
@@ -22,9 +23,11 @@ public class ExamMergeMain {
         EntityTransaction tx  = em1.getTransaction();
 
         tx.begin();
-        /**
-         * logic
-         */
+        */
+    /**
+     * logic
+     *//*
+
         Member member = new Member(id, userName, age);
 
         em1.persist(member);
@@ -53,6 +56,7 @@ public class ExamMergeMain {
         System.out.println("mergeMember contain mergeMember = " + em2.contains(mergeMember));
         em2.close();
     }
+*/
 
 
 }

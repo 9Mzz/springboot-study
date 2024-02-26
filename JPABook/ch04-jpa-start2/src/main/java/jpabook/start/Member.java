@@ -14,11 +14,12 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
-    private Long     member_id;
+    private Long    member_id;
     @Column(name = "NAME", nullable = false, length = 10) //추가 //**
     //    @Column(name = "NAME") //추가 //**
-    private String   username;
-    private Integer  age;
+    private String  username;
+    private Integer age;
+
     //=== 추가
     @Enumerated(EnumType.STRING)
     private RoleType roleType;

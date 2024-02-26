@@ -11,21 +11,24 @@ import javax.persistence.*;  //**
 public class Member {
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "MEMBER_ID")
     private String  id;
-    @Column(name = "NAME")
     private String  username;
-    private Integer age;
 
-    //
+    @ManyToOne  //다대일(N:1) 관계 증명
+    //생략 가능 -> 생략 시 기본 전략 ->  필드명 _ 참조 테이블 컬럼명 -> team_id
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
+
+    //const
     public Member() {
     }
 
-    public Member(String id, String username, Integer age) {
+    public Member(String id, String username) {
         this.id       = id;
         this.username = username;
-        this.age      = age;
     }
+
     //
 
     public String getId() {
@@ -44,17 +47,13 @@ public class Member {
         this.username = username;
     }
 
-    public Integer getAge() {
-        return age;
+
+    //TEAM G/S
+    public Team getTeam() {
+        return team;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-    //
-
-    @Override
-    public String toString() {
-        return "Member{" + "id='" + id + '\'' + ", username='" + username + '\'' + ", age=" + age + '}';
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }
