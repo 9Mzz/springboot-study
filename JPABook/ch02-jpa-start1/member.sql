@@ -4,4 +4,3 @@ CREATE TABLE MEMBER (
     AGE INTEGER NOT NULL,     --나이
     PRIMARY KEY (ID)
 )
-

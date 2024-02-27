@@ -3,22 +3,20 @@ package jpabook.start;
 import javax.persistence.*;  //**
 
 /**
- * User: HolyEyE
- * Date: 13. 5. 24. Time: 오후 7:43
+ * User: HolyEyE Date: 13. 5. 24. Time: 오후 7:43
  */
 @Entity
-@Table(name="MEMBER")
+@Table(name = "MEMBER")
 public class Member {
 
     @Id
     @Column(name = "ID")
-    private String id;
-
+    private String  id;
     @Column(name = "NAME")
-    private String username;
-
+    private String  username;
     private Integer age;
 
+    //g&s
     public String getId() {
         return id;
     }
