@@ -30,12 +30,12 @@ public class JpaMain {
 
     public static void logic(EntityManager em) {
         String id     = "id1";
-        Member member = new Member();
+        Member member = new Member();   //엔티티를 생성한 상태(비영속)
         member.setId(id);
         member.setUsername("지한");
         member.setAge(2);
 
-        //등록
+        //등록    //엔티티를 영속
         em.persist(member);
 
         //수정
