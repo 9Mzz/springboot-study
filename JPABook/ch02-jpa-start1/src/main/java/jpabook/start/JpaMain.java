@@ -21,7 +21,8 @@ public class JpaMain {
             //트랜잭션 시작 -> EntityManager 는 데이터 변경 시 트랜잭션을 시작해야 한다.
             tx.begin();
             //비즈니스 로직
-            logic(em);
+            boardLogic(em);
+            //            logic(em);
             //            testDetached(em);
             //트랜잭션 커밋
             tx.commit();
@@ -35,6 +36,13 @@ public class JpaMain {
         }
         //엔티티 매니저 팩토리 종료
         emf.close();
+    }
+
+    private static void boardLogic(EntityManager em) {
+        Board board = new Board();
+        em.persist(board);
+
+        System.out.println("board.getId() = " + board.getId());
     }
 
     private static void testDetached(EntityManager em) {
