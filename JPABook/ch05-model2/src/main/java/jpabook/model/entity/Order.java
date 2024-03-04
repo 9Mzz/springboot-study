@@ -12,22 +12,19 @@ import java.util.List;
 @Table(name = "ORDERS")
 public class Order {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "ORDER_ID")
-    private Long id;
-
+    private Long            id;
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
-    private Member member;      //주문 회원
-
+    private Member          member;      //주문 회원
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<OrderItem>();
-
     @Temporal(TemporalType.TIMESTAMP)
-    private Date orderDate;     //주문시간
-
+    private Date            orderDate;     //주문시간
     @Enumerated(EnumType.STRING)
-    private OrderStatus status;//주문상태
+    private OrderStatus     status;//주문상태
 
     //==연관관계 메서드==//
     public void setMember(Member member) {
@@ -83,10 +80,6 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", orderDate=" + orderDate +
-                ", status=" + status +
-                '}';
+        return "Order{" + "id=" + id + ", orderDate=" + orderDate + ", status=" + status + '}';
     }
 }
