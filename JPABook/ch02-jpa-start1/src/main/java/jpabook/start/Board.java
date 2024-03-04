@@ -2,13 +2,13 @@ package jpabook.start;
 
 import javax.persistence.*;
 
-@Entity
+//@Entity
 public class Board {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    @Column(name = "name", nullable = true)
+    //    @Id
+    //    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long   id;
+    //    @Column(name = "name", nullable = true)
     private String name;
 
 

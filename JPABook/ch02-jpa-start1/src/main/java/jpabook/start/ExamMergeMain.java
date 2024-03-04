@@ -10,14 +10,14 @@ public class ExamMergeMain {
     static EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpabook");
 
     public static void main(String[] args) {
-        Member member = createMember("memberA", "회원1", 30);
+        Member member = createMember(1L, "회원1", 30);
         member.setUsername("회원명 변경");
 
         mergeMember(member);
     }
 
 
-    private static Member createMember(String id, String userName, int age) {
+    private static Member createMember(Long id, String userName, int age) {
         EntityManager     em1 = emf.createEntityManager();
         EntityTransaction tx1 = em1.getTransaction();
         tx1.begin();
