@@ -1,8 +1,8 @@
 package jpabook.start;
 
-import com.sun.istack.Nullable;
-
-import javax.persistence.*;  //**
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User: HolyEyE Date: 13. 5. 24. Time: 오후 7:43
@@ -15,18 +15,30 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MEMBER_ID")
-    private Long    id;
+    private Long          id;
     @Column(name = "user_name")
-    private String  username;
-    private Integer age;
-    //주인
+    private String        username;
+    private Integer       age;
+    // n
+    @OneToOne(mappedBy = "member")
+    private Locker        locker;
     @ManyToOne
     @JoinColumn(name = "team_id")
-    private Team    team;
+    private Team          team;
+    @ManyToMany
+    @JoinTable(name = "member_product",
+               joinColumns = @JoinColumn(name = "member_id"),
+               inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private List<Product> products = new ArrayList<>();
+
+    public void addProduct(Product product) {
+        products.add(product);
+        product.getMembers().add(this);
+        System.out.println("product = " + product);
+
+    }
 
     //con
-
-
     public Member() {
     }
 
@@ -74,10 +86,19 @@ public class Member {
         this.team = team;
         team.getMembers().add(this);
     }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
     //
 
     @Override
     public String toString() {
-        return "Member{" + "id='" + id + '\'' + ", username='" + username + '\'' + ", age=" + age + '}';
+        return "Member{" + "id=" + id + ", username='" + username + '\'' + ", age=" + age + ", team=" + team + ", products=" + products + '}';
     }
 }
