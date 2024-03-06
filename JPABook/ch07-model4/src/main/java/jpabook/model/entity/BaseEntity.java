@@ -1,5 +1,7 @@
 package jpabook.model.entity;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Inheritance;
 import javax.persistence.MappedSuperclass;
 import java.util.Date;
 

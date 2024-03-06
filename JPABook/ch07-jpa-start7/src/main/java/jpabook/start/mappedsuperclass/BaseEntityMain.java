@@ -3,10 +3,7 @@ package jpabook.start.mappedsuperclass;
 import jpabook.start.item.Item;
 import jpabook.start.item.Movie;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 public class BaseEntityMain {
