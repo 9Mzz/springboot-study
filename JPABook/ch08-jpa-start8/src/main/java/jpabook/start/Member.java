@@ -1,14 +1,11 @@
 package jpabook.start;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * User: HolyEyE Date: 13. 5. 24. Time: 오후 7:43
  */
 @Entity
-//@org.hibernate.annotations.DynamicUpdate
 @Table(name = "member")
 public class Member {
 
@@ -21,8 +18,9 @@ public class Member {
     private Integer age;
     // n
 
-    @ManyToOne
-    @JoinColumn(name = "team_id")
+    @ManyToOne(fetch = FetchType.LAZY) //즉시 로딩
+    @JoinColumn(name = "team_id",
+                nullable = false)
     private Team team;
 
 

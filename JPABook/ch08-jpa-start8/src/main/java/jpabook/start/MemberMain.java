@@ -51,25 +51,23 @@ public class MemberMain {
     }
 
     private static void printUser(EntityManager em) {
-        System.out.println("MemberMain.printUser");
         Member findMember = em.find(Member.class, 1L);
         //        System.out.println("[printUser] 회원 이름 = " + findMember.getUsername());
     }
 
     private static void printUserAndTeam(EntityManager em) {
         Member findMember = em.find(Member.class, 1L);
-        Team   findTeam   = findMember.getTeam();
+        //객체 그래프 탐색
+        Team findTeam = findMember.getTeam();
+        //Team entity 사용
         System.out.println("[printUserAndTeam] 회원 이름 :  = " + findMember.getUsername());
         System.out.println("[printUserAndTeam] 소속팀 = " + findTeam.getName());
     }
 
     private static void printReference(EntityManager em) {
         Member findMember = em.getReference(Member.class, 1L);
-        //                Team   findTeam   = findMember.getTeam();
-        //        System.out.println("[before] findMember = " + findMember.getClass());
-        //        System.out.println("findMember = " + findMember);
-        //                System.out.println("findTeam = " + findTeam);
-        //        System.out.println("[after] findMember = " + findMember.getClass());
+        findMember.getTeam();
+
     }
 
     private static void findEquals(EntityManager em) {
