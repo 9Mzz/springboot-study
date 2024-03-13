@@ -13,7 +13,9 @@ public class Team {
     private Long         id;
     private String       name;
     //주인 x
-    @OneToMany(mappedBy = "team")
+    @OneToMany(mappedBy = "team",
+               cascade = CascadeType.ALL,
+               orphanRemoval = true)
     private List<Member> members = new ArrayList<Member>();
 
     //
@@ -29,6 +31,7 @@ public class Team {
         this.name = name;
     }
 
+    //
     public List<Member> getMembers() {
         return members;
     }

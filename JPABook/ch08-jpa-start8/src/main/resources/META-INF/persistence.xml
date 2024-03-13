@@ -3,6 +3,7 @@
 
     <persistence-unit name="jpabook">
 
+        <class>jpabook.start.Child</class>
         <properties>
 
             <!-- 필수 속성 -->

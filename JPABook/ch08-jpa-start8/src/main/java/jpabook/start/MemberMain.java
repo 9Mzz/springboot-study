@@ -8,14 +8,13 @@ public class MemberMain {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpabook");
         EntityManager        em  = emf.createEntityManager();
         EntityTransaction    tx  = em.getTransaction();
-
         try {
             tx.begin();
             //bm
             userSave(em);
-            //            printUser(em);
-            printUserAndTeam(em);
-            //            printReference(em);
+            printUser(em);
+            //            printUserAndTeam(em);
+            printReference(em);
             //            findEquals(em);
 
             tx.commit();
@@ -42,17 +41,14 @@ public class MemberMain {
         memberA.setTeam(teamA);
         em.persist(memberA);
 
-
         //DB에 변동값 저장 후 1차캐시 끊기
         em.flush();
         em.clear();
-
-
     }
 
     private static void printUser(EntityManager em) {
         Member findMember = em.find(Member.class, 1L);
-        //        System.out.println("[printUser] 회원 이름 = " + findMember.getUsername());
+        System.out.println("[printUser] 회원 이름 = " + findMember.getUsername());
     }
 
     private static void printUserAndTeam(EntityManager em) {
@@ -62,11 +58,13 @@ public class MemberMain {
         //Team entity 사용
         System.out.println("[printUserAndTeam] 회원 이름 :  = " + findMember.getUsername());
         System.out.println("[printUserAndTeam] 소속팀 = " + findTeam.getName());
+
     }
 
     private static void printReference(EntityManager em) {
         Member findMember = em.getReference(Member.class, 1L);
         findMember.getTeam();
+        System.out.println("[printReference] findMember = " + findMember.getClass());
 
     }
 

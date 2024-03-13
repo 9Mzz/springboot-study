@@ -2,9 +2,6 @@ package jpabook.start;
 
 import javax.persistence.*;
 
-/**
- * User: HolyEyE Date: 13. 5. 24. Time: 오후 7:43
- */
 @Entity
 @Table(name = "member")
 public class Member {
@@ -16,13 +13,12 @@ public class Member {
     @Column(name = "user_name")
     private String  username;
     private Integer age;
-    // n
 
-    @ManyToOne(fetch = FetchType.LAZY) //즉시 로딩
+    // n
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id",
                 nullable = false)
     private Team team;
-
 
     //con
     public Member() {
@@ -73,7 +69,6 @@ public class Member {
         team.getMembers().add(this);
     }
     //
-
 
     @Override
     public String toString() {
