@@ -22,7 +22,7 @@ public class Member extends BaseEntity {
     private String zipcode;
 
     @OneToMany(mappedBy = "member")
-    private List<Order> orders = new ArrayList<Order>();
+    private List<Order> orders = new ArrayList<Order>();z
 
     //Getter, Setter
 
