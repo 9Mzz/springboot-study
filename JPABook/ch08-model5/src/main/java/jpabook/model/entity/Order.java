@@ -31,7 +31,7 @@ public class Order extends BaseEntity {
     private Delivery delivery;  //배송정보
 
     private Date orderDate;     //주문시간
-    
+
     @Enumerated(EnumType.STRING)
     private OrderStatus status;//주문상태
 
