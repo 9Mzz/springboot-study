@@ -1,59 +1,29 @@
 package jpabook.start;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.print.attribute.standard.MediaSize;
 
-/**
- * User: HolyEyE Date: 13. 5. 24. Time: 오후 7:43
- */
 @Entity
-//@org.hibernate.annotations.DynamicUpdate
-@Table(name = "member")
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MEMBER_ID")
-    private Long          id;
-    @Column(name = "user_name")
-    private String        username;
-    private Integer       age;
-    // n
-    @OneToOne(mappedBy = "member")
-    private Locker        locker;
-    @ManyToOne
-    @JoinColumn(name = "team_id")
-    private Team          team;
-    @ManyToMany
-    @JoinTable(name = "member_product",
-               joinColumns = @JoinColumn(name = "member_id"),
-               inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<Product> products = new ArrayList<>();
+    @GeneratedValue
+    private Long   id;
+    private String name;
+    private int    age;
 
-    public void addProduct(Product product) {
-        products.add(product);
-        product.getMembers().add(this);
-        System.out.println("product = " + product);
+    @Embedded
+//    @AttributeOverride(name = "street", column = @Column(name = "COMPANY_STREET"))
+//    @AttributeOverride(name = "city", column = @Column(name = "COMPANY_CITY"))
+//    @AttributeOverride(name = "state", column = @Column(name = "COMPANY_STATE"))
+    private Address address;
 
-    }
+    @Embedded
+    private PhoneNumber phoneNumber;
 
-    //con
-    public Member() {
-    }
+    //
 
-    public Member(String username, Integer age) {
-        this.username = username;
-        this.age      = age;
-    }
 
-    public Member(Long id, String username, Integer age) {
-        this.id       = id;
-        this.username = username;
-        this.age      = age;
-    }
-
-    //g&s
     public Long getId() {
         return id;
     }
@@ -62,43 +32,35 @@ public class Member {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Integer getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
-    public Team getTeam() {
-        return team;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
-        team.getMembers().add(this);
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public PhoneNumber getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
-    //
-
-    @Override
-    public String toString() {
-        return "Member{" + "id=" + id + ", username='" + username + '\'' + ", age=" + age + ", team=" + team + ", products=" + products + '}';
+    public void setPhoneNumber(PhoneNumber phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
