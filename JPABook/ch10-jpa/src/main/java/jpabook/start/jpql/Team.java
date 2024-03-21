@@ -1,22 +1,32 @@
-package jpabook.start;
+package jpabook.start.jpql;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Product {
-
+public class Team {
 
     @Id
-    @Column(name = "product_id")
+    @Column(name = "team_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long         id;
-    private String       name;
-    @ManyToMany(mappedBy = "products")
+    private Long id;
+
+    @Column(name = "team_name")
+    private String name;
+
+    @OneToMany(mappedBy = "team", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Member> members = new ArrayList<>();
 
     //
+    public Team() {
+    }
+
+    public Team(String name) {
+        this.name = name;
+    }
+    //
+
     public Long getId() {
         return id;
     }
@@ -41,9 +51,10 @@ public class Product {
         this.members = members;
     }
 
+    //
 
     @Override
     public String toString() {
-        return "Product{" + "id=" + id + ", name='" + name + '\'' + '}';
+        return "Team{" + "id=" + id + ", name='" + name + '\'' + ", members=" + members + '}';
     }
 }
