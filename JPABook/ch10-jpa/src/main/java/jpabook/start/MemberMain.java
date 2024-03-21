@@ -1,15 +1,18 @@
 package jpabook.start;
 
-import com.sun.source.tree.IdentifierTree;
 import jpabook.start.dto.UserDTO;
-import jpabook.start.jpql.Address;
 import jpabook.start.jpql.Member;
 import jpabook.start.jpql.Product;
 import jpabook.start.jpql.Team;
-import org.hibernate.boot.jaxb.hbm.spi.JaxbHbmQueryParamType;
+import org.hibernate.sql.Select;
 
-import javax.persistence.*;
-import java.util.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
 public class MemberMain {
 
@@ -111,20 +114,21 @@ public class MemberMain {
 
         // inner join
         //        String jpql = "select m from Member  m inner join m.team t";
+        //        String jpql = "select t From Member  m join m.team t";
+        //        String jpql = "select t.members.username  From Team  t";  //사용 금지!!
+
         // outer join
         //        String jpql = "select m From Member m left join fetch m.team t where m.age >= 30";
         //  fetch join
         //        String jpql = "select m from  Member m join fetch m.team";
         //        String jpql = "select t From Team t join fetch t.members where t.name ='teamA' ";
         // 집합 함수
-        String jpql = "select distinct m From Member m";
+        //        String jpql = "select distinct m From Member m";
         //        String jpql = "select  count (distinct m.age) from Member m";
         // 서브 쿼리
-        //        String jpql = "select  m From Member m where m.age >= (select avg(m2.age) From Member  m2)";
-        //        String jpql = "select  m From Member m where exists (select t from m.team t where t.name = 'teamB')";   // EXIST
-        //        String jpql = "select m from  Member m where m.age > all (select  avg (m2.age) from Member m2)";    //  ALL
-        //        String jpql = "select m from  Member  m where m.team = any(select t from Team t)";  //  ANY
-        //        String jpql = "select m From Member m where m.team in (:teamName)";      //IN
+        //        String jpql = "select m from  Member  m where m.age >(select avg (m2.age) from Member m2 )";    //avg
+//        String jpql = "select  m from  Member  m where exists (select t from m.team t where t.name = 'teamA')";     //EXISTS
+        String jpql = "select ";
 
         //  Result
         List<Member> resultList1 = em.createQuery(jpql, Member.class)
