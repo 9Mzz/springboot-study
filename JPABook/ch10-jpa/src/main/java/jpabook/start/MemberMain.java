@@ -127,8 +127,9 @@ public class MemberMain {
         //        String jpql = "select  count (distinct m.age) from Member m";
         // 서브 쿼리
         //        String jpql = "select m from  Member  m where m.age >(select avg (m2.age) from Member m2 )";    //avg
-//        String jpql = "select  m from  Member  m where exists (select t from m.team t where t.name = 'teamA')";     //EXISTS
-        String jpql = "select ";
+        //        String jpql = "select  m from  Member  m where exists (select t from m.team t where t.name = 'teamA')";     //EXISTS
+        String jpql = "select m from Member  m where m.age > all (select avg (m2.age) From Member m2)";     //ALL
+        
 
         //  Result
         List<Member> resultList1 = em.createQuery(jpql, Member.class)
