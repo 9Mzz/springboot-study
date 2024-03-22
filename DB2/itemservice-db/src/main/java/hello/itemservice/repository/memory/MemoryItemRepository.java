@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 @Repository
 public class MemoryItemRepository implements ItemRepository {
 
-    private static final Map<Long, Item> store = new HashMap<>(); //static
-    private static long sequence = 0L; //static
+    private static final Map<Long, Item> store    = new HashMap<>(); //static
+    private static       long            sequence = 0L; //static
 
     @Override
     public Item save(Item item) {
@@ -38,15 +38,18 @@ public class MemoryItemRepository implements ItemRepository {
 
     @Override
     public List<Item> findAll(ItemSearchCond cond) {
-        String itemName = cond.getItemName();
+        String  itemName = cond.getItemName();
         Integer maxPrice = cond.getMaxPrice();
-        return store.values().stream()
+        return store.values()
+                .stream()
                 .filter(item -> {
                     if (ObjectUtils.isEmpty(itemName)) {
                         return true;
                     }
-                    return item.getItemName().contains(itemName);
-                }).filter(item -> {
+                    return item.getItemName()
+                            .contains(itemName);
+                })
+                .filter(item -> {
                     if (maxPrice == null) {
                         return true;
                     }

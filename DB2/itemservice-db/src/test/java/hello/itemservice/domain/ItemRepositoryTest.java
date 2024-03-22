@@ -36,23 +36,25 @@ class ItemRepositoryTest {
         Item savedItem = itemRepository.save(item);
 
         //then
-        Item findItem = itemRepository.findById(item.getId()).get();
+        Item findItem = itemRepository.findById(item.getId())
+                .get();
         assertThat(findItem).isEqualTo(savedItem);
     }
 
     @Test
     void updateItem() {
         //given
-        Item item = new Item("item1", 10000, 10);
+        Item item      = new Item("item1", 10000, 10);
         Item savedItem = itemRepository.save(item);
-        Long itemId = savedItem.getId();
+        Long itemId    = savedItem.getId();
 
         //when
         ItemUpdateDto updateParam = new ItemUpdateDto("item2", 20000, 30);
         itemRepository.update(itemId, updateParam);
 
         //then
-        Item findItem = itemRepository.findById(itemId).get();
+        Item findItem = itemRepository.findById(itemId)
+                .get();
         assertThat(findItem.getItemName()).isEqualTo(updateParam.getItemName());
         assertThat(findItem.getPrice()).isEqualTo(updateParam.getPrice());
         assertThat(findItem.getQuantity()).isEqualTo(updateParam.getQuantity());

@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class ItemUpdateDto {
-    private String itemName;
+    private String  itemName;
     private Integer price;
     private Integer quantity;
 
@@ -13,7 +13,7 @@ public class ItemUpdateDto {
 
     public ItemUpdateDto(String itemName, Integer price, Integer quantity) {
         this.itemName = itemName;
-        this.price = price;
+        this.price    = price;
         this.quantity = quantity;
     }
 }
