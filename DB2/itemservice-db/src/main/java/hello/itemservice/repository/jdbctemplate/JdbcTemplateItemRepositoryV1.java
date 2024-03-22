@@ -38,7 +38,7 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
             //자동 증가 키
             PreparedStatement ps = con.prepareStatement(sql, new String[]{"id"});
             ps.setString(1, item.getItemName());
-            ps.setInt(1, item.getPrice());
+            ps.setInt(2, item.getPrice());
             ps.setInt(3, item.getQuantity());
             return ps;
         }, keyHolder);
