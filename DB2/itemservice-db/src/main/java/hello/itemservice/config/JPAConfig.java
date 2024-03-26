@@ -1,21 +1,22 @@
 package hello.itemservice.config;
 
 import hello.itemservice.repository.ItemRepository;
-import hello.itemservice.repository.jdbctemplate.JdbcTemplateItemRepositoryV1;
+import hello.itemservice.repository.jpa.JpaItemRepositoryV1;
+import hello.itemservice.repository.mybatis.ItemMapper;
+import hello.itemservice.repository.mybatis.MyBatisItemRepository;
 import hello.itemservice.service.ItemService;
 import hello.itemservice.service.ItemServiceV1;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.sql.DataSource;
+import javax.persistence.EntityManager;
 
 @Configuration
 @RequiredArgsConstructor
-public class JdbcTemplateV1Config {
+public class JPAConfig {
 
-
-    private final DataSource dataSource;
+    private final EntityManager em;
 
     @Bean
     public ItemService itemService() {
@@ -24,6 +25,6 @@ public class JdbcTemplateV1Config {
 
     @Bean
     public ItemRepository itemRepository() {
-        return new JdbcTemplateItemRepositoryV1(dataSource);
+        return new JpaItemRepositoryV1(em);
     }
 }
