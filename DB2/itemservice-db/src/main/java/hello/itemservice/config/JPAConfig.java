@@ -2,8 +2,6 @@ package hello.itemservice.config;
 
 import hello.itemservice.repository.ItemRepository;
 import hello.itemservice.repository.jpa.JpaItemRepositoryV1;
-import hello.itemservice.repository.mybatis.ItemMapper;
-import hello.itemservice.repository.mybatis.MyBatisItemRepository;
 import hello.itemservice.service.ItemService;
 import hello.itemservice.service.ItemServiceV1;
 import lombok.RequiredArgsConstructor;
