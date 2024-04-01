@@ -33,7 +33,13 @@ public class MemberRepositoryImpl implements MemberRepository {
 
     @Override
     public List<Member> findAll() {
-        String jpql = "select m From Member m";
+        String jpql = "select m From Members m";
         return em.createQuery(jpql, Member.class).getResultList();
+    }
+
+    @Override
+    public void memberRemove(Long id) {
+        String jpql = "delete from Members m where m.id = :mId";
+        em.createQuery(jpql).setParameter("mId", id);
     }
 }

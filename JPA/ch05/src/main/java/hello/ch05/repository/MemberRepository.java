@@ -13,4 +13,6 @@ public interface MemberRepository {
 
     List<Member> findAll();
 
+    void memberRemove(Long id);
+
 }
