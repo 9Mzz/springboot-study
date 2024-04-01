@@ -1,11 +1,10 @@
-package hello.ch07.repository;
+package hello.ch08.repository;
 
-import hello.ch07.mapped.Member;
+import hello.ch08.domain.Member;
 
 import java.util.List;
 
 public interface MemberRepository {
-
 
     Member save(Member member);
 
@@ -13,6 +12,5 @@ public interface MemberRepository {
 
     List<Member> findAll();
 
-    void delete(Long id);
 
 }
