@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@ToString(exclude = "members")
 @NoArgsConstructor
 public class Team {
 
@@ -20,7 +22,7 @@ public class Team {
     private Long   id;
     private String teamName;
 
-    @OneToMany(mappedBy = "team", orphanRemoval = true)
+    @OneToMany(mappedBy = "team", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Member> members = new ArrayList<>();
 
     //
@@ -28,12 +30,5 @@ public class Team {
     public Team(String teamName) {
         this.teamName = teamName;
     }
-
     //
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "(" +
-                "id = " + id + ", " +
-                "teamName = " + teamName + ")";
-    }
 }

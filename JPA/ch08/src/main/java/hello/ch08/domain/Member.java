@@ -5,11 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.List;
-
 @Getter
 @Setter
 @Entity
+@ToString(exclude = "team")
 public class Member {
 
     @Id
@@ -32,14 +31,4 @@ public class Member {
     }
 
     //
-
-
-    @Override
-    public String toString() {
-        return "Member{" +
-                "id=" + id +
-                ", memberName='" + memberName + '\'' +
-                ", team=" + team +
-                '}';
-    }
 }
