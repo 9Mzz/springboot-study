@@ -1,16 +1,23 @@
 package hello.practice.domain;
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.StringPath;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.boot.spi.NaturalIdUniqueKeyBinder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.orm.jpa.EntityManagerFactoryAccessor;
+import org.springframework.util.StringUtils;
 
+import java.lang.management.BufferPoolMXBean;
 import java.util.List;
 
 import static hello.practice.domain.QMember.member;
@@ -75,14 +82,38 @@ class MemberTestWithQueryDSL {
     @Test
     void pagingTest() {
         JPAQueryFactory query = new JPAQueryFactory(em);
-        List<Member> pagingResult
-                = query.selectFrom(member)
-                .offset(2)
-                .limit(5)
+
+        String  memberName = "memberA";
+        Integer memberAge  = 5;
+
+        List<Member> memberList = query.select(member)
+                .from(member)
+                .where(memberNameCheck(memberName), memberAgeCheck(memberAge))
                 .fetch();
-        for (Member members : pagingResult) {
-            log.info("members = {}", members);
+        for (Member member1 : memberList) {
+            log.info("member1 = {}", member1);
         }
+    }
+
+    private BooleanExpression memberNameCheck(String memberName) {
+
+        // if (StringUtils.hasText(memberName)) {
+        //     return member.name.contains(memberName);
+        // }
+        // return null;
+
+        return StringUtils.hasText(memberName) ? null : member.name.startsWith(memberName);
+    }
+
+    private BooleanExpression memberAgeCheck(Integer memberAge) {
+        // if (memberAge != null) {
+        //     member.age.goe(10);
+        // }
+        // return null;
+
+        return memberAge != null ? null : member.age.goe(10);
 
     }
+
+
 }
