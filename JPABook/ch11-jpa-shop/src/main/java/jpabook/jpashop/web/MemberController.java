@@ -19,8 +19,10 @@ import java.util.List;
 @Controller
 public class MemberController {
 
-    @Autowired MemberService memberService;
-    @Autowired ItemService itemService;
+    @Autowired
+    MemberService memberService;
+    @Autowired
+    ItemService   itemServices;
 
     @RequestMapping(value = "/members/new", method = RequestMethod.GET)
     public String createForm() {

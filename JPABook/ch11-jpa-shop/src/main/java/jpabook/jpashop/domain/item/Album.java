@@ -15,7 +15,6 @@ public class Album extends Item {
     private String etc;
 
 
-
     public String getArtist() {
         return artist;
     }
@@ -34,9 +33,6 @@ public class Album extends Item {
 
     @Override
     public String toString() {
-        return "Album{" +
-                "artist='" + artist + '\'' +
-                ", etc='" + etc + '\'' +
-                '}';
+        return "Album{" + "artist='" + artist + '\'' + ", etc='" + etc + '\'' + '}';
     }
 }

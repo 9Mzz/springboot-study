@@ -1,4 +1,4 @@
-package hello.practice.domain;
+package hello.querydsl.domain;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QTeam extends EntityPathBase<Team> {
 
-    private static final long serialVersionUID = -1627797296L;
+    private static final long serialVersionUID = 98064522L;
 
     public static final QTeam team = new QTeam("team");
 
@@ -24,7 +24,7 @@ public class QTeam extends EntityPathBase<Team> {
 
     public final ListPath<Member, QMember> members = this.<Member, QMember>createList("members", Member.class, QMember.class, PathInits.DIRECT2);
 
-    public final StringPath name = createString("name");
+    public final StringPath teamName = createString("teamName");
 
     public QTeam(String variable) {
         super(Team.class, forVariable(variable));

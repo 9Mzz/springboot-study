@@ -1,20 +1,16 @@
-package hello.practice;
+package hello.querydsl;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Profile;
 
-
-// @Import(MemberConfig.class)
-@SpringBootApplication
-public class PracticeApplication {
+@SpringBootApplication(scanBasePackages = "hello.querydsl.web")
+public class QueryDslApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(PracticeApplication.class, args);
+        SpringApplication.run(QueryDslApplication.class, args);
     }
 
-    @Profile("local")
     @Bean
     public TestDataInit testDataInit() {
         return new TestDataInit();

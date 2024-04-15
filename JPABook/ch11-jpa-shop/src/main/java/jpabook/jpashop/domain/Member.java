@@ -11,7 +11,8 @@ import java.util.List;
 @Entity
 public class Member {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long id;
 
@@ -24,7 +25,7 @@ public class Member {
     private List<Order> orders = new ArrayList<Order>();
 
 
-    public Long getId() {
+public Long getId() {
         return id;
     }
 
@@ -58,10 +59,6 @@ public class Member {
 
     @Override
     public String toString() {
-        return "Member{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", address=" + address +
-                '}';
+        return "Member{" + "id=" + id + ", name='" + name + '\'' + ", address=" + address + '}';
     }
 }

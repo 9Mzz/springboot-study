@@ -16,8 +16,8 @@ public class Address {
     }
 
     public Address(String city, String street, String zipcode) {
-        this.city = city;
-        this.street = street;
+        this.city    = city;
+        this.street  = street;
         this.zipcode = zipcode;
     }
 
@@ -47,23 +47,24 @@ public class Address {
 
     @Override
     public String toString() {
-        return "Address{" +
-                "city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", zipcode='" + zipcode + '\'' +
-                '}';
+        return "Address{" + "city='" + city + '\'' + ", street='" + street + '\'' + ", zipcode='" + zipcode + '\'' + '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Address)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof Address))
+            return false;
 
         Address address = (Address) o;
 
-        if (city != null ? !city.equals(address.city) : address.city != null) return false;
-        if (street != null ? !street.equals(address.street) : address.street != null) return false;
-        if (zipcode != null ? !zipcode.equals(address.zipcode) : address.zipcode != null) return false;
+        if (city != null ? !city.equals(address.city) : address.city != null)
+            return false;
+        if (street != null ? !street.equals(address.street) : address.street != null)
+            return false;
+        if (zipcode != null ? !zipcode.equals(address.zipcode) : address.zipcode != null)
+            return false;
 
         return true;
     }

@@ -12,25 +12,26 @@ import java.util.List;
 @Table(name = "ORDERS")
 public class Order {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "ORDER_ID")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
-    private Member member;      //주문 회원
+    private Member member;      // 주문 회원
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "DELIVERY_ID")
-    private Delivery delivery;  //배송정보
+    private Delivery delivery;  // 배송정보
 
-    private Date orderDate;     //주문시간
+    private Date orderDate;     // 주문시간
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus status;//주문상태
+    private OrderStatus status;// 주문상태
 
     //==생성 메서드==//
     public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
@@ -47,7 +48,10 @@ public class Order {
     }
 
     //==비즈니스 로직==//
-    /** 주문 취소 */
+
+    /**
+     * 주문 취소
+     */
     public void cancel() {
 
         if (delivery.getStatus() == DeliveryStatus.COMP) {
@@ -61,7 +65,10 @@ public class Order {
     }
 
     //==조회 로직==//
-    /** 전체 주문 가격 조회 */
+
+    /**
+     * 전체 주문 가격 조회
+     */
     public int getTotalPrice() {
         int totalPrice = 0;
         for (OrderItem orderItem : orderItems) {
@@ -73,7 +80,8 @@ public class Order {
     //==연관관계 메서드==//
     public void setMember(Member member) {
         this.member = member;
-        member.getOrders().add(this);
+        member.getOrders()
+                .add(this);
     }
 
     public void addOrderItem(OrderItem orderItem) {
@@ -129,10 +137,6 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", orderDate=" + orderDate +
-                ", status=" + status +
-                '}';
+        return "Order{" + "id=" + id + ", orderDate=" + orderDate + ", status=" + status + '}';
     }
 }
