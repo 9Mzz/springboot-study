@@ -19,8 +19,8 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
     //H2 데이터베이스 추가
     runtimeOnly 'com.h2database:h2'
 
@@ -51,7 +51,6 @@ dependencies {
 clean {
     delete file('src/main/generated')
 }
-
 
 
 tasks.named('test') {
