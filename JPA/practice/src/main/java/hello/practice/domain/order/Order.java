@@ -1,5 +1,7 @@
-package hello.practice.domain;
+package hello.practice.domain.order;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import hello.practice.domain.*;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,10 +24,12 @@ public class Order {
     @Column(name = "ORDER_ID")
     private Long id;
 
+    // @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
-    private Member member;      // 주문 회원
+    private Member member;      //// 주문 회원
 
+    // @JsonIgnore
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 
@@ -33,6 +37,7 @@ public class Order {
     @JoinColumn(name = "DELIVERY_ID")
     private Delivery delivery;  // 배송정보
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date orderDate;     // 주문시간
 
     @Enumerated(EnumType.STRING)

@@ -2,6 +2,7 @@ package hello.practice;
 
 import hello.practice.domain.*;
 import hello.practice.domain.item.Book;
+import hello.practice.domain.order.Order;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,12 @@ public class TestDataInit {
 
     private final InitService initService;
 
+    @EventListener(ApplicationReadyEvent.class)
+    public void init() {
+        initService.dbInit1();
+        initService.dbInit2();
+    }
+
 
     @Component
     @Transactional
@@ -24,7 +31,6 @@ public class TestDataInit {
 
         private final EntityManager em;
 
-        @EventListener(ApplicationReadyEvent.class)
         public void dbInit1() {
             Member member = createMember("userA", "Seoul", "1", "1111");
             em.persist(member);
@@ -41,7 +47,6 @@ public class TestDataInit {
             em.persist(order);
         }
 
-        @EventListener(ApplicationReadyEvent.class)
         public void dbInit2() {
             Member member = createMember("userB", "Busan", "2", "2222");
             em.persist(member);

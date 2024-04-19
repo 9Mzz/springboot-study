@@ -28,7 +28,7 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath name = createString("name");
 
-    public final ListPath<Order, QOrder> orders = this.<Order, QOrder>createList("orders", Order.class, QOrder.class, PathInits.DIRECT2);
+    public final ListPath<hello.practice.domain.order.Order, hello.practice.domain.order.QOrder> orders = this.<hello.practice.domain.order.Order, hello.practice.domain.order.QOrder>createList("orders", hello.practice.domain.order.Order.class, hello.practice.domain.order.QOrder.class, PathInits.DIRECT2);
 
     public QMember(String variable) {
         this(Member.class, forVariable(variable), INITS);

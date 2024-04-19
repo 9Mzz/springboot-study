@@ -1,7 +1,9 @@
 package hello.practice.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import hello.practice.domain.item.Item;
+import hello.practice.domain.order.Order;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +13,7 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "order")
 @Table(name = "ORDER_ITEM")
 public class OrderItem {
 
@@ -24,6 +26,7 @@ public class OrderItem {
     @JoinColumn(name = "ITEM_ID")
     private Item item;      // 주문 상품
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ORDER_ID")
     private Order order;    // 주문
@@ -33,12 +36,10 @@ public class OrderItem {
 
     //==생성 메서드==//
     public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
-
         OrderItem orderItem = new OrderItem();
         orderItem.setItem(item);
         orderItem.setOrderPrice(orderPrice);
         orderItem.setCount(count);
-
         item.removeStock(count);
         return orderItem;
     }

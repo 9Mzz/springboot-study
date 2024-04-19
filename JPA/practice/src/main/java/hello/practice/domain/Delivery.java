@@ -1,6 +1,8 @@
 package hello.practice.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import hello.practice.domain.order.Order;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +19,7 @@ public class Delivery {
     @Column(name = "DELIVERY_ID")
     private Long id;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "delivery")
     private Order order;
 
