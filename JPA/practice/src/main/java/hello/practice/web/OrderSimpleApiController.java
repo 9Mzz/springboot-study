@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * API 개발 고급 - 지연 로딩과 조회 성능 최적화
+ */
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -25,7 +28,7 @@ public class OrderSimpleApiController {
      * - Hibernate5Module 모듈 등록, LAZY=null 처리
      * - 양방향 관계 문제 발생 -> @JsonIgnore
      */
-    @GetMapping("/api/v1/simple-orders")
+    @GetMapping("/api/v1/simple-order")
     public List<Order> orderV1() {
         return repository.findAll();
     }
@@ -33,7 +36,7 @@ public class OrderSimpleApiController {
     /**
      * LAZY 강제 초기화
      */
-    @GetMapping("/api/v1/simple-orders/proto")
+    @GetMapping("/api/v1/simple-order/proto")
     public List<Order> orderV1Proto() {
         List<Order> orders = repository.findAll();
         for (Order order : orders) {

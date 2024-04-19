@@ -49,22 +49,29 @@ public class OrderRepository {
     }
 */
 
-    public List<Order> findAllByAddressDelivery() {
-        String jpql = "select o From Order o join fetch o.member m join fetch o.delivery d";
-        return em.createQuery(jpql, Order.class)
-                .getResultList();
-    }
 
     public List<Order> findAllWithItem() {
-        String jpql = "select o from Order o " + "join fetch o.member m " + "join fetch o.delivery d " + "join fetch o.orderItems oi " + "join fetch oi.item i ";
+        String jpql = "select distinct o FROM Order o " + "join fetch o.member m " + "join fetch o.delivery d " + "join fetch o.orderItems oi " + "join fetch oi.item i";
         return em.createQuery(jpql, Order.class)
                 .getResultList();
     }
 
     public List<Order> findAllWithMemberDelivery() {
-        String jpql = "select o from Order o join fetch o.member m join fetch o.delivery d ";
+        String jpql = "select o from Order o " +
+                "join fetch o.member m " +
+                "join fetch o.delivery d ";
         return em.createQuery(jpql, Order.class)
                 .getResultList();
     }
 
+    public List<Order> findAllWithMemberDeliveryLimitOffset(int offset, int limit) {
+        String jpql = "select o from Order o " +
+                "join fetch o.member m " +
+                "join fetch o.delivery d";
+        return em.createQuery(jpql, Order.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+
+    }
 }
