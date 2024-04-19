@@ -1,38 +1,24 @@
 package hello.practice.web;
 
 import hello.practice.domain.Address;
-import hello.practice.domain.OrderItem;
-import hello.practice.domain.OrderSearch;
 import hello.practice.domain.OrderStatus;
 import hello.practice.domain.order.Order;
 import hello.practice.repository.OrderRepository;
-import hello.practice.repository.OrderSimpleQueryDto;
-import hello.practice.repository.OrderSimpleQueryRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
-/*
- * xToOne(ManyToOne, OneToOne)
- * Order
- * Order -> Member (ManyToOne)
- * Order -> Delivery (OneToOne)
- */
 @Slf4j
 @RestController
 @RequiredArgsConstructor
 public class OrderSimpleApiController {
 
-    private final OrderRepository            orderRepository;
-    private final OrderSimpleQueryRepository orderSimpleQueryRepository;
+    private final OrderRepository repository;
 
     /**
      * V1. 엔티티 직접 노출
@@ -41,47 +27,61 @@ public class OrderSimpleApiController {
      */
     @GetMapping("/api/v1/simple-orders")
     public List<Order> orderV1() {
-        return orderRepository.findAll();
+        return repository.findAll();
     }
 
-    @GetMapping("/api/v2/simple-orders")
-    public List<SimpleOrderDto> orderV2() {
-        List<Order> orders = orderRepository.findAll();
+    /**
+     * LAZY 강제 초기화
+     */
+    @GetMapping("/api/v1/simple-orders/proto")
+    public List<Order> orderV1Proto() {
+        List<Order> orders = repository.findAll();
+        for (Order order : orders) {
+            order.getMember()
+                    .getName();
+            order.getDelivery()
+                    .getAddress();
+        }
+        return orders;
+    }
+
+    /**
+     * V2. 엔티티를 조회해서 DTO로 변환(fetch join 사용X)
+     * - 단점: 지연로딩으로 쿼리 N번 호출
+     */
+    @GetMapping("/api/v2/simple-order")
+
+    public List<SimpleOrderDto> ordersV2() {
+        List<Order> orders = repository.findAll();
         return orders.stream()
                 .map(SimpleOrderDto::new)
                 .toList();
     }
 
-
-    @GetMapping("/api/v3/simple-orders")
-    public List<SimpleOrderDto> orderV3() {
-        List<Order> orders = orderRepository.findAllByAddressDelivery();
+    @GetMapping("/api/v3/simple-order")
+    public List<SimpleOrderDto> ordersV3() {
+        List<Order> orders = repository.findAllWithMemberDelivery();
         return orders.stream()
-                .map(SimpleOrderDto::new)
+                .map(order -> new SimpleOrderDto(order))
                 .toList();
     }
 
-
-    @GetMapping("/api/v4/simple-orders")
-    public List<OrderSimpleQueryDto> orderV4() {
-        return orderSimpleQueryRepository.findOrderDTOs();
-    }
-
-
+    @Data
     static class SimpleOrderDto {
-        private Long        id;
-        private String      name;
+
+        private Long        orderId;
+        private String      userName;
         private Date        orderDate;
         private OrderStatus status;
         private Address     address;
 
         public SimpleOrderDto(Order order) {
-            this.id        = order.getId();
-            this.name      = order.getMember()
+            this.orderId   = order.getId();
+            this.userName  = order.getMember()
                     .getName();
             this.orderDate = order.getOrderDate();
             this.status    = order.getStatus();
-            this.address   = order.getDelivery()
+            this.address   = order.getMember()
                     .getAddress();
         }
     }
