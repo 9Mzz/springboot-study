@@ -1,15 +1,13 @@
 package hello.practice.web;
 
-import hello.practice.domain.*;
+import hello.practice.domain.Address;
+import hello.practice.domain.OrderItem;
+import hello.practice.domain.OrderStatus;
 import hello.practice.domain.order.Order;
 import hello.practice.repository.OrderRepository;
-import hello.practice.repository.OrderSimpleQueryDto;
-import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.antlr.v4.runtime.atn.SemanticContext;
-import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * oneToMany 컬렉션 조회
+ */
 @Slf4j
 @RestController
 @RequiredArgsConstructor
