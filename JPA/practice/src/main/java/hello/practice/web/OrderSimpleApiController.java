@@ -51,6 +51,12 @@ public class OrderSimpleApiController {
     /**
      * V2. 엔티티를 조회해서 DTO로 변환(fetch join 사용X)
      * - 단점: 지연로딩으로 쿼리 N번 호출
+     * 이전 게시글과 마찬가지로 지연 로딩이 많아서 너무 많은 수의 SQL 이 실행됩니다.
+     * Order 조회
+     * Member 조회 ( Order 의 조회 수 만큼 )
+     * Delivery 조회 ( Order 의 조회 수 만큼 )
+     * OrderItem 조회 ( Order 의 조회 수 만큼 )
+     * Item 조회 ( OrderItem 의 조회 수 만큼 )
      */
     @GetMapping("/api/v2/simple-order")
 

@@ -26,6 +26,7 @@ public class Delivery {
     @Embedded
     private Address address;
 
+    @JsonIgnore
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status; // ENUM [READY(준비), COMP(배송)]
 

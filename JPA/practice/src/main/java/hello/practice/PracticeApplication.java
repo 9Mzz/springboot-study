@@ -26,5 +26,4 @@ public class PracticeApplication {
         return new Hibernate5JakartaModule();
     }
 
-
 }

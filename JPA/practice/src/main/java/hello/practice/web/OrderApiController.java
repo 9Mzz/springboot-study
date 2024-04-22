@@ -4,10 +4,11 @@ import hello.practice.domain.Address;
 import hello.practice.domain.OrderItem;
 import hello.practice.domain.order.Order;
 import hello.practice.repository.OrderRepository;
+import hello.practice.repository.order.OrderQueryDto;
+import hello.practice.repository.order.OrderQueryRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.query.NativeQuery;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderApiController {
 
-    private final OrderRepository orderRepository;
+    private final OrderRepository      orderRepository;
+    private final OrderQueryRepository orderQueryRepository;
 
     /**
      * V1. 엔티티 직접 노출
@@ -77,6 +79,16 @@ public class OrderApiController {
                 .stream()
                 .map(OrderDto::new)
                 .toList();
+    }
+
+    @GetMapping("/api/v4/orders")
+    public List<OrderQueryDto> ordersV4() {
+        return orderQueryRepository.findOrderQueryDtos();
+    }
+
+    @GetMapping("/api/v5/orders")
+    public List<OrderQueryDto> orderV5() {
+        return orderQueryRepository.findAllByDto_optimization();
     }
 
     @Getter
