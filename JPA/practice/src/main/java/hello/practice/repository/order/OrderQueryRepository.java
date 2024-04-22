@@ -61,6 +61,7 @@ public class OrderQueryRepository {
 
         // orderItem 컬렉션을 MAP 한방에 조회
         Map<Long, List<OrderItemQueryDto>> orderItemMap = findOrderItemMap(toOrderIds(result));
+        // List를 Key가 getOrderId고 Value가 List인 Map으로 변환
 
         // 루프를 돌면서 컬렉션 추가(추가 쿼리 실행X)
         result.forEach(o -> o.setOrderItems(orderItemMap.get(o.getOrderId())));
@@ -70,6 +71,7 @@ public class OrderQueryRepository {
 
     // result 개수만큼 돌면서 List<Long>으로 변환해서 반환
     private List<Long> toOrderIds(List<OrderQueryDto> result) {
+
         return result.stream()
                 .map(o -> o.getOrderId())
                 .collect(Collectors.toList());
@@ -79,9 +81,14 @@ public class OrderQueryRepository {
         List<OrderItemQueryDto> orderItems = em.createQuery("select new hello.practice.repository.order.OrderItemQueryDto(oi.order.id, i.name, oi.orderPrice, oi.count)" + " from OrderItem oi" + " join oi.item i" + " where oi.order.id in :orderIds", OrderItemQueryDto.class)
                 .setParameter("orderIds", orderIds)
                 .getResultList();
-
         return orderItems.stream()
-                .collect(Collectors.groupingBy(OrderItemQueryDto::getOrderId));
+                .collect(Collectors.groupingBy(OrderItemQueryDto::getOrderId)); // List를 getOrderId가 Key인 Map으로 변환
     }
 
+    public List<OrderFlatDto> findAllByDto_flat() {
+        String jpql = "select new hello.practice.repository.order.OrderFlatDto(o.id, m.name, o.orderDate, m.address, o.status, i.name, oi.orderPrice, oi.count) " + "from Order o join o.member m join o.delivery d join o.orderItems oi join oi.item i";
+        return em.createQuery(jpql, OrderFlatDto.class)
+                .getResultList();
+
+    }
 }

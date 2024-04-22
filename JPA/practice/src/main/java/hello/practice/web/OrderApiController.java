@@ -4,6 +4,7 @@ import hello.practice.domain.Address;
 import hello.practice.domain.OrderItem;
 import hello.practice.domain.order.Order;
 import hello.practice.repository.OrderRepository;
+import hello.practice.repository.order.OrderFlatDto;
 import hello.practice.repository.order.OrderQueryDto;
 import hello.practice.repository.order.OrderQueryRepository;
 import lombok.Getter;
@@ -89,6 +90,12 @@ public class OrderApiController {
     @GetMapping("/api/v5/orders")
     public List<OrderQueryDto> orderV5() {
         return orderQueryRepository.findAllByDto_optimization();
+    }
+
+
+    @GetMapping("/api/v6/orders")
+    public List<OrderFlatDto> orderV6() {
+        return orderQueryRepository.findAllByDto_flat();
     }
 
     @Getter
