@@ -19,14 +19,12 @@ public class Delivery {
     @Column(name = "DELIVERY_ID")
     private Long id;
 
-    @JsonIgnore
     @OneToOne(mappedBy = "delivery")
     private Order order;
 
     @Embedded
     private Address address;
 
-    @JsonIgnore
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status; // ENUM [READY(준비), COMP(배송)]
 
