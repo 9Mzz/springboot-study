@@ -1,6 +1,5 @@
 package hello.practice.web;
 
-import com.fasterxml.jackson.annotation.JsonAnySetter;
 import hello.practice.domain.Address;
 import hello.practice.domain.OrderItem;
 import hello.practice.domain.order.Order;
@@ -10,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
@@ -43,12 +43,42 @@ public class OrderApiController {
         return all;
     }
 
+    /**
+     * V2. 엔티티를 DTO로 변환
+     */
+    @GetMapping("/api/v2/orders")
     public List<OrderDto> orderV2() {
         List<Order> orders = orderRepository.findAll();
         return orders.stream()
                 .map(OrderDto::new)
                 .toList();
     }
+
+    @GetMapping("/api/v3/orders")
+    public List<OrderDto> orderV3() {
+        List<Order> orders = orderRepository.findAllWithItem();
+        return orders.stream()
+                .map(OrderDto::new)
+                .toList();
+    }
+
+    @GetMapping("/api/v3.1/orders")
+    public List<OrderDto> ordersV3_page() {
+        List<Order> orders = orderRepository.findAllWithMemberDelivery();
+        return orders.stream()
+                .map(OrderDto::new)
+                .toList();
+    }
+
+    @GetMapping("/api/v3.1.1/orders")
+    public List<OrderDto> ordersV3_OffsetLimit(@RequestParam(value = "offset", defaultValue = "0") int offset,
+                                               @RequestParam(value = "limit", defaultValue = "100") int limit) {
+        List<Order> orders = orderRepository.findAllWithMemberDeliveryOffsetLimit(offset, limit);
+        return orders.stream()
+                .map(OrderDto::new)
+                .toList();
+    }
+
 
     @Getter
     @Setter

@@ -26,9 +26,22 @@ public class OrderRepository {
     }
 
     public List<Order> findAllWithMemberDelivery() {
-
         String jpql = "select o from Order o join fetch o.member m join fetch o.delivery d";
         return em.createQuery(jpql, Order.class)
+                .getResultList();
+    }
+
+    public List<Order> findAllWithItem() {
+        String jpql = "select o from Order o join fetch o.member m join fetch o.delivery d join fetch o.orderItems oi join fetch oi.item i";
+        return em.createQuery(jpql, Order.class)
+                .getResultList();
+    }
+
+    public List<Order> findAllWithMemberDeliveryOffsetLimit(int offset, int limit) {
+        String jpql = "select o from Order o join fetch o.member m join fetch o.delivery d";
+        return em.createQuery(jpql, Order.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
                 .getResultList();
     }
 }

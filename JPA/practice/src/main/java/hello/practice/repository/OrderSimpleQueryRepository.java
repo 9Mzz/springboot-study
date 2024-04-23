@@ -1,6 +1,5 @@
 package hello.practice.repository;
 
-import hello.practice.domain.order.OrderSimpleQueryDto;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
