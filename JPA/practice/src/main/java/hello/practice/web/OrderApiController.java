@@ -3,6 +3,10 @@ package hello.practice.web;
 import hello.practice.domain.Address;
 import hello.practice.domain.OrderItem;
 import hello.practice.domain.order.Order;
+import hello.practice.domain.order.OrderFlatDto;
+import hello.practice.domain.order.OrderItemQueryDto;
+import hello.practice.domain.order.OrderQueryDto;
+import hello.practice.repository.OrderQueryRepository;
 import hello.practice.repository.OrderRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +19,15 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 import java.util.List;
 
+import static java.util.stream.Collectors.*;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
 public class OrderApiController {
 
-    private final OrderRepository orderRepository;
+    private final OrderRepository      orderRepository;
+    private final OrderQueryRepository orderQueryRepository;
 
     /**
      * V1. 엔티티 직접 노출
@@ -77,6 +84,35 @@ public class OrderApiController {
         return orders.stream()
                 .map(OrderDto::new)
                 .toList();
+    }
+
+    @GetMapping("/api/v4/orders")
+    public List<OrderQueryDto> orderV4() {
+        return orderQueryRepository.findOrderQueryDtos();
+    }
+
+    @GetMapping("/api/v5/orders")
+    public List<OrderQueryDto> ordersV5() {
+        return orderQueryRepository.findAllByDto_optimization();
+    }
+
+    @GetMapping("/api/v6/orders")
+    public List<OrderQueryDto> ordersV6() {
+        List<OrderFlatDto> flats = orderQueryRepository.findAllByDto_flat();
+
+        return null;
+/*        return flats.stream()
+                .collect(groupingBy(o -> new OrderQueryDto(o.getOrderId(), o.getMemberName(), o.getOrderDate(), o.getStatus(), o.getAddress()),
+                        mapping(o -> new OrderItemQueryDto(o.getOrderId(), o.getItemName(), o.getOrderPrice(), o.getCount()), toList())))
+                .entrySet()
+                .stream()
+                .map(e -> new OrderQueryDto(e.getKey()
+                        .getOrderId(), e.getKey()
+                        .getMemberName(), e.getKey()
+                        .getOrderDate(), e.getKey()
+                        .getOrderStatus(), e.getKey()
+                        .getAddress(), e.getValue()))
+                .collect(toList());*/
     }
 
 

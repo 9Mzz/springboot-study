@@ -4,6 +4,7 @@ import hello.practice.domain.Address;
 import hello.practice.domain.OrderStatus;
 import hello.practice.domain.order.Order;
 import hello.practice.repository.OrderRepository;
+import hello.practice.repository.OrderSimpleQueryDto;
 import hello.practice.repository.OrderSimpleQueryRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
