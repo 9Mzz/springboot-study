@@ -16,7 +16,10 @@ public class OrderSimpleQueryRepository {
 
     public List<OrderSimpleQueryDto> findOrderDtos() {
 
-        String jpql = "select new hello.practice.domain.order.OrderSimpleQueryDto(o.id, m.name, o.orderDate, o.status, d.address) from Order o join o.member m join o.delivery d";
+        String jpql = "select new hello.practice.repository.OrderSimpleQueryDto(o.id, m.name, o.orderDate, o.status, d.address) " +
+                "from Order o " +
+                "join o.member m " +
+                "join o.delivery d";
         return em.createQuery(jpql, OrderSimpleQueryDto.class)
                 .getResultList();
     }

@@ -8,15 +8,15 @@ import lombok.Setter;
 @Setter
 public class OrderItemQueryDto {
 
-    @JsonIgnore
+    // @JsonIgnore
     private Long   orderId;
-    private String itemName;
+    private String memberName;
     private int    orderPrice;
     private int    count;
 
-    public OrderItemQueryDto(Long orderId, String itemName, int orderPrice, int count) {
+    public OrderItemQueryDto(Long orderId, String memberName, int orderPrice, int count) {
         this.orderId    = orderId;
-        this.itemName   = itemName;
+        this.memberName = memberName;
         this.orderPrice = orderPrice;
         this.count      = count;
     }
