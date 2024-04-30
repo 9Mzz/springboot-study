@@ -3,7 +3,6 @@ package hello.practice.domain.order;
 
 import hello.practice.domain.Address;
 import hello.practice.domain.OrderStatus;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +19,7 @@ public class OrderQueryDto {
     private Date                    orderDate;
     private OrderStatus             status;
     private Address                 address;
-    private List<OrderItemQueryDto> orderitems;
+    private List<OrderItemQueryDto> orderItems;
 
     public OrderQueryDto(Long orderId, String memberName, Date orderDate, OrderStatus status, Address address) {
         this.orderId    = orderId;
@@ -28,5 +27,15 @@ public class OrderQueryDto {
         this.orderDate  = orderDate;
         this.status     = status;
         this.address    = address;
+    }
+
+    public OrderQueryDto(Long orderId, String memberName, Date orderDate, OrderStatus status, Address address,
+                         List<OrderItemQueryDto> orderItems) {
+        this.orderId    = orderId;
+        this.memberName = memberName;
+        this.orderDate  = orderDate;
+        this.status     = status;
+        this.address    = address;
+        this.orderItems = orderItems;
     }
 }

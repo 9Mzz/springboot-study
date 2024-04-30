@@ -4,9 +4,11 @@ import hello.practice.domain.Address;
 import hello.practice.domain.OrderItem;
 import hello.practice.domain.OrderStatus;
 import hello.practice.domain.order.Order;
+import hello.practice.domain.order.OrderFlatDto;
+import hello.practice.domain.order.OrderItemQueryDto;
+import hello.practice.domain.order.OrderQueryDto;
 import hello.practice.repository.OrderQueryRepository;
 import hello.practice.repository.OrderRepository;
-import hello.practice.repository.OrderSimpleQueryDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.List;
+
+import static java.util.stream.Collectors.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -93,11 +97,41 @@ public class OrderApiController {
                 .toList();
     }
 
+    /**
+     * V4: JPA에서 DTO 직접 조회
+     */
     @GetMapping("/api/v4/orders")
-    public List<OrderDto> ordersV4() {
-        orderQueryRepository.findOrderQueryDtos();
+    public List<OrderQueryDto> ordersV4() {
+        return orderQueryRepository.findOrderQueryDtos();
+    }
 
+    /**
+     * V5: JPA에서 DTO 직접 조회 - 컬렉션 조회 최적화
+     */
+    @GetMapping("/api/v5/orders")
+    public List<OrderQueryDto> ordersV5() {
+        return orderQueryRepository.findAllByDto_optimization();
+    }
 
+    /**
+     * V6: JPA에서 DTO로 직접 조회, 플랫 데이터 최적화
+     */
+    @GetMapping("/api/v6/orders")
+    public List<OrderQueryDto> ordersV6() {
+        List<OrderFlatDto> flats = orderQueryRepository.findAllByDto_flat();
+        return flats.stream()
+                .collect(groupingBy(o -> new OrderQueryDto(o.getOrderId(), o.getName(), o.getOrderDate(), o.getOrderStatus(), o.getAddress()),
+                        mapping(o -> new OrderItemQueryDto(o.getOrderId(), o.getItemName(), o.getOrderPrice(), o.getCount()),
+                                toList())))
+                .entrySet()
+                .stream()
+                .map(e -> new OrderQueryDto(e.getKey()
+                        .getOrderId(), e.getKey()
+                        .getMemberName(), e.getKey()
+                        .getOrderDate(), e.getKey()
+                        .getStatus(), e.getKey()
+                        .getAddress(), e.getValue()))
+                .toList();
     }
 
 
