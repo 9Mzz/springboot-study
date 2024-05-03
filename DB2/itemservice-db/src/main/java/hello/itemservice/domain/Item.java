@@ -1,7 +1,6 @@
 package hello.itemservice.domain;
 
 import lombok.Data;
-import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.*;
 
