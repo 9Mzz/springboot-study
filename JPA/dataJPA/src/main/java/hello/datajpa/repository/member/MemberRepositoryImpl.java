@@ -14,14 +14,15 @@ import java.util.Optional;
 @Repository
 @Transactional
 @RequiredArgsConstructor
-public class MemberRepositoryBasicImpl implements MemberRepository {
+public class MemberRepositoryImpl implements MemberRepository {
 
-    private final DataMemberRepository repository;
+    private final MemberDataJPA repository;
 
     @Override
-    public Long save(Member member) {
+    public Member save(Member member) {
         repository.save(member);
-        return member.getId();
+        log.info("save member : {}", member);
+        return member;
     }
 
     @Override
@@ -31,12 +32,19 @@ public class MemberRepositoryBasicImpl implements MemberRepository {
 
     @Override
     public List<Member> findAll() {
-        List<Member> all = repository.findAll();
-        return all;
+        return repository.findAll();
     }
 
     @Override
-    public void delete(Long id) {
+    public void deleteById(Long id) {
         repository.deleteById(id);
     }
+
+    @Override
+    public void updateMember(Long id, Member updateMember) {
+        Member newMember = findById(id).get();
+        newMember.setName(updateMember.getName());
+        newMember.setAge(updateMember.getAge());
+    }
+
 }

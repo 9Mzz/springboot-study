@@ -1,34 +1,44 @@
 package hello.datajpa.domain;
 
+
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
+@Setter
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue
     private Long    id;
     private String  name;
     private Integer age;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "team_id")
+    //
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "team_id", nullable = false)
     private Team team;
+
+    //
+
+
+    public Member(String name, Integer age) {
+        this.name = name;
+        this.age  = age;
+    }
 
     public Member(String name, Integer age, Team team) {
         this.name = name;
         this.age  = age;
         if (team != null) {
-            teamCreate(team);
+            teamCheck(team);
         }
     }
 
-    private void teamCreate(Team team) {
+    private void teamCheck(Team team) {
         this.team = team;
         team.getMembers()
                 .add(this);

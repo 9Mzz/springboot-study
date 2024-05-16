@@ -1,8 +1,9 @@
 package hello.datajpa.config;
 
-import hello.datajpa.repository.member.DataMemberRepository;
+
+import hello.datajpa.repository.member.MemberDataJPA;
 import hello.datajpa.repository.member.MemberRepository;
-import hello.datajpa.repository.member.MemberRepositoryBasicImpl;
+import hello.datajpa.repository.member.MemberRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,13 +12,13 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 public class MemberConfig {
 
-
-    private final DataMemberRepository repository;
+    private final MemberDataJPA dataJPA;
 
     @Bean
     public MemberRepository memberRepository() {
-        return new MemberRepositoryBasicImpl(repository);
+        return new MemberRepositoryImpl(dataJPA);
     }
 
-
 }
+
+

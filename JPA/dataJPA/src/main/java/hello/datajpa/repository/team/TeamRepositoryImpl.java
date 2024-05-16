@@ -3,23 +3,25 @@ package hello.datajpa.repository.team;
 import hello.datajpa.domain.Team;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Repository
 @Transactional
 @RequiredArgsConstructor
-public class TeamRepositoryBasicImpl implements TeamRepository {
+public class TeamRepositoryImpl implements TeamRepository {
 
-    private final DataTeamRepository repository;
-
+    private final TeamDataJPA repository;
 
     @Override
-    public Long save(Team team) {
+    public Team save(Team team) {
         repository.save(team);
-        return team.getId();
+        log.info("save team : {}", team);
+        return team;
     }
 
     @Override
@@ -33,7 +35,7 @@ public class TeamRepositoryBasicImpl implements TeamRepository {
     }
 
     @Override
-    public void delete(Long id) {
+    public void deleteById(Long id) {
         repository.deleteById(id);
     }
 }
