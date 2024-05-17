@@ -1,18 +1,20 @@
 package hello.datajpa;
 
-import hello.datajpa.config.MemberConfig;
-import hello.datajpa.config.TeamConfig;
+import com.fasterxml.jackson.datatype.hibernate5.jakarta.Hibernate5JakartaModule;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Bean;
 
-
-@Import({MemberConfig.class, TeamConfig.class})
-@SpringBootApplication(scanBasePackages = "hello.datajpa.web")
+@SpringBootApplication
 public class DataJpaApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(DataJpaApplication.class, args);
+    }
+
+    @Bean
+    Hibernate5JakartaModule hibernate5JakartaModule() {
+        return new Hibernate5JakartaModule();
     }
 
 }

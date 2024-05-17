@@ -1,20 +1,14 @@
 package hello.datajpa.repository.member;
 
 import hello.datajpa.domain.Member;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface MemberRepository {
+public interface MemberRepository extends JpaRepository<Member, Long> {
 
-    Member save(Member member);
+    List<Member> findMemberByUserNameAndAgeGreaterThan(String userName, int age);
 
-    Optional<Member> findById(Long id);
-
-    List<Member> findAll();
-
-    void deleteById(Long id);
-
-    void updateMember(Long id,Member updateMember);
+    List<Member> findTop3HelloBy();
 
 }

@@ -1,8 +1,9 @@
 package hello.datajpa.domain;
 
-
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.temporal.TemporalAccessor;
 
 @Entity
 @Getter
@@ -12,27 +13,29 @@ import lombok.*;
 public class Member {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long    id;
-    private String  name;
+    private String  userName;
     private Integer age;
 
     //
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "team_id", nullable = false)
+    @JoinColumn(name = "team_id")
     private Team team;
 
     //
-
-
-    public Member(String name, Integer age) {
-        this.name = name;
-        this.age  = age;
+    public Member(String userName) {
+        this.userName = userName;
     }
 
-    public Member(String name, Integer age, Team team) {
-        this.name = name;
-        this.age  = age;
+    public Member(String userName, Integer age) {
+        this.userName = userName;
+        this.age      = age;
+    }
+
+    public Member(String userName, Integer age, Team team) {
+        this.userName = userName;
+        this.age      = age;
         if (team != null) {
             teamCheck(team);
         }
