@@ -45,11 +45,21 @@ public class MemberRepositoryV1 {
                 .getSingleResult();
     }
 
-    public List<Member> findByUsernameAndAgeGreaterThen(String userName, Integer age) {
-        String jpql = "select m from Member m where m.userName = :userName and m.age >= :userAge";
-        return em.createQuery(jpql, Member.class)
+    public List<Member> findByUsernameAndAgeGreaterThen(String userName, int age) {
+        return em.createQuery("select m from Member m where userName = :userName and :age >= age ", Member.class)
                 .setParameter("userName", userName)
-                .setParameter("userAge", age)
+                .setParameter("age", age)
+                .getResultList();
+    }
+
+    /**
+     * JPA 페이징 리포지토리
+     */
+    public List<Member> findByPage(int age, int offset, int limit) {
+        String jpql = "select m from Member m where m.age >= age order by m.userName desc";
+        return em.createQuery(jpql, Member.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
                 .getResultList();
     }
 

@@ -1,7 +1,9 @@
 package hello.datajpa.repository.member;
 
+import ch.qos.logback.classic.Logger;
 import hello.datajpa.domain.Member;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,6 +12,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
+@Slf4j
 @SpringBootTest
 @Transactional
 public class PureJPATest {
@@ -83,8 +86,6 @@ public class PureJPATest {
         memberRepository.delete(memberA);
         memberRepository.delete(memberB);
         Long deleteCount = memberRepository.count();
-        
-
     }
 
 

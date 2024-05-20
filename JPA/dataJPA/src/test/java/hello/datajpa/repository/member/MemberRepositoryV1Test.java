@@ -1,5 +1,6 @@
 package hello.datajpa.repository.member;
 
+import hello.datajpa.domain.Address;
 import hello.datajpa.domain.Member;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -41,14 +42,15 @@ class MemberRepositoryV1Test {
 
     @Test
     void findByUsernameAndAgeGreaterThen() {
-        Member memberA = new Member("memberA", 20);
+        Member memberA = new Member("memberA", 20, new Address("서울"));
         Member memberB = new Member("memberB", 20);
         memberRepositoryV1.save(memberA);
         memberRepositoryV1.save(memberB);
 
-        List<Member> result = memberRepositoryV1.findByUsernameAndAgeGreaterThen("memberA", 20);
-        for (Member member : result) {
-            log.info("member = {}", member);
+
+        List<Member> findMemberA = memberRepositoryV1.findByUsernameAndAgeGreaterThen("memberA", 20);
+        for (Member member : findMemberA) {
+            log.info("findByUsernameAndAgeGreaterThen = {}", member);
         }
 
     }

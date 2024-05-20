@@ -22,6 +22,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public static final QMember member = new QMember("member1");
 
+    public final QAddress address;
+
     public final NumberPath<Integer> age = createNumber("age", Integer.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
@@ -48,6 +50,7 @@ public class QMember extends EntityPathBase<Member> {
 
     public QMember(Class<? extends Member> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.address = inits.isInitialized("address") ? new QAddress(forProperty("address")) : null;
         this.team = inits.isInitialized("team") ? new QTeam(forProperty("team")) : null;
     }
 

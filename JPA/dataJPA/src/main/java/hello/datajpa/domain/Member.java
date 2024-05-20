@@ -18,6 +18,9 @@ public class Member {
     private String  userName;
     private Integer age;
 
+    @Embedded
+    private Address address;
+
     //
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "team_id")
@@ -31,6 +34,21 @@ public class Member {
     public Member(String userName, Integer age) {
         this.userName = userName;
         this.age      = age;
+    }
+
+    public Member(String userName, Integer age, Address address) {
+        this.userName = userName;
+        this.age      = age;
+        this.address  = address;
+    }
+
+    public Member(String userName, Integer age, Address address, Team team) {
+        this.userName = userName;
+        this.age      = age;
+        this.address  = address;
+        if (team != null) {
+            teamCheck(team);
+        }
     }
 
     public Member(String userName, Integer age, Team team) {
