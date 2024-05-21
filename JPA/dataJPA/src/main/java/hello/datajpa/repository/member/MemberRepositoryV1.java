@@ -2,7 +2,6 @@ package hello.datajpa.repository.member;
 
 import hello.datajpa.domain.Member;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +18,7 @@ import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
 public class MemberRepositoryV1 {
+    private final MemberRepository memberRepository;
 
     private final EntityManager em;
 
@@ -56,11 +56,30 @@ public class MemberRepositoryV1 {
      * JPA 페이징 리포지토리
      */
     public List<Member> findByPage(int age, int offset, int limit) {
-        String jpql = "select m from Member m where m.age >= age order by m.userName desc";
-        return em.createQuery(jpql, Member.class)
+        return em.createQuery("select m from Member m where m.age >= :age", Member.class)
+                .setParameter("age", age)
                 .setFirstResult(offset)
                 .setMaxResults(limit)
                 .getResultList();
+    }
+
+    public Long totalCount(int age) {
+        return em.createQuery("select count(m) from Member m where m.age >= :age", Long.class)
+                .setParameter("age", age)
+                .getSingleResult();
+    }
+
+    /**
+     * 벌크성 수정 쿼리
+     */
+
+    public int bulkAgePlus(int age) {
+
+        return em.createQuery("update Member m set m.age = m.age + 1 where m.age >= :mAge")
+                .setParameter("mAge", age)
+                .executeUpdate();
+
+
     }
 
 

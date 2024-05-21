@@ -3,8 +3,6 @@ package hello.datajpa.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.temporal.TemporalAccessor;
-
 @Entity
 @Getter
 @Setter
@@ -17,7 +15,7 @@ public class Member {
     private Long    id;
     private String  userName;
     private Integer age;
-
+    
     @Embedded
     private Address address;
 
