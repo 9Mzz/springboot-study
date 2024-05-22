@@ -3,12 +3,11 @@ package hello.datajpa.repository.member;
 
 import hello.datajpa.domain.Member;
 import hello.datajpa.domain.MemberDto;
+import jakarta.persistence.LockModeType;
+import jakarta.persistence.QueryHint;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Collection;
@@ -24,7 +23,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     /**
      * @param userName
      * @param userAge
-     * @return
      * @Query 어노테이션 사용,
      */
     @Query("select m from Member m where m.userName = :userName and m.age >= :userAge")
@@ -70,8 +68,46 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     /**
      * 스프링 데이터 JPA를 사용한 벌크성 수정 쿼리
      * 벌크성 수정, 삭제 쿼리는 @Modifying 어노테이션을 사용한다.
+     *
+     * @Modifying -> em.flush() + em.clear()
      */
     @Modifying(clearAutomatically = true)
-    @Query("update Member m set m.age = m.age + 1 where m.age >= :mAge")
-    int bulkAgePlus(@Param("mAge") int mAge);
+    @Query("update Member m set m.age = m.age +1 where m.age >= :mAge")
+    int bulkAgePlus(@Param("mAge") int age);
+
+    /**
+     * JPQL 페치 조인
+     */
+    @Query("select m from Member m join fetch m.team t")
+    List<Member> findMemberFetchJoin();
+
+    // 공통 메서드 오버라이드
+    @Override
+    @EntityGraph(attributePaths = {"team"})
+    List<Member> findAll();
+
+    // JPQL + EntityGraph
+    // EntityGraph -> fetch join 의 간편 버전, left outer join 사용
+    @EntityGraph(attributePaths = {"team"})
+    @Query("select m from Member m")
+    List<Member> findMemberEntityGraph();
+
+    @EntityGraph(attributePaths = {"team"})
+    List<Member> findEntityGraphByUserName(String userName);
+
+    // NamedEntityGraph -> 잘 사용하지 않음.
+    // List<Member> findMemberEntityGraphs();
+
+    /**
+     * QueryHint
+     */
+    @QueryHints(value = @QueryHint(name = "org.hibernate.readOnly", value = "true"))
+    Member findReadOnlyByUserName(String userName);
+
+    /**
+     * Lock
+     */
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    Member findLockByUserName(String userName);
+
 }

@@ -7,6 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
+// @NamedEntityGraph(name = "Member.all", attributeNodes = @NamedAttributeNode("team"))
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
@@ -15,7 +16,7 @@ public class Member {
     private Long    id;
     private String  userName;
     private Integer age;
-    
+
     @Embedded
     private Address address;
 
