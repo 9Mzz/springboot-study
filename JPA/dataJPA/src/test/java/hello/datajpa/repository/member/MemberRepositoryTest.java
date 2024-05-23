@@ -67,8 +67,7 @@ class MemberRepositoryTest {
 
     @Test
     void findMemberDto() {
-        Team teamA = new Team("teamA");
-
+        Team   teamA   = new Team("teamA");
         Member memberA = new Member("memberA", 20, new Address("Seoul"), teamA);
         memberRepository.save(memberA);
 
@@ -139,8 +138,8 @@ class MemberRepositoryTest {
 
         PageRequest  pageRequest = PageRequest.of(offset, limit, Sort.by(Sort.Direction.DESC, "userName"));
         Page<Member> memberPage  = memberRepository.findMemberByAge(age, pageRequest);
-        List<Member> members     = memberPage.getContent();
 
+        List<Member> members = memberPage.getContent();
         Page<MemberDto> mapped = memberPage.map(member -> new MemberDto(member.getId(), member.getUserName(), member.getAge(), member.getAddress()
                 .getMemberAddress(), member.getTeam()
                 .getName()));
@@ -243,9 +242,9 @@ class MemberRepositoryTest {
         em.clear();
 
         // List<Member> members = memberRepository.findAll();
-        List<Member> members = memberRepository.findMemberEntityGraph();
+        // List<Member> members = memberRepository.findMemberEntityGraph();
         // List<Member> members = memberRepository.findMemberEntityGraphs();
-        // List<Member> members = memberRepository.findEntityGraphByUserName("memberA");
+        List<Member> members = memberRepository.findEntityGraphByUserName("memberA");
 
         for (Member member : members) {
             log.info("members = {}", member);
@@ -299,8 +298,7 @@ class MemberRepositoryTest {
         em.clear();
 
         Member findMmeber1 = memberRepository.findLockByUserName("member1");
-
-
     }
+
 
 }
