@@ -77,8 +77,6 @@ public class MemberRepositoryV1 {
         return em.createQuery("update Member m set m.age = m.age + 1 where m.age >= :mAge")
                 .setParameter("mAge", age)
                 .executeUpdate();
-
-
     }
 
 

@@ -3,6 +3,7 @@ package hello.datajpa.repository.member;
 
 import hello.datajpa.domain.Member;
 import hello.datajpa.domain.MemberDto;
+import hello.datajpa.repository.member.custom.MemberRepositoryCustom;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.QueryHint;
 import org.springframework.data.domain.Page;
@@ -14,7 +15,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public interface MemberRepository extends JpaRepository<Member, Long> {
+public interface MemberRepository extends JpaRepository<Member, Long>, MemberRepositoryCustom {
 
     List<Member> findMemberByUserNameAndAgeGreaterThan(String userName, int age);
 

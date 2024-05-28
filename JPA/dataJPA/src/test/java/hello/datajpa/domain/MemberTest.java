@@ -1,5 +1,6 @@
 package hello.datajpa.domain;
 
+import hello.datajpa.repository.member.MemberRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -9,8 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @Slf4j
 @SpringBootTest
 @Transactional
@@ -18,6 +17,8 @@ class MemberTest {
 
     @Autowired
     EntityManager em;
+    @Autowired
+    private MemberRepository memberRepository;
 
 
     @Test
@@ -51,8 +52,12 @@ class MemberTest {
             log.info("member.getTeam : {}", member.getTeam());
             log.info("member.getClass : {}", member.getClass());
         });
-
     }
 
+    @Test
+    void JpaEventBaseEntity() throws InterruptedException {
+        List<Member> memberCustom = memberRepository.findMemberCustom();
+
+    }
 
 }

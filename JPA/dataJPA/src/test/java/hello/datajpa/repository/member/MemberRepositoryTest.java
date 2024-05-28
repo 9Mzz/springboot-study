@@ -300,5 +300,17 @@ class MemberRepositoryTest {
         Member findMmeber1 = memberRepository.findLockByUserName("member1");
     }
 
+    /**
+     * 확장 기능
+     */
+
+    /**
+     * 사용자 정의 메서드 호출 코드
+     */
+    @Test
+    void callCustom() {
+
+    }
+
 
 }
