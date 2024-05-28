@@ -22,13 +22,21 @@ public class QMember extends EntityPathBase<Member> {
 
     public static final QMember member = new QMember("member1");
 
+    public final hello.datajpa.domain.config.QJpaBaseEntity _super = new hello.datajpa.domain.config.QJpaBaseEntity(this);
+
     public final QAddress address;
 
     public final NumberPath<Integer> age = createNumber("age", Integer.class);
 
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createDate = _super.createDate;
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final QTeam team;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> updateDate = _super.updateDate;
 
     public final StringPath userName = createString("userName");
 

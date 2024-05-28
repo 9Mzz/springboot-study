@@ -308,7 +308,25 @@ class MemberRepositoryTest {
      * 사용자 정의 메서드 호출 코드
      */
     @Test
-    void callCustom() {
+    void callCustom() throws InterruptedException {
+
+        Team   teamA   = new Team("teamA");
+        Member memberA = new Member("memberA", 20, new Address("seoul"), teamA);
+        memberRepository.save(memberA);
+
+        Thread.sleep(1000);
+        memberA.setUserName("memberA-test");
+
+        em.flush();
+        em.clear();
+
+        Member findMember = memberRepository.findById(memberA.getId())
+                .get();
+        log.info("findMember = {}", findMember);
+        log.info("findMember getCreateBy = {}", findMember.getCreateBy());
+        log.info("findMember getCreatedDate = {}", findMember.getCreatedDate());
+        log.info("findMember getLastModifiedBy = {}", findMember.getLastModifiedBy());
+        log.info("findMember getLastModifiedDate = {}", findMember.getLastModifiedDate());
 
     }
 
