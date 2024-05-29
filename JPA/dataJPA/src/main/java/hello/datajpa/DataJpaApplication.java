@@ -24,9 +24,8 @@ public class DataJpaApplication {
     }
 
     @Bean
-    public AuditorAware<String> auditorProvider() {
+    public AuditorAware<String> auditorAware() {
         return () -> Optional.of(UUID.randomUUID()
                 .toString());
     }
-
 }

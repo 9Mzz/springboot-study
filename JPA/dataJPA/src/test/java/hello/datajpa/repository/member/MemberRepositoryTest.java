@@ -324,8 +324,8 @@ class MemberRepositoryTest {
                 .get();
         log.info("findMember = {}", findMember);
         log.info("findMember getCreateBy = {}", findMember.getCreateBy());
-        log.info("findMember getCreatedDate = {}", findMember.getCreatedDate());
-        log.info("findMember getLastModifiedBy = {}", findMember.getLastModifiedBy());
+        log.info("findMember getCreatedDate = {}", findMember.getCreateDate());
+        log.info("findMember getLastModifiedBy = {}", findMember.getUpdateBy());
         log.info("findMember getLastModifiedDate = {}", findMember.getLastModifiedDate());
 
     }

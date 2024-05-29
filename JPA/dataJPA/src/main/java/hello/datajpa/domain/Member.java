@@ -1,6 +1,6 @@
 package hello.datajpa.domain;
 
-import hello.datajpa.domain.config.JpaBaseEntity;
+import hello.datajpa.domain.config.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,7 +10,7 @@ import lombok.*;
 @ToString
 // @NamedEntityGraph(name = "Member.all", attributeNodes = @NamedAttributeNode("team"))
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member extends JpaBaseEntity {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
