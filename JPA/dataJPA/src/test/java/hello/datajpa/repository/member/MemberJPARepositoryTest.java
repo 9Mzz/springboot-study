@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
@@ -43,8 +44,8 @@ class MemberJPARepositoryTest {
     @Test
     void basicCrud() {
         Member memberA = new Member("memberA");
-        repository.save(memberA);
         Member memberB = new Member("memberB");
+        repository.save(memberA);
         repository.save(memberB);
 
         Member findMemberA = repository.findById(memberA.getId())
@@ -56,7 +57,6 @@ class MemberJPARepositoryTest {
         assertThat(memberB).isEqualTo(findMemberB);
 
         findMemberA.setUserName("memberAAAAAAAAAAAAAAA");
-
 
         // 리스트 조회 검증
         List<Member> all = repository.findAll();
@@ -71,4 +71,60 @@ class MemberJPARepositoryTest {
 
     }
 
+    @Test
+    void findByUsernameAgeGreaterThen() {
+        Member memberA = new Member("memberA", 10);
+        Member memberB = new Member("memberA", 20);
+        repository.save(memberA);
+        repository.save(memberB);
+
+        List<Member> result = repository.findByUsernameAgeGreaterThen("memberA", 5);
+        for (Member member : result) {
+            log.info("member = {}", member);
+        }
+
+    }
+
+    @Test
+    void findByPage() {
+        Member memberA = new Member("memberA", 20);
+        Member memberB = new Member("memberB", 20);
+        Member memberC = new Member("memberC", 20);
+        Member memberD = new Member("memberD", 20);
+
+        repository.save(memberA);
+        repository.save(memberB);
+        repository.save(memberC);
+        repository.save(memberD);
+
+        int age    = 20;
+        int offset = 0;
+        int limit  = 3;
+
+        List<Member> members = repository.findByPage(age, offset, limit);
+        for (Member member : members) {
+            log.info("member = {}", member);
+        }
+
+        Long count = repository.getCount(10);
+        log.info("count = {}", count);
+
+    }
+
+    @Test
+    void bulkAgePlus() {
+        repository.save(new Member("memberA", 20));
+        repository.save(new Member("memberB", 20));
+        repository.save(new Member("memberC", 20));
+        repository.save(new Member("memberD", 20));
+        repository.save(new Member("memberE", 10));
+        int i = repository.bulkAgePlus(20);
+        log.info("i = {}", i);
+
+        List<Member> memberList = repository.findAll();
+        for (Member member : memberList) {
+            log.info("member = {}", member);
+        }
+
+    }
 }
