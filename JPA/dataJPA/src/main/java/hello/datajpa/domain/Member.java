@@ -1,6 +1,7 @@
 package hello.datajpa.domain;
 
-import hello.datajpa.domain.config.BaseEntity;
+
+import hello.datajpa.domain.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,55 +9,29 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-// @NamedEntityGraph(name = "Member.all", attributeNodes = @NamedAttributeNode("team"))
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long    id;
-    private String  userName;
-    private Integer age;
-
-    @Embedded
-    private Address address;
+    private Long   id;
+    private String userName;
+    private int    age;
 
     //
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "team_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private Team team;
 
-    //
     public Member(String userName) {
         this.userName = userName;
     }
 
-    public Member(String userName, Integer age) {
+    //
+    public Member(String userName, int age, Team team) {
         this.userName = userName;
         this.age      = age;
-    }
-
-    public Member(String userName, Integer age, Address address) {
-        this.userName = userName;
-        this.age      = age;
-        this.address  = address;
-    }
-
-    public Member(String userName, Integer age, Address address, Team team) {
-        this.userName = userName;
-        this.age      = age;
-        this.address  = address;
-        if (team != null) {
-            teamCheck(team);
-        }
-    }
-
-    public Member(String userName, Integer age, Team team) {
-        this.userName = userName;
-        this.age      = age;
-        if (team != null) {
-            teamCheck(team);
-        }
+        teamCheck(team);
     }
 
     private void teamCheck(Team team) {

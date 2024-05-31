@@ -1,6 +1,5 @@
 package hello.datajpa;
 
-import com.fasterxml.jackson.datatype.hibernate5.jakarta.Hibernate5JakartaModule;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -19,13 +18,9 @@ public class DataJpaApplication {
     }
 
     @Bean
-    Hibernate5JakartaModule hibernate5JakartaModule() {
-        return new Hibernate5JakartaModule();
-    }
-
-    @Bean
-    public AuditorAware<String> auditorAware() {
+    AuditorAware<String> auditorProvider() {
         return () -> Optional.of(UUID.randomUUID()
                 .toString());
     }
+
 }

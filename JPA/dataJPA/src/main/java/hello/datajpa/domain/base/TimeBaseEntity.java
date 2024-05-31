@@ -1,4 +1,4 @@
-package hello.datajpa.domain.config;
+package hello.datajpa.domain.base;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
@@ -10,15 +10,14 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
-@EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
 @Getter
+@EntityListeners(AuditingEntityListener.class)
 public class TimeBaseEntity {
 
-    @Column(updatable = false)
+    @Column(nullable = false)
     @CreatedDate
-    private LocalDateTime createDate;
+    private LocalDateTime startDate;
     @LastModifiedDate
-    private LocalDateTime lastModifiedDate;
-
+    private LocalDateTime modifyDate;
 }
