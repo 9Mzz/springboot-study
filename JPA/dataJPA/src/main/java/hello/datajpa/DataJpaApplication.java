@@ -1,5 +1,8 @@
 package hello.datajpa;
 
+import com.fasterxml.jackson.datatype.hibernate5.jakarta.Hibernate5JakartaModule;
+import hello.datajpa.repository.member.MemberRepository;
+import hello.datajpa.repository.team.TeamRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +18,16 @@ public class DataJpaApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(DataJpaApplication.class, args);
+    }
+
+    @Bean
+    public BeforeData beforeData(MemberRepository memberRepository, TeamRepository teamRepository) {
+        return new BeforeData(memberRepository, teamRepository);
+    }
+
+    @Bean
+    public Hibernate5JakartaModule hibernate5JakartaModule() {
+        return new Hibernate5JakartaModule();
     }
 
     @Bean
