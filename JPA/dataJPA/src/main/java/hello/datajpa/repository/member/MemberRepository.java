@@ -1,12 +1,15 @@
 package hello.datajpa.repository.member;
 
 import hello.datajpa.domain.Member;
-import hello.datajpa.domain.MemberDto;
+import hello.datajpa.domain.dto.MemberDto;
+import hello.datajpa.domain.dto.UsernameOnlyDto;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.QueryHint;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
+import org.springframework.scheduling.support.SimpleTriggerContext;
 
 import java.util.Collection;
 import java.util.List;
@@ -30,7 +33,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     /**
      * DTO 조회
      */
-    @Query("select new hello.datajpa.domain.MemberDto(m.id, m.userName, m.age, t.name) from Member m join m.team t")
+    @Query("select new hello.datajpa.domain.dto.MemberDto(m.id, m.userName, m.age, t.name) from Member m join m.team t")
     List<MemberDto> findMemberByDto();
 
     /**
@@ -83,6 +86,13 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
      * Lock
      */
     @Lock(value = LockModeType.PESSIMISTIC_WRITE)
-    Member findLockByUserName(String userName);
+    List<Member> findLockByUserName(String userName);
+
+
+    /**
+     *
+     */
+    List<UsernameOnlyDto> findUsernameOnlyDto(String userName);
+
 }
 

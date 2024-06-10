@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.web.servlet.mvc.method.annotation.RequestAttributeMethodArgumentResolver;
+
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -18,7 +21,8 @@ public class BeforeData {
 
     @EventListener(ApplicationReadyEvent.class)
     public void beforeInit() {
-        Team   teamA   = new Team("teamA");
+        Team teamA = new Team("teamA");
+        teamRepository.save(teamA);
         Member memberA = new Member("memberA", 20, teamA);
         Member memberB = new Member("memberB", 20, teamA);
         Member memberC = new Member("memberC", 20, teamA);
@@ -29,7 +33,6 @@ public class BeforeData {
         memberRepository.save(memberC);
         memberRepository.save(memberD);
         memberRepository.save(memberE);
-
 
     }
 

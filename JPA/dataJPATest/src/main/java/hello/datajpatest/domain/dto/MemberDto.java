@@ -1,4 +1,4 @@
-package hello.datajpa.domain;
+package hello.datajpatest.domain.dto;
 
 import lombok.Data;
 

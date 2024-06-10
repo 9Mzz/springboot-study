@@ -1,12 +1,15 @@
 package hello.datajpa.repository.member;
 
 import hello.datajpa.domain.Member;
-import hello.datajpa.domain.MemberDto;
+import hello.datajpa.domain.dto.MemberDto;
 import hello.datajpa.domain.Team;
+import hello.datajpa.domain.dto.UsernameOnlyDto;
+import hello.datajpa.repository.UsernameOnly;
 import hello.datajpa.repository.team.TeamRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,12 @@ class MemberRepositoryTest {
     TeamRepository   teamRepository;
     @Autowired
     EntityManager    em;
+
+    @AfterEach
+    void tearDown() throws Exception {
+        memberRepository.deleteAllInBatch();
+        teamRepository.deleteAllInBatch();
+    }
 
     @Test
     void testMember() {
@@ -312,7 +321,44 @@ class MemberRepositoryTest {
         teamRepository.save(teamA);
         memberRepository.save(new Member("memberA", 10, teamA));
 
-        Member memberA = memberRepository.findLockByUserName("memberA");
+        List<Member> memberA = memberRepository.findLockByUserName("memberA");
+        for (Member member : memberA) {
+            log.info("member = {}", member);
+        }
 
     }
+
+    @Test
+    void findProjectionByUserName() {
+        // given
+        Team teamA = new Team("teamA");
+        teamRepository.save(teamA);
+        memberRepository.save(new Member("memberA", 10, teamA));
+        memberRepository.save(new Member("memberB", 10, teamA));
+
+        em.flush();
+        em.clear();
+
+        // when
+        // then
+
+    }
+
+    @Test
+    void testFindProjectionByUserName() {
+        Team teamA = new Team("teamA");
+        teamRepository.save(teamA);
+        memberRepository.save(new Member("memberA", 10, teamA));
+        memberRepository.save(new Member("memberB", 10, teamA));
+
+        em.flush();
+        em.clear();
+
+        List<UsernameOnlyDto> memberA = memberRepository.findUsernameOnlyDto("memberA");
+        for (UsernameOnlyDto usernameOnly : memberA) {
+            log.info("usernameOnly = {}", usernameOnly);
+        }
+    }
+
+
 }

@@ -1,43 +1,33 @@
-package hello.datajpa.domain;
+package hello.datajpatest.domain;
 
-
-import hello.datajpa.domain.base.BaseEntity;
+import hello.datajpatest.domain.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.IdentityHashMap;
 
 @Entity
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long   id;
-    private String userName;
+    private String memberName;
     private int    age;
-    //
-    @JoinColumn(name = "team_id")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
     private Team   team;
 
-    public Member(String userName) {
-        this.userName = userName;
-    }
-
     //
 
 
-    public Member(String userName, int age) {
-        this.userName = userName;
-        this.age      = age;
-    }
-
-    public Member(String userName, int age, Team team) {
-        this.userName = userName;
-        this.age      = age;
+    public Member(String memberName, int age, Team team) {
+        this.memberName = memberName;
+        this.age        = age;
         if (team != null) {
             teamCheck(team);
         }
