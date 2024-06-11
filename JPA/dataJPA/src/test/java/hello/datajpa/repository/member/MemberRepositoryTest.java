@@ -3,8 +3,7 @@ package hello.datajpa.repository.member;
 import hello.datajpa.domain.Member;
 import hello.datajpa.domain.dto.MemberDto;
 import hello.datajpa.domain.Team;
-import hello.datajpa.domain.dto.UsernameOnlyDto;
-import hello.datajpa.repository.UsernameOnly;
+import hello.datajpa.domain.dto.UserNameOnlyDto;
 import hello.datajpa.repository.team.TeamRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -182,7 +181,7 @@ class MemberRepositoryTest {
         int    offset     = 0;
         int    limit      = 3;
 
-        PageRequest pageRequest = PageRequest.of(offset, limit, Sort.by(Sort.Direction.DESC, "userName"));
+        PageRequest pageRequest = PageRequest.of(offset, limit, Sort.by(Sort.Direction.DESC, "UserNameOnly"));
 
         Page<Member> memberPage = memberRepository.findByUserName(memberName, pageRequest);
         List<Member> memberList = memberPage.getContent();
@@ -205,7 +204,7 @@ class MemberRepositoryTest {
         int offset = 0;
         int limit  = 3;
 
-        PageRequest pageRequest = PageRequest.of(offset, limit, Sort.by(Sort.Direction.DESC, "userName"));
+        PageRequest pageRequest = PageRequest.of(offset, limit, Sort.by(Sort.Direction.DESC, "UserNameOnly"));
 
         Page<Member> memberPage  = memberRepository.findByAge(age, pageRequest);
         List<Member> pageContent = memberPage.getContent();
@@ -228,7 +227,7 @@ class MemberRepositoryTest {
         int offset = 0;
         int limit  = 3;
 
-        PageRequest pageRequest = PageRequest.of(offset, limit, Sort.by(Sort.Direction.DESC, "userName"));
+        PageRequest pageRequest = PageRequest.of(offset, limit, Sort.by(Sort.Direction.DESC, "UserNameOnly"));
 
         Page<Member> memberPage = memberRepository.findByAge(age, pageRequest);
         Page<MemberDto> dtoPage = memberPage.map(member -> new MemberDto(member.getId(), member.getUserName(), member.getAge(), member.getTeam()
@@ -328,9 +327,9 @@ class MemberRepositoryTest {
 
     }
 
+
     @Test
     void findProjectionByUserName() {
-        // given
         Team teamA = new Team("teamA");
         teamRepository.save(teamA);
         memberRepository.save(new Member("memberA", 10, teamA));
@@ -339,26 +338,10 @@ class MemberRepositoryTest {
         em.flush();
         em.clear();
 
-        // when
-        // then
-
-    }
-
-    @Test
-    void testFindProjectionByUserName() {
-        Team teamA = new Team("teamA");
-        teamRepository.save(teamA);
-        memberRepository.save(new Member("memberA", 10, teamA));
-        memberRepository.save(new Member("memberB", 10, teamA));
-
-        em.flush();
-        em.clear();
-
-        List<UsernameOnlyDto> memberA = memberRepository.findUsernameOnlyDto("memberA");
-        for (UsernameOnlyDto usernameOnly : memberA) {
-            log.info("usernameOnly = {}", usernameOnly);
+        List<UserNameOnly> memberA = memberRepository.findProjectionByUserName("memberA");
+        for (UserNameOnly userNameOnly : memberA) {
+            log.info("userNameOnly = {}", userNameOnly);
         }
+
     }
-
-
 }

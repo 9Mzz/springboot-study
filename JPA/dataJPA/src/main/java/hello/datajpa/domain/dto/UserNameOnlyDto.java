@@ -1,10 +1,10 @@
 package hello.datajpa.domain.dto;
 
-public class UsernameOnlyDto {
+public class UserNameOnlyDto {
 
     private final String userName;
 
-    public UsernameOnlyDto(String userName) {
+    public UserNameOnlyDto(String userName) {
         this.userName = userName;
     }
 
