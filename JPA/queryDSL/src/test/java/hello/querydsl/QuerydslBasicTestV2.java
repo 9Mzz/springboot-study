@@ -1,5 +1,6 @@
 package hello.querydsl;
 
+
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.core.types.dsl.Expressions;
@@ -31,6 +32,7 @@ public class QuerydslBasicTestV2 {
     EntityManager em;
     JPAQueryFactory query;
 
+
     @BeforeEach
     void before() {
         // EntityManager 자체가 동시성, 즉 멀티스레드에 아무 문제 없게 설계되어 있기 때문에 개발자가 신경 쓸 필요가 없다.
@@ -50,11 +52,9 @@ public class QuerydslBasicTestV2 {
         em.persist(memberD);
     }
 
-    /**
-     * 조건부에 JPAExpressions 사용
-     */
+    // 11 서브 쿼리
+    // com.querydsl.jpa.JPAExpressions 사용
     @Test
-    @DisplayName("11 서브 쿼리")
     void subQuery() {
         QMember memberSub = new QMember("member");
         List<Member> fetch = query.select(member)
@@ -62,26 +62,24 @@ public class QuerydslBasicTestV2 {
                 .where(member.age.eq(select(memberSub.age.max()).from(memberSub)))
                 .fetch();
         for (Member fetch1 : fetch) {
-            log.info("fetch1: {}", fetch1);
+            log.info("subQuery : {}", fetch1);
         }
-
-        QMember subMember = new QMember("subMember");
-        query.select(member)
-                .from(member)
-                .where(member.age.eq(select(subMember.age.max()).from(subMember)))
-                .fetch();
     }
 
+    // 11-2 서브 쿼리 goe 사용
     @Test
-    @DisplayName("11 서브 쿼리 goe 사용")
     void subQueryGoe() {
         QMember subMember = new QMember("subMember");
-        query.select(member)
+        List<Member> fetch = query.select(member)
                 .from(member)
                 .where(member.age.goe(select(subMember.age.avg()).from(subMember)))
                 .fetch();
+        for (Member result : fetch) {
+            log.info("subQueryGoe : {}", result);
+        }
     }
 
+    // 11-3 서브쿼리 여러 건 처리 in 사용
     @Test
     @DisplayName("11 서브쿼리 여러 건 처리 in 사용")
     void subQueryIn() {
@@ -95,8 +93,8 @@ public class QuerydslBasicTestV2 {
         }
     }
 
+    // 11-4 서브쿼리 select 절에 subquery
     @Test
-    @DisplayName("11 서브쿼리 select 절에 subquery")
     void selectSubQuery() {
         QMember subMember = new QMember("subMember");
         List<Tuple> result = query.select(member.userName, select(subMember.age.avg()).from(subMember))
@@ -109,7 +107,8 @@ public class QuerydslBasicTestV2 {
         }
     }
 
-    // 12-1 Case 문
+    // 12 사건(Case)문
+    // select, 조건절(where), orderBy 에서 사용 가능
     @Test
     void basicCase() {
         List<Tuple> result = query.select(member.userName, member.age.when(10)
@@ -148,21 +147,19 @@ public class QuerydslBasicTestV2 {
                 .when(member.age.between(21, 30))
                 .then(2)
                 .otherwise(3);
-
         List<Tuple> result = query.select(member.userName, member.age, rankPath)
                 .from(member)
                 .orderBy(rankPath.desc())
                 .fetch();
         for (Tuple tuple : result) {
-            String userName = tuple.get(member.userName);
-            Integer age = tuple.get(member.age
-            );
-            Integer rank = tuple.get(rankPath);
+            String  userName = tuple.get(member.userName);
+            Integer age      = tuple.get(member.age);
+            Integer rank     = tuple.get(rankPath);
             log.info("userName = {}, age = {}, rank = {}", userName, age, rank);
         }
     }
 
-    // 13. 상수, 문자 더하기
+    // 13 상수, 문자 더하기
     @Test
     void constant() {
         List<Tuple> fetch = query.select(member.userName, Expressions.constant("A"))
@@ -173,9 +170,9 @@ public class QuerydslBasicTestV2 {
         }
     }
 
-    // 문자 더하기 concat
+    // 13-2 문자 더하기 concat
     @Test
-    public void concat() {
+    void concat() {
         List<String> fetch = query.select(member.userName.concat("_")
                         .concat(member.age.stringValue()))
                 .from(member)
