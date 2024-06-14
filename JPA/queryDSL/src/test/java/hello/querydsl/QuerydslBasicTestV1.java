@@ -4,14 +4,11 @@ import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import hello.querydsl.domain.Member;
-import hello.querydsl.domain.QMember;
-import hello.querydsl.domain.QTeam;
 import hello.querydsl.domain.Team;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -57,7 +54,6 @@ public class QuerydslBasicTestV1 {
      */
     @Test
     void startJPQL() {
-
         // memberA 찾기
         Member result = em.createQuery("select m from Member m where m.userName = :userName", Member.class)
                 .setParameter("userName", param)

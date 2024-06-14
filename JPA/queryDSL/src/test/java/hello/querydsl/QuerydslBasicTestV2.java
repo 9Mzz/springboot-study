@@ -2,9 +2,11 @@ package hello.querydsl;
 
 
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.NumberExpression;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import hello.querydsl.domain.Member;
 import hello.querydsl.domain.QMember;
@@ -81,7 +83,6 @@ public class QuerydslBasicTestV2 {
 
     // 11-3 서브쿼리 여러 건 처리 in 사용
     @Test
-    @DisplayName("11 서브쿼리 여러 건 처리 in 사용")
     void subQueryIn() {
         QMember subMember = new QMember("subMember");
         List<Member> result = query.selectFrom(member)
@@ -166,7 +167,7 @@ public class QuerydslBasicTestV2 {
                 .from(member)
                 .fetch();
         for (Tuple tuple : fetch) {
-            log.info("tuple: {}", tuple);
+            log.info("constant tuple: {}", tuple);
         }
     }
 
@@ -181,9 +182,7 @@ public class QuerydslBasicTestV2 {
         for (String s : fetch) {
             log.info("s = {}", s);
         }
-
     }
-
 
 }
 
