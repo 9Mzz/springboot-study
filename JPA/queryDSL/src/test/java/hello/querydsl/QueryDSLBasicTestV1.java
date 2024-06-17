@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Slf4j
 @SpringBootTest
 @Transactional
-public class QuerydslBasicTestV1 {
+public class QueryDSLBasicTestV1 {
 
     @Autowired
     EntityManager em;

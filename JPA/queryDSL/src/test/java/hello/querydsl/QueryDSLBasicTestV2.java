@@ -2,11 +2,9 @@ package hello.querydsl;
 
 
 import com.querydsl.core.Tuple;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.NumberExpression;
-import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import hello.querydsl.domain.Member;
 import hello.querydsl.domain.QMember;
@@ -15,7 +13,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,7 +25,7 @@ import static hello.querydsl.domain.QMember.member;
 @SpringBootTest
 @Transactional
 @Slf4j
-public class QuerydslBasicTestV2 {
+public class QueryDSLBasicTestV2 {
 
     @Autowired
     EntityManager em;
