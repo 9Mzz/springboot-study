@@ -43,7 +43,7 @@ public class QueryDSLMiddleTestV2 {
     // 동적 쿼리 - BooleanBuilder 사용
     @Test
     void dynamicQuery_BooleanBuilder() {
-        
+
     }
 
 }
