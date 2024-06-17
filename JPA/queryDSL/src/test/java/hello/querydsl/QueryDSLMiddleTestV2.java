@@ -147,8 +147,7 @@ public class QueryDSLMiddleTestV2 {
     // 7 SQL function 호출하기
     @Test
     void sqlFunction() {
-        List<String> result = query.select(Expressions.stringTemplate("function('replace', {0}, {1}, {2})"
-                        , member.userName, "member", "M"))
+        List<String> result = query.select(Expressions.stringTemplate("function('replace', {0}, {1}, {2})", member.userName, "member", "M"))
                 .from(member)
                 .fetch();
         for (String s : result) {
