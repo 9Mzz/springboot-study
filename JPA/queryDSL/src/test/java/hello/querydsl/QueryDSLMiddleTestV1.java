@@ -22,7 +22,7 @@ import static hello.querydsl.domain.QMember.member;
 @SpringBootTest
 @Transactional
 @Slf4j
-public class QueryDSLBasicTest {
+public class QueryDSLMiddleTestV1 {
 
     @Autowired
     EntityManager em;
