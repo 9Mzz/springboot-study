@@ -1,6 +1,9 @@
 package hello.querydsl.repository;
 
 import hello.querydsl.domain.Member;
+import hello.querydsl.domain.Team;
+import hello.querydsl.domain.condition.MemberSearchCondition;
+import hello.querydsl.domain.dto.MemberTeamDto;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +43,30 @@ class MemberRepositoryTest {
         List<Member> members2 = memberRepository.findByUserName(memberA.getUserName());
         assertThat(members2).containsExactly(memberA);
 
+    }
+
+    @Test
+    void searchTest() {
+        Team teamA = new Team("teamA");
+        Team teamB = new Team("teamB");
+        em.persist(teamA);
+        em.persist(teamB);
+        for (int i = 0; i < 50; i++) {
+            Team selectTeam = i % 2 == 0 ? teamA : teamB;
+            em.persist(new Member("member" + i, i, selectTeam));
+        }
+
+        MemberSearchCondition condition = new MemberSearchCondition();
+        condition.setUserName("member");
+        condition.setTeamName("teamA");
+        condition.setAgeGoe(0);
+        condition.setAgeLoe(50);
+
+        // List<MemberTeamDto> result = memberRepository.searchByBuilder(condition);
+        List<MemberTeamDto> result = memberRepository.searchByWhere(condition);
+        for (MemberTeamDto memberTeamDto : result) {
+            log.info("memberTeamDto = {}", memberTeamDto);
+        }
     }
 
 

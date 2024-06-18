@@ -1,26 +1,23 @@
 package hello.querydsl.repository;
 
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import hello.querydsl.domain.QMember;
-import hello.querydsl.domain.QTeam;
-import hello.querydsl.domain.Team;
 import hello.querydsl.domain.condition.MemberSearchCondition;
 import hello.querydsl.domain.dto.MemberTeamDto;
 import hello.querydsl.domain.dto.QMemberTeamDto;
 import jakarta.persistence.EntityManager;
-import lombok.Builder;
-import lombok.RequiredArgsConstructor;
+import jakarta.persistence.Query;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
-import java.awt.*;
 import java.util.List;
 
-import static hello.querydsl.domain.QMember.*;
-import static hello.querydsl.domain.QTeam.*;
+import static hello.querydsl.domain.QMember.member;
+import static hello.querydsl.domain.QTeam.team;
 
 @Repository
 public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
@@ -46,8 +43,6 @@ public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
         if (condition.getAgeLoe() != null) {
             builder.and(member.age.loe(condition.getAgeLoe()));
         }
-
-
         return factory.select(new QMemberTeamDto(member.id, member.userName, member.age, team.id, team.name))
                 .from(member)
                 .leftJoin(member.team, team)
@@ -63,6 +58,24 @@ public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
                 .where(nameCheck(condition.getUserName()), teamNameCheck(condition.getTeamName()), ageGoeCheck(condition.getAgeGoe()), ageLoeCheck(condition.getAgeLoe()))
                 .fetch();
     }
+
+    @Override
+    public Page<MemberTeamDto> searchPage(MemberSearchCondition condition, Pageable pageable) {
+        List<MemberTeamDto> content = factory.select(new QMemberTeamDto(member.id, member.userName, member.age, team.id, team.name))
+                .from(member)
+                .leftJoin(member.team, team)
+                .where(nameCheck(condition.getUserName()), teamNameCheck(condition.getTeamName()), ageGoeCheck(condition.getAgeGoe()), ageLoeCheck(condition.getAgeLoe()))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+        Long total = factory.select(member.count())
+                .from(member)
+                .leftJoin(member.team, team)
+                .where(nameCheck(condition.getUserName()), teamNameCheck(condition.getTeamName()), ageGoeCheck(condition.getAgeGoe()), ageLoeCheck(condition.getAgeLoe()))
+                .fetchOne();
+        return new PageImpl<>(content, pageable, total);
+    }
+
 
     private BooleanExpression nameCheck(String userName) {
         return StringUtils.hasText((userName)) ? member.userName.like("%" + userName + "%") : null;
