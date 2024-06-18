@@ -2,7 +2,6 @@ package hello.querydsl;
 
 import hello.querydsl.domain.Member;
 import hello.querydsl.domain.Team;
-import hello.querydsl.repository.MemberRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
