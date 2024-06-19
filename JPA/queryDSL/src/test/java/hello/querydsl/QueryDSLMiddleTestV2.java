@@ -169,8 +169,5 @@ public class QueryDSLMiddleTestV2 {
         for (Member member1 : result) {
             System.out.println("member1 = " + member1);
         }
-
-
     }
-
 }
