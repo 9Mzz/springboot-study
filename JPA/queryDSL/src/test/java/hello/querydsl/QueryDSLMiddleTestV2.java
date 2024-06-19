@@ -1,7 +1,6 @@
 package hello.querydsl;
 
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -17,7 +16,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.util.StringUtils;
 
-import java.util.Iterator;
 import java.util.List;
 
 import static hello.querydsl.domain.QMember.member;
@@ -174,17 +172,6 @@ public class QueryDSLMiddleTestV2 {
         }
 
 
-    }
-
-    private BooleanExpression ageCheck(Integer paramAge) {
-        return paramAge >= 5 ? member.age.goe(paramAge) : null;
-    }
-
-    private BooleanExpression nameCheck(String paramName) {
-        if (!StringUtils.hasText(paramName)) {
-            return null;
-        }
-        return paramName != null ? member.userName.like("%" + paramName + "%") : null;
     }
 
 }
