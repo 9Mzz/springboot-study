@@ -127,7 +127,6 @@ public class QueryDSLMiddleTestV2 {
         log.info("ageAddCount = {}", ageAddCount);
         log.info("ageDeleteCount = {}", ageDeleteCount);
         log.info("ageDoubleCount = {}", ageDoubleCount);
-
         List<Member> result = query.selectFrom(member)
                 .fetch();
         for (Member member : result) {
