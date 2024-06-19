@@ -82,7 +82,7 @@ public class QueryDSLBasicTestV1 {
 
     // 3 검색 조건 쿼리
     @Test
-    void search() {
+    void searchV1() {
         Member memberA = query.selectFrom(member)
                 .where(member.userName.eq(param), member.age.between(10, 20))
                 .fetchOne();
@@ -91,7 +91,7 @@ public class QueryDSLBasicTestV1 {
 
     // 3-2 JPQL이 제공하는 모든 검색 조건 제공
     @Test
-    void search2() {
+    void searchV2() {
         member.userName.eq("member1");  // username = 'member1'
         member.userName.ne("member1");  // username != 'member1'
         member.userName.eq("member1")
