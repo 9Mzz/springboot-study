@@ -4,13 +4,11 @@ import com.example.test.domain.dto.MemberTeamDto;
 import com.example.test.domain.dto.QMemberTeamDto;
 import com.example.test.domain.dto.SearchCondition;
 import com.example.test.repository.MemberRepositoryDataJPA;
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.resource.beans.container.internal.ContainerManagedLifecycleStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +17,9 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Random;
-import java.util.function.BooleanSupplier;
 
-import static com.example.test.domain.QMember.*;
-import static com.example.test.domain.QTeam.*;
+import static com.example.test.domain.QMember.member;
+import static com.example.test.domain.QTeam.team;
 
 
 @Slf4j
