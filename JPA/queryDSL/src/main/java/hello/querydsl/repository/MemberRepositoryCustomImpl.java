@@ -55,23 +55,27 @@ public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
         return factory.select(new QMemberTeamDto(member.id, member.userName, member.age, team.id, team.name))
                 .from(member)
                 .leftJoin(member.team, team)
-                .where(nameCheck(condition.getUserName()), teamNameCheck(condition.getTeamName()), ageGoeCheck(condition.getAgeGoe()), ageLoeCheck(condition.getAgeLoe()))
+                .where(nameCheck(condition.getUserName()), teamNameCheck(condition.getTeamName()),
+                       ageGoeCheck(condition.getAgeGoe()), ageLoeCheck(condition.getAgeLoe()))
                 .fetch();
     }
 
     @Override
     public Page<MemberTeamDto> searchPage(MemberSearchCondition condition, Pageable pageable) {
-        List<MemberTeamDto> content = factory.select(new QMemberTeamDto(member.id, member.userName, member.age, team.id, team.name))
+        List<MemberTeamDto> content = factory.select(
+                        new QMemberTeamDto(member.id, member.userName, member.age, team.id, team.name))
                 .from(member)
                 .leftJoin(member.team, team)
-                .where(nameCheck(condition.getUserName()), teamNameCheck(condition.getTeamName()), ageGoeCheck(condition.getAgeGoe()), ageLoeCheck(condition.getAgeLoe()))
+                .where(nameCheck(condition.getUserName()), teamNameCheck(condition.getTeamName()),
+                       ageGoeCheck(condition.getAgeGoe()), ageLoeCheck(condition.getAgeLoe()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
         Long total = factory.select(member.count())
                 .from(member)
                 .leftJoin(member.team, team)
-                .where(nameCheck(condition.getUserName()), teamNameCheck(condition.getTeamName()), ageGoeCheck(condition.getAgeGoe()), ageLoeCheck(condition.getAgeLoe()))
+                .where(nameCheck(condition.getUserName()), teamNameCheck(condition.getTeamName()),
+                       ageGoeCheck(condition.getAgeGoe()), ageLoeCheck(condition.getAgeLoe()))
                 .fetchOne();
         return new PageImpl<>(content, pageable, total);
     }

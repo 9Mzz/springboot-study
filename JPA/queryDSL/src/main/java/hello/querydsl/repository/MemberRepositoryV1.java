@@ -97,7 +97,8 @@ public class MemberRepositoryV1 {
         return factory.select(new QMemberTeamDto(member.id, member.userName, member.age, team.id, team.name))
                 .from(member)
                 .leftJoin(member.team, team)
-                .where(memberNameCheck(condition.getUserName()), teamNameCheck(condition.getTeamName()), ageGoeCheck(condition.getAgeGoe()), ageLoeCheck(condition.getAgeLoe()))
+                .where(memberNameCheck(condition.getUserName()), teamNameCheck(condition.getTeamName()),
+                       ageGoeCheck(condition.getAgeGoe()), ageLoeCheck(condition.getAgeLoe()))
                 .fetch();
     }
 

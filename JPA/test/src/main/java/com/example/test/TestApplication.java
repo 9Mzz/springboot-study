@@ -2,11 +2,10 @@ package com.example.test;
 
 import com.fasterxml.jackson.datatype.hibernate5.jakarta.Hibernate5JakartaModule;
 import jakarta.persistence.EntityManager;
-import org.apache.el.util.ReflectionUtil;
-import org.hibernate.Hibernate;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
@@ -22,8 +21,9 @@ public class TestApplication {
     }
 
     @Bean
-    public DataInit dataInit(EntityManager entityManager) {
-        return new DataInit(entityManager);
+    @Profile("local")
+    public TestDataInit testDataInit(EntityManager entityManager) {
+        return new TestDataInit(entityManager);
     }
 
     @Bean

@@ -13,22 +13,24 @@ import java.util.Random;
 
 @Transactional
 @RequiredArgsConstructor
-public class DataInit {
+public class TestDataInit {
 
     private final EntityManager em;
 
     @EventListener(ApplicationReadyEvent.class)
-    public void beforeInit() {
+    public void beforeData() {
         Team teamA = new Team("teamA");
         Team teamB = new Team("teamB");
         em.persist(teamA);
         em.persist(teamB);
 
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 50; i++) {
             Team teamCheck = i % 2 == 0 ? teamA : teamB;
-            em.persist(
-                    new Member("member" + i, new Random().nextInt(50), new Address("Seoul", "SaDang-" + i), teamCheck));
+            em.persist(new Member("member" + i, new Random().nextInt(40), new Address("Seoul", "Sadang"), teamCheck));
         }
 
+        em.flush();
+        em.clear();
     }
+
 }

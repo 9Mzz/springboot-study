@@ -1,16 +1,17 @@
 package com.example.test.domain;
 
-
+import com.example.test.config.baseentity.BaseEntity;
 import jakarta.persistence.*;
-import lombok.*;
-
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,16 +20,21 @@ public class Member {
     private int     age;
     @Embedded
     private Address address;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
-    private Team team;
+    private Team    team;
 
     //
     public Member(String memberName, int age, Address address, Team team) {
         this.memberName = memberName;
         this.age        = age;
         this.address    = address;
-        this.team       = team;
+        teamCheck(team);
+    }
+
+    private void teamCheck(Team team) {
+        this.team = team;
+        team.getMembers()
+                .add(this);
     }
 }
