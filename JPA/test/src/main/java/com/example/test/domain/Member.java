@@ -1,35 +1,38 @@
 package com.example.test.domain;
 
-import com.example.test.config.baseentity.BaseEntity;
+import com.example.test.domain.baseentity.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long    id;
-    private String  memberName;
+    private String  name;
     private int     age;
     @Embedded
     private Address address;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "team_id")
     private Team    team;
 
-    //
-    public Member(String memberName, int age, Address address, Team team) {
-        this.memberName = memberName;
-        this.age        = age;
-        this.address    = address;
-        teamCheck(team);
+    public Member(String name) {
+        this.name = name;
+    }
+
+    public Member(String name, int age, Address address, Team team) {
+        this.name    = name;
+        this.age     = age;
+        this.address = address;
+        if (team != null) {
+            teamCheck(team);
+        }
     }
 
     private void teamCheck(Team team) {

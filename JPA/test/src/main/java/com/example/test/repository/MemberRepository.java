@@ -1,5 +1,6 @@
 package com.example.test.repository;
 
+
 import com.example.test.domain.Member;
 import com.example.test.domain.QMember;
 import com.example.test.domain.dto.*;
@@ -11,25 +12,24 @@ import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Random;
 
-import static com.example.test.domain.QMember.member;
-import static com.example.test.domain.QTeam.team;
+import static com.example.test.domain.QMember.*;
+import static com.example.test.domain.QTeam.*;
 
-@Repository
 @Transactional
+@Repository
 public class MemberRepository {
 
     private final EntityManager          em;
     private final JPAQueryFactory        factory;
     private final MemberRepositoryCustom memberRepositoryCustom;
-
 
     public MemberRepository(EntityManager em, MemberRepositoryCustom memberRepositoryCustom) {
         this.em                     = em;
@@ -37,73 +37,85 @@ public class MemberRepository {
         this.memberRepositoryCustom = memberRepositoryCustom;
     }
 
-    public int bulkUpdate(int ageParam) {
-        return memberRepositoryCustom.bulkAgePlus(ageParam);
-    }
-
-
-    public List<MemberCaseDto> caseBuilder(int ageParam) {
-
-        StringExpression otherwise = new CaseBuilder().when(member.age.between(0, 20))
-                .then("미성년자")
-                .when(member.age.between(21, 40))
-                .then("MZ 세대")
-                .otherwise("기타");
-
-        return factory.select(new QMemberCaseDto(member.memberName, member.age, otherwise))
+    public List<testV1Dto> testV1() {
+        return factory.select(
+                        new QtestV1Dto(member.id, member.name, member.age, member.address.city, member.address.street,
+                                       team.teamName))
                 .from(member)
-                .where(member.age.goe(ageParam))
+                .orderBy(member.age.desc())
                 .fetch();
     }
 
-    public List<Member> jpaExpressionPractice() {
+    public List<Member> testV2() {
+        return factory.select(member)
+                .from(member)
+                .leftJoin(member.team, team)
+                .fetchJoin()
+                .fetch();
+    }
+
+    public List<Member> testV3() {
         QMember subMember = new QMember("subMember");
-        JPQLQuery<Double> subQuery = JPAExpressions.select(subMember.age.avg())
+        JPQLQuery<Integer> where = JPAExpressions.select(subMember.age)
                 .from(subMember)
-                .where(subMember.age.between(0, 40));
+                .where(subMember.age.goe(new Random().nextInt(20)));
 
         return factory.select(member)
                 .from(member)
-                .where(member.age.goe(subQuery))
+                .where(member.age.in(where))
+                .orderBy(member.age.desc())
                 .fetch();
-
     }
 
-    public Page<MemberTeamDto> memberPagingTest(SearchCondition condition, Pageable pageable) {
+    public List<testV4Dto> testV4() {
+        CaseBuilder builder = new CaseBuilder();
+        StringExpression otherwise = builder.when(member.age.between(1, 20))
+                .then("미성년자")
+                .when(member.age.between(21, 40))
+                .then("mz 세대")
+                .otherwise("성인");
+        return factory.select(new QtestV4Dto(member.name, member.age, otherwise))
+                .from(member)
+                .orderBy(member.age.desc())
+                .fetch();
+    }
 
-        List<MemberTeamDto> content = factory.select(
-                        new QMemberTeamDto(member.id, member.memberName, member.age, member.address.street, member.address.city,
-                                           team.teamName))
+    public PageImpl<testV1Dto> testV5(SearchCondition condition, Pageable pageable) {
+        List<testV1Dto> content = factory.select(
+                        new QtestV1Dto(member.id, member.name, member.age, member.address.city, member.address.street,
+                                       team.teamName))
                 .from(member)
                 .leftJoin(member.team, team)
                 .where(memberNameCheck(condition.getMemberNameParam()), teamNameCheck(condition.getTeamNameParam()),
-                       ageGoeCheck(condition.getAgeGoe()), ageLoeCheck(condition.getAgeLoe()))
+                       memberAgeGoeCheck(condition.getAgeGoe()), memberAgeLoeCheck(condition.getAgeLoe()))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
-        Long total = factory.select(member.count())
+        Long result = factory.select(member.count())
                 .from(member)
                 .leftJoin(member.team, team)
                 .where(memberNameCheck(condition.getMemberNameParam()), teamNameCheck(condition.getTeamNameParam()),
-                       ageGoeCheck(condition.getAgeGoe()), ageLoeCheck(condition.getAgeLoe()))
+                       memberAgeGoeCheck(condition.getAgeGoe()), memberAgeLoeCheck(condition.getAgeLoe()))
                 .fetchOne();
-        return new PageImpl<>(content, pageable, total);
+
+        return new PageImpl<>(content, pageable, result);
+
     }
 
     private BooleanExpression memberNameCheck(String memberNameParam) {
-        return StringUtils.hasText(memberNameParam) ? member.memberName.like("%" + memberNameParam + "%") : null;
+        return StringUtils.hasText(memberNameParam) ? member.name.like("%" + memberNameParam + "%") : null;
     }
-
 
     private BooleanExpression teamNameCheck(String teamNameParam) {
         return StringUtils.hasText(teamNameParam) ? team.teamName.like("%" + teamNameParam + "%") : null;
     }
 
-    private BooleanExpression ageGoeCheck(Integer ageGoe) {
+    private BooleanExpression memberAgeGoeCheck(Integer ageGoe) {
         return ageGoe != null ? member.age.goe(ageGoe) : null;
     }
 
-    private BooleanExpression ageLoeCheck(Integer ageLoe) {
+    private BooleanExpression memberAgeLoeCheck(Integer ageLoe) {
         return ageLoe != null ? member.age.loe(ageLoe) : null;
     }
+
 }

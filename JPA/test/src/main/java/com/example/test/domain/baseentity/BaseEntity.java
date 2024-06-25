@@ -1,4 +1,4 @@
-package com.example.test.config.baseentity;
+package com.example.test.domain.baseentity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
@@ -13,11 +13,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity extends TimeBaseEntity {
 
-    @Column(nullable = false)
+    @Column(updatable = false)
     @CreatedBy
     private String createdBy;
     @LastModifiedBy
     private String lastModifiedBy;
-
 
 }

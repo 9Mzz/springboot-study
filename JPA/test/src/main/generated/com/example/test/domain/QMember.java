@@ -22,7 +22,7 @@ public class QMember extends EntityPathBase<Member> {
 
     public static final QMember member = new QMember("member1");
 
-    public final com.example.test.config.baseentity.QBaseEntity _super = new com.example.test.config.baseentity.QBaseEntity(this);
+    public final com.example.test.domain.baseentity.QBaseEntity _super = new com.example.test.domain.baseentity.QBaseEntity(this);
 
     public final QAddress address;
 
@@ -42,7 +42,7 @@ public class QMember extends EntityPathBase<Member> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;
 
-    public final StringPath memberName = createString("memberName");
+    public final StringPath name = createString("name");
 
     public final QTeam team;
 

@@ -1,4 +1,4 @@
-package com.example.test;
+package com.example.test.config;
 
 import com.example.test.domain.Address;
 import com.example.test.domain.Member;
@@ -13,7 +13,7 @@ import java.util.Random;
 
 @Transactional
 @RequiredArgsConstructor
-public class TestDataInit {
+public class BeforeDataInit {
 
     private final EntityManager em;
 
@@ -24,13 +24,13 @@ public class TestDataInit {
         em.persist(teamA);
         em.persist(teamB);
 
-        for (int i = 0; i < 50; i++) {
-            Team teamCheck = i % 2 == 0 ? teamA : teamB;
-            em.persist(new Member("member" + i, new Random().nextInt(40), new Address("Seoul", "Sadang"), teamCheck));
+        for (int i = 0; i < 30; i++) {
+            Team teamCheck = new Random().nextInt(2) % 2 == 0 ? teamA : teamB;
+            em.persist(new Member("member" + i, new Random().nextInt(60), new Address("Seoul", "SaDang"), teamCheck));
         }
-
         em.flush();
         em.clear();
     }
+
 
 }

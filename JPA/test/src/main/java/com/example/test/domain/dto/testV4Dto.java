@@ -7,17 +7,16 @@ import lombok.Setter;
 
 @Data
 @Setter(AccessLevel.NONE)
-public class MemberCaseDto {
+public class testV4Dto {
 
-
-    private String  memberName;
-    private Integer memberAge;
+    private String  name;
+    private Integer age;
     private String  description;
 
     @QueryProjection
-    public MemberCaseDto(String memberName, Integer memberAge, String description) {
-        this.memberName  = memberName;
-        this.memberAge   = memberAge;
+    public testV4Dto(String name, Integer age, String description) {
+        this.name        = name;
+        this.age         = age;
         this.description = description;
     }
 }
