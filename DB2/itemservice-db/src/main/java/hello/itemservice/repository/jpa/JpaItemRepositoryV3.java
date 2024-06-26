@@ -21,7 +21,6 @@ import static hello.itemservice.domain.QItem.item;
 @Repository
 public class JpaItemRepositoryV3 implements ItemRepository {
 
-
     private final EntityManager   em;
     private final JPAQueryFactory queryFactory;
 
@@ -75,8 +74,8 @@ public class JpaItemRepositoryV3 implements ItemRepository {
     @Override
     public List<Item> findAll(ItemSearchCond cond) {
 
-        String         itemName = cond.getItemName();
-        Integer        maxPrice = cond.getMaxPrice();
+        String  itemName = cond.getItemName();
+        Integer maxPrice = cond.getMaxPrice();
 
         return queryFactory.select(item)
                 .from(item)

@@ -14,7 +14,6 @@ import javax.sql.DataSource;
 @RequiredArgsConstructor
 public class JdbcTemplateV3Config {
 
-
     private final DataSource dataSource;
 
     @Bean
