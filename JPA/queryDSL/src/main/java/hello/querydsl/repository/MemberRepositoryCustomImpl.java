@@ -2,15 +2,19 @@ package hello.querydsl.repository;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import hello.querydsl.domain.Member;
 import hello.querydsl.domain.condition.MemberSearchCondition;
 import hello.querydsl.domain.dto.MemberTeamDto;
 import hello.querydsl.domain.dto.QMemberTeamDto;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import org.springframework.cglib.reflect.FastClass;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -78,6 +82,26 @@ public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {
                        ageGoeCheck(condition.getAgeGoe()), ageLoeCheck(condition.getAgeLoe()))
                 .fetchOne();
         return new PageImpl<>(content, pageable, total);
+    }
+
+    @Override
+    public Page<MemberTeamDto> searchPageComplex(MemberSearchCondition condition, Pageable pageable) {
+        List<MemberTeamDto> content = factory.select(
+                        new QMemberTeamDto(member.id, member.userName, member.age, team.id, team.name))
+                .from(member)
+                .leftJoin(member.team, team)
+                .where(nameCheck(condition.getUserName()), teamNameCheck(condition.getTeamName()),
+                       ageGoeCheck(condition.getAgeGoe()), ageLoeCheck(condition.getAgeLoe()))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+        JPAQuery<Member> countQuery = factory.selectFrom(member)
+                .leftJoin(member.team, team)
+                .where(nameCheck(condition.getUserName()), teamNameCheck(condition.getTeamName()),
+                       ageGoeCheck(condition.getAgeGoe()), ageLoeCheck(condition.getAgeLoe()));
+        // count 쿼리가 필요없는 경우는 실행하지 않는다
+        return PageableExecutionUtils.getPage(content, pageable, () -> countQuery.fetch()
+                .size());
     }
 
 
