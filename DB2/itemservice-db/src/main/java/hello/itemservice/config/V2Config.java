@@ -18,7 +18,7 @@ import javax.persistence.EntityManager;
 public class V2Config {
 
     private final EntityManager    em;
-    private final ItemRepositoryV2 itemRepositoryV2;
+    private final ItemRepositoryV2 itemRepositoryV2;    // dataJPA
 
     @Bean
     public ItemService itemService() {
