@@ -27,7 +27,6 @@ public class V2Config {
     public ItemService itemService() {
         return new ItemServiceV2(itemRepositoryV2, itemQueryRepositoryV2());
     }
-
     /**
      * QueryDSL 용 Repository
      */
