@@ -18,13 +18,19 @@ import javax.persistence.EntityManager;
 public class V2Config {
 
     private final EntityManager    em;
-    private final ItemRepositoryV2 itemRepositoryV2;    // dataJPA
+    /**
+     * SpringDataJPA 용 Repository, Bean 등록할 필요 없음.
+     */
+    private final ItemRepositoryV2 itemRepositoryV2;
 
     @Bean
     public ItemService itemService() {
         return new ItemServiceV2(itemRepositoryV2, itemQueryRepositoryV2());
     }
 
+    /**
+     * QueryDSL 용 Repository
+     */
     @Bean
     public ItemQueryRepositoryV2 itemQueryRepositoryV2() {
         return new ItemQueryRepositoryV2(em);
