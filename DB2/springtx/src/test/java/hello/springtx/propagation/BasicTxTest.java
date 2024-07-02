@@ -59,6 +59,7 @@ public class BasicTxTest {
         log.info("트랜잭션 2 Commit");
         txManager.commit(tx2);
     }
+
     @Test
     void double_commit_rollback() {
         log.info("트랜잭션 1 시작");
@@ -71,6 +72,27 @@ public class BasicTxTest {
         TransactionStatus tx2 = txManager.getTransaction(new DefaultTransactionAttribute());
         log.info("트랜잭션 2 rollback");
         txManager.rollback(tx2);
+    }
+
+    /**
+     * 스프링 트랜잭션 전파4 - 전파 예제
+     */
+    @Test
+    void inner_commit() {
+        log.info("외부 트랜잭션 시작");
+        TransactionStatus outer = txManager.getTransaction(new DefaultTransactionAttribute());
+        log.info("outer.isNewTransaction() = {}", outer.isNewTransaction());
+
+        log.info("내부 트랜잭션 시작");
+        TransactionStatus inner = txManager.getTransaction(new DefaultTransactionAttribute());
+        log.info("inner.isNewTransaction() = {}", inner.isNewTransaction());
+
+        log.info("내부 트랜잭션 Commit");
+        txManager.commit(inner);
+
+        log.info("외부 트랜잭션 Commit");
+        txManager.commit(outer);
+
     }
 
 }
