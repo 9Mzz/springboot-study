@@ -59,7 +59,7 @@ class OrderServiceTest {
         try {
             orderService.order(order);
         } catch (NotEnoughMoneyException e) {
-            log.info("고객에게 잔고 부족을 알리고 별도의 계좌로 입금하도록 안내");
+            log.info("고객에게 잔고 부족을 알리고 별도의 계좌로 입금하도록 안내", e);
         }
 
         //then
