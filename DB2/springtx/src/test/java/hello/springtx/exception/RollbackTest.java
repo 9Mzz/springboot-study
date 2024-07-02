@@ -50,7 +50,7 @@ public class RollbackTest {
             throw new MyException();
         }
 
-        //Checked 예외 rollbackForm 커밋 : 롤백
+        //Checked 예외 rollbackFor 커밋 : 롤백
         @Transactional(rollbackFor = MyException.class)
         public void rollbackFor() throws MyException {
             log.info("call rollbackFor");
