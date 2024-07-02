@@ -19,20 +19,17 @@ public class RollbackTest {
 
     @Test
     void runtimeException() {
-        Assertions.assertThatThrownBy(() -> rollbackService.runtimeException())
-                .isInstanceOf(RuntimeException.class);
+        Assertions.assertThatThrownBy(() -> rollbackService.runtimeException()).isInstanceOf(RuntimeException.class);
     }
 
     @Test
     void checkedException() {
-        Assertions.assertThatThrownBy(() -> rollbackService.checkedException())
-                .isInstanceOf(MyException.class);
+        Assertions.assertThatThrownBy(() -> rollbackService.checkedException()).isInstanceOf(MyException.class);
     }
 
     @Test
     void rollBackForException() {
-        Assertions.assertThatThrownBy(() -> rollbackService.rollbackFor())
-                .isInstanceOf(MyException.class);
+        Assertions.assertThatThrownBy(() -> rollbackService.rollbackFor()).isInstanceOf(MyException.class);
     }
 
     @TestConfiguration
@@ -45,26 +42,28 @@ public class RollbackTest {
 
     @Slf4j
     static class RollbackService {
-        //Runtime 예외 발생 : 롤백
-        @Transactional
-        public void runtimeException() {
-            log.info("call runtimeException");
-            throw new RuntimeException();
-        }
 
-        //Check 예외 발생 : 커밋
+        //Checked 예외 발생 : 커밋
         @Transactional
         public void checkedException() throws MyException {
             log.info("call checkedException");
             throw new MyException();
         }
 
-        //Check 예외 rollbackForm 커밋 : 롤백
+        //Checked 예외 rollbackForm 커밋 : 롤백
         @Transactional(rollbackFor = MyException.class)
         public void rollbackFor() throws MyException {
             log.info("call rollbackFor");
             throw new MyException();
         }
+
+        //Runtime UnChecked 예외 발생 : 롤백
+        @Transactional
+        public void runtimeException() {
+            log.info("call runtimeException");
+            throw new RuntimeException();
+        }
+
     }
 
 
