@@ -39,7 +39,7 @@ public class MemberService {
         try {
             logRepository.save(logEntity);
         } catch (RuntimeException e) {
-            log.info("로그 저장에 실패하였습니다 logMessage = {}", e.getMessage());
+            log.info("로그 저장에 실패하였습니다 logMessage = {}", logEntity.getMessage());
             log.info("정상 흐름 변환");
         }
         log.info("========= logRepository 호출 종료 ==========");
