@@ -29,7 +29,7 @@ class MemberServiceTest {
     @Test
     void outerTxOff_success() {
         //given
-        String USERNAME = "outerTxoff_success";
+        String USERNAME = "outerTxOff_success";
 
         //when
         memberService.joinV1(USERNAME);
@@ -39,11 +39,22 @@ class MemberServiceTest {
                            .isPresent());
         assertTrue(logRepository.find(USERNAME)
                            .isPresent());
-
-
     }
 
     @Test
-    void joinV2() {
+    void outerTxOff_Fail() {
+        //given
+        String USERNAME = "로그예외_OuterTxOff_Fail";
+
+        //when
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> memberService.joinV1(USERNAME))
+                .isInstanceOf(RuntimeException.class);
+        //then
+        assertTrue(memberRepository.find(USERNAME)
+                           .isPresent());
+        assertTrue(logRepository.find(USERNAME)
+                           .isEmpty());
+
+
     }
 }
