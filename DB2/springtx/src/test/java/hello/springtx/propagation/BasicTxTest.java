@@ -128,6 +128,7 @@ public class BasicTxTest {
         log.info("내부 트랜잭션 시작");
         TransactionStatus inner = txManager.getTransaction(new DefaultTransactionAttribute());
 
+        // Participating transaction failed - marking existing transaction as rollback-only 생성
         log.info("내부 트랜잭션 Rollback");
         txManager.rollback(inner);
 
@@ -158,5 +159,5 @@ public class BasicTxTest {
         log.info("내부 트랜잭션 Rollback");
         txManager.rollback(inner);
     }
-    
+
 }
