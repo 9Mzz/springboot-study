@@ -4,11 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Slf4j
 @SpringBootTest
@@ -70,6 +68,27 @@ class MemberServiceTest {
     void singleTx() {
         //given
         String USERNAME = "singleTx";
+        //when
+        memberService.joinV1(USERNAME);
+        //then
+        Assertions.assertTrue(memberRepository.find(USERNAME)
+                                      .isPresent());
+        Assertions.assertTrue(logRepository.find(USERNAME)
+                                      .isPresent());
+
+
+    }
+
+    /**
+     * MemberService @Transactional:ON
+     * MemberRepository @Transactional:ON
+     * LogRepository @Transactional:ON
+     */
+    @Test
+    void outerTxOn_success() {
+        //given
+        String USERNAME = "outerTxOn_success";
+
         //when
         memberService.joinV1(USERNAME);
         //then
