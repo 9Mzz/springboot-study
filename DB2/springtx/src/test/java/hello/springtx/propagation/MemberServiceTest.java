@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.UnexpectedRollbackException;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -51,8 +52,7 @@ class MemberServiceTest {
         String USERNAME = "로그예외_OuterTxOff_Fail";
 
         //when
-        assertThatThrownBy(() -> memberService.joinV1(USERNAME))
-                .isInstanceOf(RuntimeException.class);
+        assertThatThrownBy(() -> memberService.joinV1(USERNAME)).isInstanceOf(RuntimeException.class);
         //then
         assertTrue(memberRepository.find(USERNAME)
                            .isPresent());
@@ -111,8 +111,26 @@ class MemberServiceTest {
         //given
         String username = "로그예외_outerTxOn_fail";
         //when
-        assertThatThrownBy(() -> memberService.joinV1(username))
-                .isInstanceOf(RuntimeException.class);
+        assertThatThrownBy(() -> memberService.joinV1(username)).isInstanceOf(RuntimeException.class);
+        //then: 모든 데이터가 롤백된다.
+        assertTrue(memberRepository.find(username)
+                           .isEmpty());
+        assertTrue(logRepository.find(username)
+                           .isEmpty());
+    }
+
+    /**
+     * 트랜잭션 전파 활용6 - 복구 REQUIRED
+     * MemberService @Transactional:ON
+     * MemberRepository @Transactional:ON
+     * LogRepository @Transactional:ON Exception
+     */
+    @Test
+    void recoverException_Fail() {
+        //given
+        String username = "로그예외_recoverException_Fail";
+        //when
+        assertThatThrownBy(() -> memberService.joinV2(username)).isInstanceOf(UnexpectedRollbackException.class);
         //then: 모든 데이터가 롤백된다.
         assertTrue(memberRepository.find(username)
                            .isEmpty());
