@@ -41,6 +41,11 @@ class MemberServiceTest {
                            .isPresent());
     }
 
+    /**
+     * MemberService @Transactional:OFF
+     * MemberRepository @Transactional:ON
+     * LogRepository @Transactional:ON Exception
+     */
     @Test
     void outerTxOff_Fail() {
         //given
