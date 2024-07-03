@@ -59,6 +59,24 @@ class MemberServiceTest {
                            .isPresent());
         assertTrue(logRepository.find(USERNAME)
                            .isEmpty());
+    }
+
+    /**
+     * MemberService @Transactional:ON
+     * MemberRepository @Transactional:OFF
+     * LogRepository @Transactional:OFF
+     */
+    @Test
+    void singleTx() {
+        //given
+        String USERNAME = "singleTx";
+        //when
+        memberService.joinV1(USERNAME);
+        //then
+        Assertions.assertTrue(memberRepository.find(USERNAME)
+                                      .isPresent());
+        Assertions.assertTrue(logRepository.find(USERNAME)
+                                      .isPresent());
 
 
     }
