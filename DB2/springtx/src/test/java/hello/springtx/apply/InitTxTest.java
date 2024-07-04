@@ -2,7 +2,6 @@ package hello.springtx.apply;
 
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.message.ReusableMessage;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -31,7 +30,6 @@ public class InitTxTest {
         Hello hello() {
             return new Hello();
         }
-
     }
 
     @Slf4j

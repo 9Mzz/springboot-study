@@ -28,7 +28,6 @@ public class TxLevelTest {
         LevelService levelService() {
             return new LevelService();
         }
-
     }
 
     @Slf4j

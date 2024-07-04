@@ -2,8 +2,6 @@ package hello.springtx.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
-import org.hibernate.dialect.MySQLCastingJsonJdbcType;
-import org.hibernate.grammars.hql.HqlParser;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,18 +16,21 @@ public class RollbackTest {
     RollbackService rollbackService;
 
     @Test
-    void runtimeException() {
-        Assertions.assertThatThrownBy(() -> rollbackService.runtimeException()).isInstanceOf(RuntimeException.class);
-    }
-
-    @Test
     void checkedException() {
-        Assertions.assertThatThrownBy(() -> rollbackService.checkedException()).isInstanceOf(MyException.class);
+        Assertions.assertThatThrownBy(() -> rollbackService.checkedException())
+                .isInstanceOf(MyException.class);
     }
 
     @Test
     void rollBackForException() {
-        Assertions.assertThatThrownBy(() -> rollbackService.rollbackFor()).isInstanceOf(MyException.class);
+        Assertions.assertThatThrownBy(() -> rollbackService.rollbackFor())
+                .isInstanceOf(MyException.class);
+    }
+
+    @Test
+    void runtimeException() {
+        Assertions.assertThatThrownBy(() -> rollbackService.runtimeException())
+                .isInstanceOf(RuntimeException.class);
     }
 
     @TestConfiguration

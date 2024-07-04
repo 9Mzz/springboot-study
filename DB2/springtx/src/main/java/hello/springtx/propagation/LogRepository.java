@@ -16,6 +16,7 @@ public class LogRepository {
 
     private final EntityManager em;
 
+    //    @Transactional
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void save(LogEntity logMessage) {
         log.info("LogEntity 저장");

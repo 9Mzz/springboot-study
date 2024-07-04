@@ -48,13 +48,11 @@ public class InternalCallV2Test {
 
         private final InternalService internalService;
 
-
         public void external() {
             log.info("call External");
             this.printTxInfo();
             internalService.internal();
         }
-
 
         public void printTxInfo() {
             boolean txActive = TransactionSynchronizationManager.isActualTransactionActive();
@@ -62,7 +60,6 @@ public class InternalCallV2Test {
             boolean readOnly = TransactionSynchronizationManager.isCurrentTransactionReadOnly();
             log.info("readOnly: {}", readOnly);
         }
-
     }
 
     static class InternalService {

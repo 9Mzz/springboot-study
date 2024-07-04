@@ -45,7 +45,6 @@ public class InternalCallV1Test {
             log.info("call External");
             printTxInfo();
             this.internal();
-
         }
 
         @Transactional
