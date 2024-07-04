@@ -15,40 +15,44 @@ public class Order extends BaseEntity {
     @Id
     @GeneratedValue
     @Column(name = "ORDER_ID")
-    private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)  //**
+    private Long     id;
+    // Order(주) -> Member(노)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
-    private Member member;      //주문 회원
-
-    @OneToMany(mappedBy = "order",
-               cascade = CascadeType.ALL)    //**
-    private List<OrderItem> orderItems = new ArrayList<OrderItem>();
-
-    @OneToOne(cascade = CascadeType.ALL,
-              fetch = FetchType.LAZY) //**
+    private Member   member;
+    //배송정보
+    // Order(주) -> delivery(노)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "DELIVERY_ID")
-    private Delivery delivery;  //배송정보
+    private Delivery delivery;
 
-    private Date orderDate;     //주문시간
-
+    // Order(노) -> OrderItem(주)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItem> orderItems = new ArrayList<OrderItem>();
+    //주문시간
+    private Date            orderDate;
+    //주문상태
     @Enumerated(EnumType.STRING)
-    private OrderStatus status;//주문상태
+    private OrderStatus     status;
 
     //==연관관계 메서드==//
+    //Order(주) -> Member(노)
     public void setMember(Member member) {
         this.member = member;
-        member.getOrders().add(this);
+        member.getOrders()
+                .add(this);
     }
 
-    public void addOrderItem(OrderItem orderItem) {
-        orderItems.add(orderItem);
-        orderItem.setOrder(this);
-    }
-
+    // Order(주) -> delivery(노)
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
         delivery.setOrder(this);
+    }
+
+    // Order(노) -> OrderItem(주)
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
     }
 
     //Getter, Setter

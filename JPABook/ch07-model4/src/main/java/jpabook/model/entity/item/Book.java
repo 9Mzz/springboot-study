@@ -1,6 +1,7 @@
 package jpabook.model.entity.item;
 
-import javax.persistence.*;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
 /**
  * Created by holyeye on 2014. 3. 11..
@@ -10,9 +11,6 @@ import javax.persistence.*;
 @DiscriminatorValue("B")
 public class Book extends Item {
 
-    @JoinTable(name = "",
-               joinColumns = @JoinColumn(name = ""),
-               inverseJoinColumns = @JoinColumn(name = ""))
     private String author;
     private String isbn;
 

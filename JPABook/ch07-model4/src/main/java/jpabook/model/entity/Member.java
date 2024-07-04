@@ -11,18 +11,21 @@ import java.util.List;
 @Entity
 public class Member extends BaseEntity {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     @Column(name = "MEMBER_ID")
-    private Long        id;
-    private String      name;
-    private String      city;
-    private String      street;
-    private String      zipcode;
+    private Long id;
+
+    private String name;
+
+    private String city;
+    private String street;
+    private String zipcode;
+
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<Order>();
 
     //Getter, Setter
+
     public Long getId() {
         return id;
     }

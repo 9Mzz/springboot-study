@@ -22,7 +22,7 @@ public class MemberController {
     @Autowired
     MemberService memberService;
     @Autowired
-    ItemService   itemServices;
+    ItemService   itemService;
 
     @RequestMapping(value = "/members/new", method = RequestMethod.GET)
     public String createForm() {

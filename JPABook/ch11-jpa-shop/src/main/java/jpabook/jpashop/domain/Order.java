@@ -19,23 +19,20 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
-    private Member member;      // 주문 회원
+    private Member   member;      //주문 회원
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;  //배송정보
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "DELIVERY_ID")
-    private Delivery delivery;  // 배송정보
-
-    private Date orderDate;     // 주문시간
-
+    private Date        orderDate;     //주문시간
     @Enumerated(EnumType.STRING)
-    private OrderStatus status;// 주문상태
+    private OrderStatus status;//주문상태
 
     //==생성 메서드==//
     public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
-
         Order order = new Order();
         order.setMember(member);
         order.setDelivery(delivery);
@@ -57,7 +54,6 @@ public class Order {
         if (delivery.getStatus() == DeliveryStatus.COMP) {
             throw new RuntimeException("이미 배송완료된 상품은 취소가 불가능합니다.");
         }
-
         this.setStatus(OrderStatus.CANCEL);
         for (OrderItem orderItem : orderItems) {
             orderItem.cancel();
@@ -84,14 +80,14 @@ public class Order {
                 .add(this);
     }
 
-    public void addOrderItem(OrderItem orderItem) {
-        orderItems.add(orderItem);
-        orderItem.setOrder(this);
-    }
-
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
         delivery.setOrder(this);
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
     }
 
     //==Getter, Setter==//

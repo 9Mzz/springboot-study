@@ -30,6 +30,7 @@ public class ItemController {
 
     @RequestMapping(value = "/items/new", method = RequestMethod.POST)
     public String create(Book item) {
+
         itemService.saveItem(item);
         return "redirect:/items";
     }
@@ -39,6 +40,7 @@ public class ItemController {
      */
     @RequestMapping(value = "/items/{itemId}/edit", method = RequestMethod.GET)
     public String updateItemForm(@PathVariable("itemId") Long itemId, Model model) {
+
         Item item = itemService.findOne(itemId);
         model.addAttribute("item", item);
         return "items/updateItemForm";
@@ -49,6 +51,7 @@ public class ItemController {
      */
     @RequestMapping(value = "/items/{itemId}/edit", method = RequestMethod.POST)
     public String updateItem(@ModelAttribute("item") Book item) {
+
         itemService.saveItem(item);
         return "redirect:/items";
     }
@@ -58,6 +61,7 @@ public class ItemController {
      */
     @RequestMapping(value = "/items", method = RequestMethod.GET)
     public String list(Model model) {
+
         List<Item> items = itemService.findItems();
         model.addAttribute("items", items);
         return "items/itemList";

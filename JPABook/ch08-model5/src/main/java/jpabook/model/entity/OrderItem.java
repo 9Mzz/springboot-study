@@ -11,7 +11,8 @@ import javax.persistence.*;
 @Table(name = "ORDER_ITEM")
 public class OrderItem {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "ORDER_ITEM_ID")
     private Long id;
 
@@ -69,10 +70,6 @@ public class OrderItem {
 
     @Override
     public String toString() {
-        return "OrderItem{" +
-                "id=" + id +
-                ", buyPrice=" + orderPrice +
-                ", count=" + count +
-                '}';
+        return "OrderItem{" + "id=" + id + ", buyPrice=" + orderPrice + ", count=" + count + '}';
     }
 }

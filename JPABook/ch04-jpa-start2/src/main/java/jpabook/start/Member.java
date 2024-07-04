@@ -1,42 +1,47 @@
 package jpabook.start;
 
 import javax.persistence.*;  //**
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
- * User: HolyEyE Date: 13. 5. 24. Time: 오후 7:43
+ * User: HolyEyE
+ * Date: 13. 5. 24. Time: 오후 7:43
  */
-//@Entity
-//@Table(name = "MEMBER",
-//       uniqueConstraints = {@UniqueConstraint(name = "NAME_AGE_UNIQUE",
-//                                              columnNames = {"NAME", "AGE"})})
+@Entity
+@Table(name="MEMBER", uniqueConstraints = {@UniqueConstraint( //추가 //**
+        name = "NAME_AGE_UNIQUE",
+        columnNames = {"NAME", "AGE"} )})
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String   id;
-    @Column(name = "NAME",
-            nullable = false,
-            length = 10)
-    //    @Column(name = "NAME")
-    private String   username;
-    //    @Column(unique = true)
-    private Integer  age;
+    @Column(name = "ID")
+    private String id;
+
+    @Column(name = "NAME", nullable = false, length = 10) //추가 //**
+//    @Column(name = "NAME") //추가 //**
+    private String username;
+
+    private Integer age;
+
+    //=== 추가
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
+
     @Temporal(TemporalType.TIMESTAMP)
-    private Date     createdDate;
+    private Date createdDate;
+
     @Temporal(TemporalType.TIMESTAMP)
-    private Date     lastModifiedDate;
+    private Date lastModifiedDate;
+
     @Lob
-    private String   description;
+    private String description;
+
     @Transient
-    private String   temp;
-    //
+    private String temp;
+
 
     //Getter, Setter
+
     public String getId() {
         return id;
     }

@@ -16,14 +16,13 @@ import java.util.List;
 @DiscriminatorColumn(name = "DTYPE")
 public abstract class Item {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     @Column(name = "ITEM_ID")
     private Long id;
 
-    private String name;        // 이름
-    private int    price;          // 가격
-    private int    stockQuantity;  // 재고수량
+    private String name;        //이름
+    private int price;          //가격
+    private int stockQuantity;  //재고수량
 
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<Category>();
@@ -85,6 +84,10 @@ public abstract class Item {
 
     @Override
     public String toString() {
-        return "Item{" + "id=" + id + ", name='" + name + '\'' + ", price=" + price + '}';
+        return "Item{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

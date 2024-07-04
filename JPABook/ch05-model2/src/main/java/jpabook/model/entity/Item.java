@@ -11,10 +11,11 @@ public class Item {
     @Id
     @GeneratedValue
     @Column(name = "ITEM_ID")
-    private Long   id;
+    private Long id;
+
     private String name;        //이름
-    private int    price;          //가격
-    private int    stockQuantity;  //재고수량
+    private int price;          //가격
+    private int stockQuantity;  //재고수량
 
     //Getter, Setter
     public Long getId() {
@@ -51,6 +52,10 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Item{" + "id=" + id + ", name='" + name + '\'' + ", price=" + price + '}';
+        return "Item{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

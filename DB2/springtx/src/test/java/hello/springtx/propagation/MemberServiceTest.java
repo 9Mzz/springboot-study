@@ -22,6 +22,7 @@ class MemberServiceTest {
     LogRepository    logRepository;
 
     /**
+     * 트랜잭션 전파 활용2 - 커밋, 롤백
      * MemberService : @Transactional:OFF
      * MemberRepository : @Transactional:ON
      * LogRepository : @Transactional:ON
@@ -41,7 +42,9 @@ class MemberServiceTest {
                            .isPresent());
     }
 
+
     /**
+     * 트랜잭션 전파 활용2 - 커밋, 롤백
      * MemberService @Transactional:OFF
      * MemberRepository @Transactional:ON
      * LogRepository @Transactional:ON Exception
@@ -61,6 +64,7 @@ class MemberServiceTest {
     }
 
     /**
+     * 트랜잭션 전파 활용3 - 단일 트랜잭션
      * MemberService @Transactional:ON
      * MemberRepository @Transactional:OFF
      * LogRepository @Transactional:OFF

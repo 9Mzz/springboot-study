@@ -14,10 +14,8 @@ public class Member {
     @Id
     @GeneratedValue
     @Column(name = "MEMBER_ID")
-    private Long id;
-
-    private String name;
-
+    private Long    id;
+    private String  name;
     @Embedded
     private Address address;
 
@@ -25,7 +23,7 @@ public class Member {
     private List<Order> orders = new ArrayList<Order>();
 
 
-public Long getId() {
+    public Long getId() {
         return id;
     }
 

@@ -3,7 +3,6 @@ package jpabook.jpashop.service;
 import jpabook.jpashop.domain.Address;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.item.Book;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +15,12 @@ import javax.annotation.PostConstruct;
 @Service
 public class MockCreateService {
 
-    @Autowired MemberService memberService;
-    @Autowired ItemService itemService;
-    @Autowired OrderService orderService;
+    @Autowired
+    MemberService memberService;
+    @Autowired
+    ItemService   itemService;
+    @Autowired
+    OrderService  orderService;
 
     @PostConstruct
     public void initCreateMock() {

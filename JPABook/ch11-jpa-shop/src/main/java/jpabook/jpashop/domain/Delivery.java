@@ -9,8 +9,7 @@ import javax.persistence.*;
 @Entity
 public class Delivery {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     @Column(name = "DELIVERY_ID")
     private Long id;
 
@@ -21,14 +20,14 @@ public class Delivery {
     private Address address;
 
     @Enumerated(EnumType.STRING)
-    private DeliveryStatus status; // ENUM [READY(준비), COMP(배송)]
+    private DeliveryStatus status; //ENUM [READY(준비), COMP(배송)]
 
     public Delivery() {
     }
 
     public Delivery(Address address) {
         this.address = address;
-        this.status  = DeliveryStatus.READY;
+        this.status = DeliveryStatus.READY;
     }
 
     public Long getId() {
@@ -65,6 +64,10 @@ public class Delivery {
 
     @Override
     public String toString() {
-        return "Delivery{" + "id=" + id + ", address=" + address + ", status=" + status + '}';
+        return "Delivery{" +
+                "id=" + id +
+                ", address=" + address +
+                ", status=" + status +
+                '}';
     }
 }

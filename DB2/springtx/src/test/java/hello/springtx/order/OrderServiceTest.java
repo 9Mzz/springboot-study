@@ -31,8 +31,10 @@ class OrderServiceTest {
         orderService.order(order);
 
         //then
-        Order findOrder = orderRepository.findById(order.getId()).get();
-        Assertions.assertThat(findOrder.getPayStatus()).isEqualTo("완료");
+        Order findOrder = orderRepository.findById(order.getId())
+                .get();
+        Assertions.assertThat(findOrder.getPayStatus())
+                .isEqualTo("완료");
     }
 
     @Test
@@ -42,11 +44,13 @@ class OrderServiceTest {
         order.setUserName("예외");
 
         //when
-        Assertions.assertThatThrownBy(() -> orderService.order(order)).isInstanceOf(RuntimeException.class);
+        Assertions.assertThatThrownBy(() -> orderService.order(order))
+                .isInstanceOf(RuntimeException.class);
 
         //then
         Optional<Order> orderOptional = orderRepository.findById(order.getId());
-        Assertions.assertThat(orderOptional.isEmpty()).isTrue();
+        Assertions.assertThat(orderOptional.isEmpty())
+                .isTrue();
     }
 
     @Test
@@ -63,8 +67,10 @@ class OrderServiceTest {
         }
 
         //then
-        Order findOrder = orderRepository.findById(order.getId()).get();
-        Assertions.assertThat(findOrder.getPayStatus()).isEqualTo("대기");
+        Order findOrder = orderRepository.findById(order.getId())
+                .get();
+        Assertions.assertThat(findOrder.getPayStatus())
+                .isEqualTo("대기");
 
     }
 }

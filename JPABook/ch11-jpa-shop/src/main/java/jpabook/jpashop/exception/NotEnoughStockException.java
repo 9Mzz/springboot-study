@@ -2,7 +2,6 @@ package jpabook.jpashop.exception;
 
 /**
  * 재고 부족 예외
- *
  * @author holyeye
  */
 @SuppressWarnings("serial")
