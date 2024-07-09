@@ -28,7 +28,7 @@ public class LogRepository {
             throw new RuntimeException();
         }
     }
-    
+
     public Optional<LogEntity> find(String message) {
         String jpql = "select l from LogEntity l where l.message = :message";
         return em.createQuery(jpql, LogEntity.class)
