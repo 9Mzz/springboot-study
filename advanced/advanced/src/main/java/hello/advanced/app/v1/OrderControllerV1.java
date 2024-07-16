@@ -1,11 +1,9 @@
 package hello.advanced.app.v1;
 
-import com.sun.jdi.event.ExceptionEvent;
-import hello.advanced.hellotrace.HelloTraceV1;
+import hello.advanced.trace.hellotrace.HelloTraceV1;
 import hello.advanced.trace.TraceStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController

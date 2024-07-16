@@ -1,30 +1,40 @@
-package hello.advanced.hellotrace;
+package hello.advanced.trace.logtrace;
 
 import hello.advanced.trace.TraceId;
 import hello.advanced.trace.TraceStatus;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 @Slf4j
-@Component
-public class HelloTraceV2 {
+public class FieldLogTrace implements LogTrace {
 
-    private static final String START_PREFIX    = "-->";
-    private static final String COMPLETE_PREFIX = "<--";
-    private static final String EX_PREFIX       = "<X-";
+    private static final String  START_PREFIX    = "-->";
+    private static final String  COMPLETE_PREFIX = "<--";
+    private static final String  EX_PREFIX       = "<X-";
+    private              TraceId traceIdHolder;  // traceId 동기화
 
+    private void SyncTraceId() {
+        if (traceIdHolder == null) {
+            traceIdHolder = new TraceId();
+        } else {
+            traceIdHolder = traceIdHolder.createNextId();
+        }
+    }
+
+    @Override
     public TraceStatus begin(String message) {
-        TraceId traceId     = new TraceId();
+        SyncTraceId();
+        TraceId traceId     = traceIdHolder;
         Long    startTimeMs = System.currentTimeMillis();
         log.info("[{}] {}{}", traceId.getId(), addSpace(START_PREFIX, traceId.getLevel()), message);
         return new TraceStatus(traceId, startTimeMs, message);
     }
 
-    public TraceStatus beginSync(TraceId beforeTraceId, String message) {
-        TraceId nextId      = beforeTraceId.createNextId();
-        Long    startTimeMs = System.currentTimeMillis();
-        log.info("[{}] {}{}", nextId.getId(), addSpace(START_PREFIX, nextId.getLevel()), message);
-        return new TraceStatus(nextId, startTimeMs, message);
+    private void releaseTraceId() {
+        if (traceIdHolder.isFirstLevel()) {
+            traceIdHolder = null;  // destroy
+        } else {
+            traceIdHolder = traceIdHolder.createPreviousId();
+        }
     }
 
     private void complete(TraceStatus status, Exception e) {
@@ -36,6 +46,7 @@ public class HelloTraceV2 {
         } else {
             log.info("[{}] {}{} time={}ms ex={}", traceId.getId(), addSpace(EX_PREFIX, traceId.getLevel()), status.getMessage(), resultTimeMs, e.toString());
         }
+        releaseTraceId();
     }
 
     private static String addSpace(String prefix, int level) {
@@ -46,10 +57,12 @@ public class HelloTraceV2 {
         return sb.toString();
     }
 
+    @Override
     public void end(TraceStatus status) {
         complete(status, null);
     }
 
+    @Override
     public void exception(TraceStatus status, Exception e) {
         complete(status, e);
     }
