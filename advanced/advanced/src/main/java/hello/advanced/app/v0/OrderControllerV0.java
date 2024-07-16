@@ -12,7 +12,7 @@ public class OrderControllerV0 {
     private final OrderServiceV0 orderServiceV0;
 
     @GetMapping("/v0/request")
-    public String request(@RequestParam("itemID") String itemId) {
+    public String request(@RequestParam("itemId") String itemId) {
         orderServiceV0.orderItem(itemId);
         return "ok";
     }
