@@ -111,6 +111,7 @@ public class ContextV1Test {
 
         ContextV1 contextV2 = new ContextV1(() -> log.info("비즈니스 로직 2 실행"));
         contextV2.execute();
+        
 
         StrategyLogic2 logic2     = new StrategyLogic2();
         ContextV1      contextV11 = new ContextV1(logic2);
