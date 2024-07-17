@@ -1,9 +1,6 @@
-package hello.advanced.trace.strategy.code;
+package hello.advanced.trace.strategy.code.strategy;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.test.context.support.AbstractGenericContextLoader;
-
-import java.net.http.HttpRequest;
 
 /**
  * Field에 전략을 보관하는 방식
