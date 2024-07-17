@@ -1,14 +1,13 @@
-package hello.advanced.threadlocal;
+package hello.advanced.trace.threadlocal;
 
-import hello.advanced.threadlocal.code.FieldService;
-import hello.advanced.threadlocal.code.ThreadLocalService;
+import hello.advanced.trace.threadlocal.code.FieldService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 @Slf4j
-public class ThreadLocalServiceTest {
+public class FieldServiceTest {
 
-    private ThreadLocalService fieldService = new ThreadLocalService();
+    private FieldService fieldService = new FieldService();
 
     @Test
     void field() {
@@ -27,7 +26,7 @@ public class ThreadLocalServiceTest {
 
         threadA.start();
         // sleep(2000);    // 동시성 문제 발생 X
-        // sleep(100); // 동시성 문제 발생 O/
+        sleep(100); // 동시성 문제 발생 O/
         threadB.start();
         sleep(2000);    // 메인 Thread 종료 대기
         log.info("main exit");

@@ -1,4 +1,4 @@
-package hello.advanced.threadlocal.code;
+package hello.advanced.trace.threadlocal.code;
 
 import org.junit.jupiter.api.Test;
 
