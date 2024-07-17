@@ -14,8 +14,8 @@ public abstract class AbstractTemplate<T> {
     public T execute(String message) {
         TraceStatus status = null;
         try {
-            status = trace.begin(message);
 
+            status = trace.begin(message);
             // 로직 호출
             T result = call();
             trace.end(status);
