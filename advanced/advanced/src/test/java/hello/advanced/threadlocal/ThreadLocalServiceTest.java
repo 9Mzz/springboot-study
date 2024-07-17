@@ -27,7 +27,7 @@ public class ThreadLocalServiceTest {
 
         threadA.start();
         // sleep(2000);    // 동시성 문제 발생 X
-        sleep(100); // 동시성 문제 발생 O/
+        // sleep(100); // 동시성 문제 발생 O/
         threadB.start();
         sleep(2000);    // 메인 Thread 종료 대기
         log.info("main exit");
