@@ -1,9 +1,7 @@
-package hello.advanced.trace.template;
+package hello.proxy.trace.template;
 
-import hello.advanced.trace.TraceStatus;
-import hello.advanced.trace.logtrace.LogTrace;
-
-import javax.management.relation.RelationSupport;
+import hello.proxy.trace.TraceStatus;
+import hello.proxy.trace.logtrace.LogTrace;
 
 public abstract class AbstractTemplate<T> {
 
@@ -16,10 +14,11 @@ public abstract class AbstractTemplate<T> {
     public T execute(String message) {
         TraceStatus status = null;
         try {
-
             status = trace.begin(message);
-            // 로직 호출
+
+            //로직 호출
             T result = call();
+
             trace.end(status);
             return result;
         } catch (Exception e) {
@@ -29,6 +28,4 @@ public abstract class AbstractTemplate<T> {
     }
 
     protected abstract T call();
-
-
 }
