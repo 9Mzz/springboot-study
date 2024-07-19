@@ -11,11 +11,11 @@ public class OrderControllerV1Impl implements OrderControllerV1 {
     @Override
     public String request(String itemId) {
         orderService.orderItem(itemId);
-        return "ok!";
+        return itemId;
     }
 
     @Override
     public String noLog() {
-        return "ok!";
+        return "ok";
     }
 }

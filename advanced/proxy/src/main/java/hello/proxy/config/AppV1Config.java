@@ -1,10 +1,8 @@
 package hello.proxy.config;
 
 import hello.proxy.app.v1.*;
-import org.apache.el.util.ReflectionUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.annotation.GetMapping;
 
 
 @Configuration

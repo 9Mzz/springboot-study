@@ -1,8 +1,9 @@
 package hello.proxy.app.v1;
 
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
-@Slf4j
+@Service
+// @RequiredArgsConstructor
 public class OrderServiceV1Impl implements OrderServiceV1 {
 
     private final OrderRepositoryV1 orderRepository;
@@ -11,10 +12,8 @@ public class OrderServiceV1Impl implements OrderServiceV1 {
         this.orderRepository = orderRepository;
     }
 
-
     @Override
     public void orderItem(String itemId) {
         orderRepository.save(itemId);
-
     }
 }
