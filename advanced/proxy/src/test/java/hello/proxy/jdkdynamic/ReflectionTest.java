@@ -63,7 +63,6 @@ public class ReflectionTest {
         log.info("start dynamicCall");
         Object result = method.invoke(target);
         log.info("result = {}", result);
-
     }
 
     @Slf4j
