@@ -16,7 +16,7 @@ public abstract class AbstractTemplate<T> {
         try {
             status = trace.begin(message);
 
-            //로직 호출
+            // 로직 호출
             T result = call();
 
             trace.end(status);

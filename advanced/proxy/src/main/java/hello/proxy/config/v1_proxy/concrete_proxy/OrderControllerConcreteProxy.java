@@ -3,10 +3,6 @@ package hello.proxy.config.v1_proxy.concrete_proxy;
 import hello.proxy.app.v2.OrderControllerV2;
 import hello.proxy.trace.TraceStatus;
 import hello.proxy.trace.logtrace.LogTrace;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.xml.transform.Result;
 
 public class OrderControllerConcreteProxy extends OrderControllerV2 {
     private final OrderControllerV2 target;

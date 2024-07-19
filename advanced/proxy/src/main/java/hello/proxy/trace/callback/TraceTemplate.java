@@ -16,7 +16,7 @@ public class TraceTemplate {
         try {
             status = trace.begin(message);
 
-            //로직 호출
+            // 로직 호출
             T result = callback.call();
 
             trace.end(status);
