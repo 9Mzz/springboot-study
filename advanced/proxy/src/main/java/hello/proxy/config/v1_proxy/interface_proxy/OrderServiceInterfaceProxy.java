@@ -16,7 +16,7 @@ public class OrderServiceInterfaceProxy implements OrderServiceV1 {
 
         TraceStatus status = null;
         try {
-            status = logTrace.begin("OrderServiceInterfaceProxy.request()");
+            status = logTrace.begin("OrderServiceInterfaceProxy.save()");
             // targret  호출
             target.orderItem(itemId);
             logTrace.end(status);
