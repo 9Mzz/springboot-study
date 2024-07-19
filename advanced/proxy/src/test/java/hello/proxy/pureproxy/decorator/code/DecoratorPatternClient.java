@@ -11,9 +11,13 @@ public class DecoratorPatternClient {
         this.component = component;
     }
 
-    public void execute() {
+    public String execute() {
         String result = component.operation();
+        // data ->  "**********data**********
         log.info("result: {}", result);
+        String decoResult = "**********" + result + "**********";
+        log.info("messageDecorator 꾸미기 적용 전 = {}, 후 = {}", result, decoResult);
+        return decoResult;
     }
 
 }
