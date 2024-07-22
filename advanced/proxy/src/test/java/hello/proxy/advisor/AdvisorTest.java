@@ -10,10 +10,11 @@ import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 
 @Slf4j
-public class AdvisorTest {
-
+class AdvisorTest {
     @Test
     void advisorTest1() {
+        // ProxyFactory -> Advisor -> PointCut & Advice
+
         ServiceInterface       target       = new ServiceInterfaceImpl();
         ProxyFactory           proxyFactory = new ProxyFactory(target);
         DefaultPointcutAdvisor advisor      = new DefaultPointcutAdvisor(Pointcut.TRUE, new TimeAdvice());
@@ -22,4 +23,5 @@ public class AdvisorTest {
         proxy.save();
         proxy.find();
     }
+
 }
