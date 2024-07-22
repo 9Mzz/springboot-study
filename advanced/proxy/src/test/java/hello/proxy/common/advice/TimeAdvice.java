@@ -10,7 +10,7 @@ public class TimeAdvice implements MethodInterceptor {
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
 
-        log.info("TimeAdvice invoked");
+        log.info("TimeAdvice 실행");
         long startTime = System.currentTimeMillis();
 
         // 로직
@@ -19,7 +19,7 @@ public class TimeAdvice implements MethodInterceptor {
         long endTime   = System.currentTimeMillis();
         long totalTime = endTime - startTime;
 
-        log.info("TimeAdvice 종료 Time = {} ms", totalTime);
+        log.info("TimeAdvice 종료, Time = {} ms", totalTime);
 
         return null;
     }
