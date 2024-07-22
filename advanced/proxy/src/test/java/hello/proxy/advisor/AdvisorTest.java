@@ -9,8 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.aop.ClassFilter;
 import org.springframework.aop.MethodMatcher;
 import org.springframework.aop.Pointcut;
+import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
+import org.springframework.aop.support.NameMatchMethodPointcut;
 
 import java.lang.reflect.Method;
 
@@ -78,4 +80,26 @@ class AdvisorTest {
         }
     }
 
+    @Test
+    @DisplayName("스프링이 제공하는 포인트컷")
+    void advisorTest3() {
+        ServiceInterface target       = new ServiceInterfaceImpl();
+        ProxyFactory     proxyFactory = new ProxyFactory(target);
+
+        /**
+         *  스프링이 제공하는 포인트컷
+         *  NameMatchMethodPointcut -> method 기반 매칭
+         *  JdkRegexpMethodPointcut -> JDK 정규 표현식을 기반으로 포인트컷을 매칭
+         *  TruePointcut -> 항상 참을 반환
+         *  AnnotationMatchingPointcut -> 어노테이션으로 매칭
+         *  AspectJExpressionPointcut -> AspectJ 방식으로 매칭
+         */
+        NameMatchMethodPointcut pointcut = new NameMatchMethodPointcut();
+        pointcut.setMappedName("save");
+        DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(pointcut, new TimeAdvice());
+        proxyFactory.addAdvisor(advisor);
+        ServiceInterface proxy = (ServiceInterface) proxyFactory.getProxy();
+        proxy.find();
+        proxy.save();
+    }
 }
