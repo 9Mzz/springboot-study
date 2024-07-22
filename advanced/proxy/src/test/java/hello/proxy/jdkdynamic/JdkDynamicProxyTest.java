@@ -3,6 +3,7 @@ package hello.proxy.jdkdynamic;
 import hello.proxy.jdkdynamic.code.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.springframework.instrument.classloading.ShadowingClassLoader;
 
 import java.lang.reflect.Proxy;
 
@@ -11,27 +12,24 @@ public class JdkDynamicProxyTest {
 
     @Test
     void dynamicA() {
+        AInterface target = new AImpl();
 
-        AInterface            targetA  = new AImpl();
-        TimeInvocationHandler handlerA = new TimeInvocationHandler(targetA);
-        AInterface            proxy    = (AInterface) Proxy.newProxyInstance(AInterface.class.getClassLoader(), new Class[]{AInterface.class}, handlerA);
+        TimeInvocationHandler handler = new TimeInvocationHandler(target);
+        AInterface            proxy   = (AInterface) Proxy.newProxyInstance(AInterface.class.getClassLoader(), new Class[]{AInterface.class}, handler);
         proxy.call();
-        log.info("targetClass = {}", targetA.getClass());
-        log.info("proxyClass = {}", proxy.getClass());
-
+        log.info("target.getClass = {}", target.getClass());
+        log.info("proxy.getClass = {}", proxy.getClass());
     }
+
 
     @Test
     void dynamicB() {
-        BInterface            targetB  = new BImpl();
-        TimeInvocationHandler handlerB = new TimeInvocationHandler(targetB);
-        BInterface            proxyB   = (BInterface) Proxy.newProxyInstance(BInterface.class.getClassLoader(), new Class[]{BInterface.class}, handlerB);
-
+        BInterface            targetB = new BImpl();
+        TimeInvocationHandler handler = new TimeInvocationHandler(targetB);
+        BInterface            proxyB  = (BInterface) Proxy.newProxyInstance(BInterface.class.getClassLoader(), new Class[]{BInterface.class}, handler);
         proxyB.call();
-
-        log.info("targetClass = {}", targetB.getClass());
-        log.info("proxyClass = {}", proxyB.getClass());
-
+        log.info("targetB.getClass = {}", targetB.getClass());
+        log.info("proxyB.getClass = {}", proxyB.getClass());
     }
 
 }

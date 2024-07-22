@@ -17,13 +17,12 @@ public class TimeInvocationHandler implements java.lang.reflect.InvocationHandle
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         log.info("TimeProxy 실행");
         long startTime = System.currentTimeMillis();
+        // 로직
+        Object result    = method.invoke(target, args);
+        long   endTime   = System.currentTimeMillis();
+        long   totalTime = endTime - startTime;
+        log.info("TimeProxy 종료, result = {}, totalTime = {}", result, totalTime);
 
-        Object result = method.invoke(target, args);
-
-        long endTime    = System.currentTimeMillis();
-        long resultTime = endTime - startTime;
-        log.info("TimeProxy 종료, resultTIme = {}", resultTime);
-
-        return result;
+        return null;
     }
 }
