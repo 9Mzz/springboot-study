@@ -16,7 +16,7 @@ public class PointCuts {
     }
 
     // all && allService
-    @Pointcut("allOrder() && allService()s")
+    @Pointcut("allOrder() && allService()")
     public void orderAndService() {
     }
 
