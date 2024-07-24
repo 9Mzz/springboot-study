@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class OrderService {
-
     private final OrderRepository orderRepository;
 
     public OrderService(OrderRepository orderRepository) {
@@ -14,7 +13,7 @@ public class OrderService {
     }
 
     public void orderItem(String itemId) {
-        log.info("[orderService] 실행");
+        log.info("[OrderService] orderItem");
         orderRepository.save(itemId);
     }
 
