@@ -13,6 +13,11 @@ public class MemberServiceImpl implements MemberService {
         return "ok";
     }
 
+    @Override
+    public int helloV2(int param) {
+        return param;
+    }
+
     public String internal(String param) {
         return "ok";
     }
