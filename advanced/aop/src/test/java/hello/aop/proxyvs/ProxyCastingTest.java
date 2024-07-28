@@ -38,7 +38,6 @@ public class ProxyCastingTest {
 
         // CGLIB 동적 프록시를 구현 클래스로 캐스팅 시도 성공,
         MemberServiceImpl castingMemberService = (MemberServiceImpl) memberServiceProxy;
-
     }
 
 }
