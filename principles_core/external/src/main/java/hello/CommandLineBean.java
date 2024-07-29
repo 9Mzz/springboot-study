@@ -11,6 +11,7 @@ import java.util.Set;
 @Slf4j
 @Component
 public class CommandLineBean {
+
     private final ApplicationArguments arguments;
 
     public CommandLineBean(ApplicationArguments arguments) {
