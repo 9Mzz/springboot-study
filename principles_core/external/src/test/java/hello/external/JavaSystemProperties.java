@@ -6,7 +6,7 @@ import java.util.Properties;
 
 @Slf4j
 public class JavaSystemProperties {
-    
+
     public static void main(String[] args) {
         System.setProperty("hello_key", "hello_value");
         String hello_key = System.getProperty("hello_key");
