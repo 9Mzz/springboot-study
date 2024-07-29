@@ -6,6 +6,7 @@ import lombok.ToString;
 @Getter
 @ToString
 public class Memory {
+
     private long used;
     private long max;
 

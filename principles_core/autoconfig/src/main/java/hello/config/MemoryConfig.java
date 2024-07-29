@@ -1,13 +1,14 @@
 package hello.config;
 
-import memory.MemoryCondition;
+import hello.member.MemoryCondition;
 import memory.MemoryController;
 import memory.MemoryFinder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 
-@Conditional(MemoryCondition.class)
+// 추가
+@Conditional({MemoryCondition.class})
 @Configuration
 public class MemoryConfig {
 
