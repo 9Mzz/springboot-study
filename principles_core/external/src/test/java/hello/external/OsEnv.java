@@ -10,7 +10,7 @@ public class OsEnv {
     public static void main(String[] args) {
         Map<String, String> envMap = System.getenv();
         for (String key : envMap.keySet()) {
-            log.info("key = {}, value = {}", key, envMap.get(key));
+            log.info("key = {} / value = {}", key, envMap.get(key));
         }
 
         // DBURL = dev.db.com -> 개발서버
