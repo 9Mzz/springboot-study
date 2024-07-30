@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.325s</div>
+<div class="counter">0.298s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,7 +79,7 @@
 </thead>
 <tr>
 <td class="success">contextLoads()</td>
-<td class="success">0.325s</td>
+<td class="success">0.298s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -87,14 +87,14 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>20:44:14.061 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [ActuatorApplicationTests]: using SpringBootContextLoader
-20:44:14.065 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [hello.ActuatorApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
-20:44:14.066 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [hello.ActuatorApplicationTests]: ActuatorApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-20:44:14.085 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using ContextCustomizers for test class [ActuatorApplicationTests]: [DisableObservabilityContextCustomizer, PropertyMappingContextCustomizer, Customizer, ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer, TestRestTemplateContextCustomizer]
-20:44:14.144 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [C:\JavaStudy\springboot-study\principles_core\actuator\build\classes\java\main\hello\ActuatorApplication.class]
-20:44:14.146 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration hello.ActuatorApplication for test class hello.ActuatorApplicationTests
-20:44:14.317 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners for test class [ActuatorApplicationTests]: [ServletTestExecutionListener, DirtiesContextBeforeModesTestExecutionListener, ApplicationEventsTestExecutionListener, MockitoTestExecutionListener, DependencyInjectionTestExecutionListener, DirtiesContextTestExecutionListener, TransactionalTestExecutionListener, SqlScriptsTestExecutionListener, EventPublishingTestExecutionListener, RestDocsTestExecutionListener, MockRestServiceServerResetTestExecutionListener, MockMvcPrintOnlyOnFailureTestExecutionListener, WebDriverTestExecutionListener, MockWebServiceServerTestExecutionListener, ResetMocksTestExecutionListener]
-20:44:14.318 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: class [ActuatorApplicationTests], class annotated with @DirtiesContext [false] with mode [null]
+<pre>20:49:32.196 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [ActuatorApplicationTests]: using SpringBootContextLoader
+20:49:32.202 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [hello.ActuatorApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+20:49:32.202 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [hello.ActuatorApplicationTests]: ActuatorApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+20:49:32.222 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using ContextCustomizers for test class [ActuatorApplicationTests]: [DisableObservabilityContextCustomizer, PropertyMappingContextCustomizer, Customizer, ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer, TestRestTemplateContextCustomizer]
+20:49:32.284 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [C:\JavaStudy\springboot-study\principles_core\actuator\build\classes\java\main\hello\ActuatorApplication.class]
+20:49:32.285 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration hello.ActuatorApplication for test class hello.ActuatorApplicationTests
+20:49:32.399 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners for test class [ActuatorApplicationTests]: [ServletTestExecutionListener, DirtiesContextBeforeModesTestExecutionListener, ApplicationEventsTestExecutionListener, MockitoTestExecutionListener, DependencyInjectionTestExecutionListener, DirtiesContextTestExecutionListener, TransactionalTestExecutionListener, SqlScriptsTestExecutionListener, EventPublishingTestExecutionListener, RestDocsTestExecutionListener, MockRestServiceServerResetTestExecutionListener, MockMvcPrintOnlyOnFailureTestExecutionListener, WebDriverTestExecutionListener, MockWebServiceServerTestExecutionListener, ResetMocksTestExecutionListener]
+20:49:32.400 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: class [ActuatorApplicationTests], class annotated with @DirtiesContext [false] with mode [null]
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -104,22 +104,22 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.0.2)
 
-2024-07-30T20:44:14.561+09:00  INFO 4464 --- [    Test worker] hello.ActuatorApplicationTests           : Starting ActuatorApplicationTests using Java 17.0.11 with PID 4464 (started by 9msni in C:\JavaStudy\springboot-study\principles_core\actuator)
-2024-07-30T20:44:14.563+09:00  INFO 4464 --- [    Test worker] hello.ActuatorApplicationTests           : No active profile set, falling back to 1 default profile: &quot;default&quot;
-2024-07-30T20:44:15.518+09:00  INFO 4464 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-07-30T20:44:15.559+09:00  INFO 4464 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 20 ms. Found 0 JPA repository interfaces.
-2024-07-30T20:44:15.931+09:00  INFO 4464 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-07-30T20:44:16.109+09:00  INFO 4464 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:7ad911e5-70c5-4a4b-b602-347b4a71f2aa user=SA
-2024-07-30T20:44:16.112+09:00  INFO 4464 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-07-30T20:44:16.173+09:00  INFO 4464 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-07-30T20:44:16.227+09:00  INFO 4464 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.6.Final
-2024-07-30T20:44:16.406+09:00  WARN 4464 --- [    Test worker] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2024-07-30T20:44:16.550+09:00  INFO 4464 --- [    Test worker] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
-2024-07-30T20:44:16.819+09:00  INFO 4464 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2024-07-30T20:44:16.827+09:00  INFO 4464 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-07-30T20:44:16.969+09:00  WARN 4464 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-07-30T20:44:17.636+09:00  INFO 4464 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoint(s) beneath base path '/actuator'
-2024-07-30T20:44:17.700+09:00  INFO 4464 --- [    Test worker] hello.ActuatorApplicationTests           : Started ActuatorApplicationTests in 3.349 seconds (process running for 4.456)
+2024-07-30T20:49:32.678+09:00  INFO 10120 --- [    Test worker] hello.ActuatorApplicationTests           : Starting ActuatorApplicationTests using Java 17.0.11 with PID 10120 (started by 9msni in C:\JavaStudy\springboot-study\principles_core\actuator)
+2024-07-30T20:49:32.680+09:00  INFO 10120 --- [    Test worker] hello.ActuatorApplicationTests           : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2024-07-30T20:49:33.549+09:00  INFO 10120 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-30T20:49:33.574+09:00  INFO 10120 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 16 ms. Found 0 JPA repository interfaces.
+2024-07-30T20:49:33.957+09:00  INFO 10120 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-30T20:49:34.133+09:00  INFO 10120 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:5cf6c8d8-93a5-431b-93c0-f622de546e93 user=SA
+2024-07-30T20:49:34.134+09:00  INFO 10120 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-30T20:49:34.190+09:00  INFO 10120 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-30T20:49:34.252+09:00  INFO 10120 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.6.Final
+2024-07-30T20:49:34.439+09:00  WARN 10120 --- [    Test worker] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2024-07-30T20:49:34.597+09:00  INFO 10120 --- [    Test worker] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-07-30T20:49:34.872+09:00  INFO 10120 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-07-30T20:49:34.881+09:00  INFO 10120 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-30T20:49:35.021+09:00  WARN 10120 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-30T20:49:35.735+09:00  INFO 10120 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoint(s) beneath base path '/actuator'
+2024-07-30T20:49:35.817+09:00  INFO 10120 --- [    Test worker] hello.ActuatorApplicationTests           : Started ActuatorApplicationTests in 3.381 seconds (process running for 4.417)
 </pre>
 </span>
 </div>
@@ -131,7 +131,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.6</a> at 2024. 7. 30. 오후 8:44:18</p>
+<a href="http://www.gradle.org">Gradle 7.6</a> at 2024. 7. 30. 오후 8:49:36</p>
 </div>
 </div>
 </body>
