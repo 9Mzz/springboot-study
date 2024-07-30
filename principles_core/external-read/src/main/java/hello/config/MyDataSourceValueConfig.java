@@ -25,7 +25,7 @@ public class MyDataSourceValueConfig {
     @Value("${my.datasource.options}")
     private List<String> options;
 
-    // @Bean
+    @Bean
     public MyDataSource myDataSource1() {
         return new MyDataSource(url, username, password, maxConnection, timeout, options);
     }
