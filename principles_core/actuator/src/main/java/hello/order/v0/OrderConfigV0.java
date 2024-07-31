@@ -9,7 +9,7 @@ public class OrderConfigV0 {
 
     @Bean
     OrderService orderService() {
-        return new OrderServicV0();
+        return new OrderServiceV0();
     }
 
 }

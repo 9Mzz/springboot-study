@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
-public class OrderServicV0 implements OrderService {
+public class OrderServiceV0 implements OrderService {
 
     private AtomicInteger stock = new AtomicInteger(100);
 
