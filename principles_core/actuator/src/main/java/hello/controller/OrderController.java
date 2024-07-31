@@ -32,7 +32,8 @@ public class OrderController {
     @GetMapping("/stock")
     public int stock() {
         log.info("stock");
-        return orderService.getStock().get();
+        return orderService.getStock()
+                .get();
     }
 
 }
