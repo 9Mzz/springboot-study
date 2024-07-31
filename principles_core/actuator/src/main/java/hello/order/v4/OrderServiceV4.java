@@ -11,20 +11,19 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 public class OrderServiceV4 implements OrderService {
 
-    private AtomicInteger store = new AtomicInteger(100);
-
+    private AtomicInteger stock = new AtomicInteger(100);
 
     @Override
     public void order() {
         log.info("주문");
-        store.decrementAndGet();
+        stock.decrementAndGet();
         sleep(200);
     }
 
     @Override
     public void cancel() {
         log.info("주문 취소");
-        store.incrementAndGet();
+        stock.incrementAndGet();
         sleep(100);
 
     }
@@ -39,6 +38,6 @@ public class OrderServiceV4 implements OrderService {
 
     @Override
     public AtomicInteger getStock() {
-        return null;
+        return stock;
     }
 }
