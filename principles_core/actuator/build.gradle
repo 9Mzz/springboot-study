@@ -22,8 +22,7 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    //actuator 추가
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
 
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
@@ -33,6 +32,9 @@ dependencies {
     //test lombok 사용
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
+
+    //actuator 추가
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
     //prometheus
     implementation 'io.micrometer:micrometer-registry-prometheus'
