@@ -22,7 +22,6 @@ public class SecurityConfig {
             .formLogin(Customizer.withDefaults());
         return http.build();
     }
-
     @Bean
     public UserDetailsService userDetailsService() {
         UserDetails buildA = User.withUsername("userA")
