@@ -3,7 +3,6 @@ package io.security.springsecuritymaster.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -20,7 +19,23 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth.anyRequest()
                                                .authenticated())
-            .formLogin(Customizer.withDefaults());
+            //formLogin()
+            .formLogin(form -> form
+//                    .loginPage("/loginPage")
+.loginProcessingUrl("/loginProc")
+.defaultSuccessUrl("/", false)
+.failureUrl("/failed")
+.usernameParameter("userId")
+.passwordParameter("passwd")
+.successHandler((request, response, authentication) -> {
+    System.out.println("authentication : " + authentication);
+    response.sendRedirect("/home");
+})
+.failureHandler((request, response, exception) -> {
+    System.out.println("exception : " + exception.getMessage());
+    response.sendRedirect("/login");
+})
+.permitAll());
 
         return http.build();
     }
