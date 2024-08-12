@@ -1,5 +1,6 @@
 package io.security.springsecuritymaster.config;
 
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -11,8 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
 @EnableWebSecurity
+@Configuration
 public class SecurityConfig {
 
     @Bean
@@ -20,24 +21,27 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> auth.anyRequest()
                                                .authenticated())
             .formLogin(Customizer.withDefaults());
+
         return http.build();
     }
+
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails buildA = User.withUsername("userA")
-                                 .password("{noop}1234")
-                                 .roles("USER")
-                                 .build();
-        UserDetails buildB = User.withUsername("userB")
-                                 .password("{noop}1234")
-                                 .roles("USER")
-                                 .build();
-        UserDetails buildC = User.withUsername("userC")
-                                 .password("{noop}1234")
-                                 .roles("USER")
-                                 .build();
-        return new InMemoryUserDetailsManager(buildA, buildB, buildC);
+        UserDetails userA = User.withUsername("userA")
+                                .password("{noop}1234")
+                                .roles("USER")
+                                .build();
 
+        UserDetails userB = User.withUsername("userB")
+                                .password("{noop}1234")
+                                .roles("USER")
+                                .build();
+
+        UserDetails admin = User.withUsername("admin")
+                                .password("{noop}1234")
+                                .roles("ADMIN")
+                                .build();
+        return new InMemoryUserDetailsManager(userA, userB, admin);
     }
 
 }
