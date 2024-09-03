@@ -16,24 +16,11 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         http.authorizeHttpRequests(auth -> auth.anyRequest()
                         .authenticated())
-                .formLogin(form -> form.loginPage("/login")
-                        .loginProcessingUrl("loginProc")
-                        .defaultSuccessUrl("/", false)
+                .httpBasic(basic -> basic.authenticationEntryPoint(new CustomAuthenticationEntryPoint()));
 
-                        .failureUrl("/failed")
-                        .usernameParameter("userName")
-                        .passwordParameter("passWd")
-                        .successHandler((request, response, authentication) -> {
-                            System.out.println("authentication = " + authentication);
-                            response.sendRedirect("/");
-                        })
-                        .failureHandler((request, response, exception) -> {
-                            System.out.println("exception = " + exception.getMessage());
-                            response.sendRedirect("/loginPage");
-                        })
-                        .permitAll());
         return http.build();
     }
 
