@@ -20,7 +20,6 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> auth.anyRequest()
                         .authenticated())
                 .httpBasic(basic -> basic.authenticationEntryPoint(new CustomAuthenticationEntryPoint()));
-
         return http.build();
     }
 
