@@ -21,7 +21,6 @@ public class SecurityConfig {
 
         http.httpBasic(basic -> basic.authenticationEntryPoint(new CustomAuthenticationEntryPoint()));
 
-
         return http.build();
     }
 
