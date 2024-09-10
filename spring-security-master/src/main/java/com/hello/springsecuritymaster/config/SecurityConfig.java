@@ -20,13 +20,14 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(auth -> auth.anyRequest()
                         .authenticated())
-                .formLogin(Customizer.withDefaults())
-                .rememberMe(remember -> remember.alwaysRemember(true)
-                        .tokenValiditySeconds(3600)
-                        .userDetailsService(userDetailsService())
-                        .rememberMeParameter("remember")
-                        .rememberMeCookieName("remember")
-                        .key("security"));
+                .formLogin(Customizer.withDefaults());
+
+        http.rememberMe(remember -> remember.alwaysRemember(true)
+                .tokenValiditySeconds(3600)
+                .userDetailsService(userDetailsService())
+                .rememberMeParameter("remember")
+                .rememberMeCookieName("remember")
+                .key("security"));
 
         return http.build();
     }
