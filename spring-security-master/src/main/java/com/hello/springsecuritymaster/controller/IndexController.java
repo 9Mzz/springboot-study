@@ -30,9 +30,10 @@ public class IndexController {
         return "anonymous";
     }
 
+    // Security 가 현재 사용자 정보를 Authentication 로 주입해주고 받는다.
     @GetMapping("/authentication")
     public String authentication(Authentication authentication) {
-        System.out.println("authentication = " + authentication);
+        // 사용자가 익명인지 검사
         if (authentication instanceof AnonymousAuthenticationToken) {
             return "anonymous";
         } else {
@@ -40,8 +41,10 @@ public class IndexController {
         }
     }
 
+    //@CurrentSecurityContext -> 현재 SecurityContext 를 매개변수로 주입, 현재 요청의 보안 정보를 가지고 있음
     @GetMapping("/anonymousContext")
     public String anonymousContext(@CurrentSecurityContext SecurityContext context) {
+        //사용자 아이디 또는 principal 를 반환, "guest"를 반환
         return context.getAuthentication()
                 .getName();
     }
