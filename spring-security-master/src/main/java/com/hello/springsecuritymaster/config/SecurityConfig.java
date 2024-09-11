@@ -24,9 +24,8 @@ public class SecurityConfig {
 
         http.rememberMe(remember -> remember.alwaysRemember(true)
                 .tokenValiditySeconds(3600)
-                .userDetailsService(userDetailsService())
-                .rememberMeParameter("remember")
                 .rememberMeCookieName("remember")
+                .rememberMeParameter("remember")
                 .key("security"));
 
         return http.build();
