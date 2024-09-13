@@ -50,4 +50,9 @@ public class IndexController {
                 .getName();
     }
 
+    @GetMapping("/logoutSuccess")
+    public String logoutSuccess() {
+        return "logoutSuccess";
+    }
+
 }
