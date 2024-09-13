@@ -17,24 +17,15 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
-        http.authorizeHttpRequests(auth -> auth
-                // "GUEST 역할을 가진 사용자만 /anonymous URL 에 접근할 수 있음
-                .requestMatchers("/anonymous")
-                .hasRole("GUEST")
-                // /authentication 와 /anonymousContext URL 은 인증이 없어도 접근 가능
-                .requestMatchers("/authentication", "anonymousContext")
-                .permitAll()
-                .anyRequest()
-                .authenticated());
-
-        http.formLogin(Customizer.withDefaults());
-
-        http.anonymous(anon -> anon
-                // 익명 사용자의 이름을 guest 로 설정
-                .principal("guest")
-                // 익명 사용자에게 ROLE_GUEST 권한을 부여함
-                .authorities("ROLE_GUEST"));
+        http.authorizeHttpRequests(auth -> auth.requestMatchers("/anonymous")
+                        .hasRole("GUEST")
+                        .requestMatchers("/authentication", "anonymousContext")
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated())
+                .formLogin(Customizer.withDefaults())
+                .anonymous(anon -> anon.principal("guest")
+                        .authorities("ROLE_GUEST"));
 
         return http.build();
     }
