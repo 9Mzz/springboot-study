@@ -41,6 +41,7 @@ public class IndexController {
         }
     }
 
+
     //@CurrentSecurityContext -> 현재 SecurityContext 를 매개변수로 주입, 현재 요청의 보안 정보를 가지고 있음
     @GetMapping("/anonymousContext")
     public String anonymousContext(@CurrentSecurityContext SecurityContext context) {

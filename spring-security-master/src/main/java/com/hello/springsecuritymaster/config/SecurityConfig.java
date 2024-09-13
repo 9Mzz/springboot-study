@@ -17,15 +17,18 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         http.authorizeHttpRequests(auth -> auth.requestMatchers("/anonymous")
-                        .hasRole("GUEST")
-                        .requestMatchers("/authentication", "anonymousContext")
-                        .permitAll()
-                        .anyRequest()
-                        .authenticated())
-                .formLogin(Customizer.withDefaults())
-                .anonymous(anon -> anon.principal("guest")
-                        .authorities("ROLE_GUEST"));
+                .hasRole("GUEST")
+                .requestMatchers("/authentication", "anonymousContext")
+                .permitAll()
+                .anyRequest()
+                .authenticated());
+
+        http.formLogin(Customizer.withDefaults());
+
+        http.anonymous(anon -> anon.principal("guest")
+                .authorities("ROLE_GUEST"));
 
         return http.build();
     }
