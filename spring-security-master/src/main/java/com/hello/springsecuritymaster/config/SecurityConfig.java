@@ -13,43 +13,36 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-@Configuration
 @EnableWebSecurity
+@Configuration
 public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        AuthenticationManagerBuilder builder               = http.getSharedObject(AuthenticationManagerBuilder.class);
-        AuthenticationManager        build                 = builder.build();
-        AuthenticationManager        authenticationManager = builder.getObject();
+        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+        AuthenticationManager        authenticationManager        = authenticationManagerBuilder.build();            // build() 는 최초 한번 만 호출해야 한다
 
         http.authorizeHttpRequests(auth -> auth.requestMatchers("/", "/api/login")
                         .permitAll()
                         .anyRequest()
                         .authenticated())
                 .authenticationManager(authenticationManager)
-                .addFilterBefore(customAuthenticationFilter(http, authenticationManager), UsernamePasswordAuthenticationFilter.class);
-
-
+                .addFilterBefore(customFilter(http, authenticationManager), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
-    public CustomAuthenticationFilter customAuthenticationFilter(HttpSecurity http, AuthenticationManager authenticationManager) {
+    public CustomAuthenticationFilter customFilter(HttpSecurity http, AuthenticationManager authenticationManager) {
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(http);
         customAuthenticationFilter.setAuthenticationManager(authenticationManager);
         return customAuthenticationFilter;
     }
 
-
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails userA = User.withUsername("userA")
-                .password("{noop}1234")
+        UserDetails user = User.withUsername("user")
+                .password("{noop}1111")
                 .roles("USER")
                 .build();
-
-        return new InMemoryUserDetailsManager(userA);
+        return new InMemoryUserDetailsManager(user);
     }
-
-
 }
