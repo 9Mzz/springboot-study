@@ -6,10 +6,7 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextHolderStrategy;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -17,18 +14,11 @@ public class IndexController {
     @Autowired
     SecurityContextService contextService;
 
-    @ResponseBody
     @GetMapping("/")
-    public SecurityContext index() {
-        System.out.println("IndexController.index");
-        SecurityContextHolderStrategy holderStrategy  = SecurityContextHolder.getContextHolderStrategy();
-        SecurityContext               securityContext = holderStrategy.getContext();
-        System.out.println("holderStrategy = " + holderStrategy);
-        System.out.println("securityContext = " + securityContext);
-
-        contextService.securityContext();
-        return securityContext;
+    public Authentication index(Authentication authentication) {
+        return authentication;
     }
+
 
     @GetMapping("/home")
     public String home() {
