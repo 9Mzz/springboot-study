@@ -7,7 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.List;
 
-public class CustomAuthenticationProvider implements AuthenticationProvider {
+public class CustomAuthenticationProviderV2 implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) {
@@ -15,7 +15,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String loginId  = authentication.getName();
         String password = (String) authentication.getCredentials();
 
-        return new UsernamePasswordAuthenticationToken(loginId, null, List.of(new SimpleGrantedAuthority("ROLE_USER")));
+        // 아이디 검증
+        // 패스워드 검증
+
+        return new UsernamePasswordAuthenticationToken(loginId, password, List.of(new SimpleGrantedAuthority("ROLE_USER")));
     }
 
     @Override
