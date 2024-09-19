@@ -10,4 +10,7 @@ public class SpringSecurityMasterApplication {
         SpringApplication.run(SpringSecurityMasterApplication.class, args);
     }
 
+
+
+
 }
