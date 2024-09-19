@@ -37,7 +37,6 @@ public class SecurityConfig {
         return http.build();
     }
 
-
     @Bean
     public UserDetailsService userDetailsService() {
         UserDetails userA = User.withUsername("userA")
