@@ -36,7 +36,6 @@ public class SecurityConfig {
                         .permitAll());
         return http.build();
     }
-
     @Bean
     public UserDetailsService userDetailsService() {
         UserDetails userA = User.withUsername("userA")
