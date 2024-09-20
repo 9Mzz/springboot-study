@@ -16,38 +16,20 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(auth -> auth.anyRequest()
-                        .authenticated())
-                .formLogin(form -> form.loginPage("/login")
-                        .loginProcessingUrl("loginProc")
-                        .defaultSuccessUrl("/", false)
+        // SecurityContext 를 명시적으로 저장할 것이지 아닌지의 여부 설정, 기본값은 true 입니다
+        // true 이면 SecurityContextHolderFilter, false 이면 SecurityContextPersistanceFilter 가 실행됩니다
+        http.securityContext(context -> context.requireExplicitSave(true));
 
-                        .failureUrl("/failed")
-                        .usernameParameter("userName")
-                        .passwordParameter("passWd")
-                        .successHandler((request, response, authentication) -> {
-                            System.out.println("authentication = " + authentication);
-                            response.sendRedirect("/");
-                        })
-                        .failureHandler((request, response, exception) -> {
-                            System.out.println("exception = " + exception.getMessage());
-                            response.sendRedirect("/loginPage");
-                        })
-                        .permitAll());
+
+        http.authorizeHttpRequests(auth -> auth.anyRequest().authenticated());
+
         return http.build();
     }
+
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails userA = User.withUsername("userA")
-                .password("{noop}1234")
-                .roles("USER")
-                .build();
-
-        UserDetails userB = User.withUsername("userB")
-                .password("{noop}1234")
-                .roles("USER")
-                .build();
-        return new InMemoryUserDetailsManager(userA, userB);
+        UserDetails userA = User.withUsername("userA").password("{noop}1234").roles("USER").build();
+        return new InMemoryUserDetailsManager(userA);
     }
 
 }
