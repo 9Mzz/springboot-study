@@ -18,23 +18,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class LoginController {
 
-    private final AuthenticationManager authenticationManager;
+    private final AuthenticationManager                authenticationManager;
+    private final HttpSessionSecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();
 
     @PostMapping("/login")
     public Authentication login(@RequestBody LoginRequest loginRequest, HttpServletRequest request, HttpServletResponse response) {
-        UsernamePasswordAuthenticationToken token          = UsernamePasswordAuthenticationToken.unauthenticated(loginRequest.getUsername(), loginRequest.getPassword());
-        Authentication                      authentication = authenticationManager.authenticate(token);
+        // 정보들로 토큰을 만든다
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword());
+        // 만든 토큰을 검증시킴 ->  검증값 Return
+        Authentication authentication = authenticationManager.authenticate(token);
+        System.out.println("authentication = " + authentication);
 
-        HttpSessionSecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();
-        SecurityContext                      securityContext           = SecurityContextHolder.createEmptyContext();
+        SecurityContext securityContext = SecurityContextHolder.getContextHolderStrategy()
+                .createEmptyContext();
         securityContext.setAuthentication(authentication);
+        // ThreadLocal에 저장
         SecurityContextHolder.getContextHolderStrategy()
                 .setContext(securityContext);
-
         securityContextRepository.saveContext(securityContext, request, response);
-        System.out.println("authentication = " + authentication);
         return authentication;
     }
-
-
 }
