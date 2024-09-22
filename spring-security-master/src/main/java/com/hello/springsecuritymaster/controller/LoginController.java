@@ -26,8 +26,7 @@ public class LoginController {
         Authentication                      authentication = authenticationManager.authenticate(token);
 
         HttpSessionSecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();
-
-        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        SecurityContext                      securityContext           = SecurityContextHolder.createEmptyContext();
         securityContext.setAuthentication(authentication);
         SecurityContextHolder.getContextHolderStrategy()
                 .setContext(securityContext);
