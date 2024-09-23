@@ -17,25 +17,30 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class LoginController {
-
-    private final AuthenticationManager                authenticationManager;
-    private final HttpSessionSecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();
+    private final AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
-    public Authentication login(@RequestBody LoginRequest loginRequest, HttpServletRequest request, HttpServletResponse response) {
-        // 정보들로 토큰을 만든다
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword());
-        // 만든 토큰을 검증시킴 ->  검증값 Return
+    public Authentication login(@RequestBody LoginRequest loginRequest, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // 사용자 이름과 비밀번호를 담은 인증 객체를 생성한다
+        UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.unauthenticated(loginRequest.getUsername(), loginRequest.getPassword());
+        // 인증을 시도하고 최종 인증 결과를 반환한다
         Authentication authentication = authenticationManager.authenticate(token);
-        System.out.println("authentication = " + authentication);
+
 
         SecurityContext securityContext = SecurityContextHolder.getContextHolderStrategy()
                 .createEmptyContext();
+        // 인증 결과를 컨텍스트에 저장한다
         securityContext.setAuthentication(authentication);
-        // ThreadLocal에 저장
+        // 컨텍스트를 ThreadLocal에 저장한다
         SecurityContextHolder.getContextHolderStrategy()
                 .setContext(securityContext);
-        securityContextRepository.saveContext(securityContext, request, response);
+
+        HttpSessionSecurityContextRepository contextRepository = new HttpSessionSecurityContextRepository();
+        // 컨텍스트를 세션에 저장해서 인증 상태를 영속한다
+        contextRepository.saveContext(securityContext, request, response);
+
         return authentication;
     }
+
+
 }
