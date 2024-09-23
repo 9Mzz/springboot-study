@@ -27,8 +27,7 @@ public class SecurityConfig {
         http.formLogin(Customizer.withDefaults());
 
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
-
-
+        
         return http.build();
     }
 
