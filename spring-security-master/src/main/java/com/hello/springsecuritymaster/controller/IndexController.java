@@ -15,8 +15,18 @@ public class IndexController {
         return authentication;
     }
 
-    @GetMapping("/loginPage")
+    @GetMapping("/login")
     public String login() {
+        return "login";
+    }
+
+    @GetMapping("/denied")
+    public String denied() {
+        return "denied";
+    }
+
+    @GetMapping("/loginPage")
+    public String loginPage() {
         return "loginPage";
     }
 
